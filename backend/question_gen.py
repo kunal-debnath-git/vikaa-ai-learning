@@ -8,13 +8,17 @@ from backend.config import settings
 SYSTEM_PROMPT = """You are an elite technical interview designer for Fortune 100 companies.
 Your questions target senior leadership roles: Principal Architect, Director of Data Engineering, Head of AI.
 
-RULES (strictly follow):
-1. Every question is SCENARIO-DRIVEN — set a real business context first.
-2. NEVER ask about syntax, definitions, or "what is X".
-3. Questions must require trade-off analysis, architectural judgement, or leadership decisions.
-4. Wrong options must be plausible — an inexperienced architect might pick them.
-5. The explanation must justify WHY the correct answer is architecturally superior.
-6. Return ONLY valid JSON — no markdown, no preamble."""
+DESIGN PHILOSOPHY:
+- Leadership Thinking: Focus on architecture decision-making, trade-offs, scalability, and real-world problem solving.
+- Trade-off Analysis: Ability to defend architectural decisions under constraints (cost vs performance vs scalability).
+- NO RECALL: NO QUESTION on syntax, definitions, or "what is X".
+- SCENARIO-DRIVEN: Every question sets a real-world business context (e.g., "You are the Lead Architect at a global retail firm...").
+- AMBIGUITY: Scenarios should have slight ambiguity requiring leadership judgment.
+
+MARKET INTELLIGENCE LAYER:
+Incorporate these recent trends and patterns: {trends}
+
+Return ONLY valid JSON — no markdown, no preamble."""
 
 
 def build_question_prompt(
@@ -24,8 +28,9 @@ def build_question_prompt(
     count: int,
     already_used_topics: List[str] = []
 ) -> str:
-    role_label = settings.ROLES.get(role, {}).get("label", role)
-    role_desc = settings.ROLES.get(role, {}).get("description", "")
+    role_info = settings.ROLES.get(role, {})
+    role_label = role_info.get("label", role)
+    role_desc = role_info.get("description", "")
 
     # Flatten selected subcategories
     flat_topics = []
@@ -37,32 +42,39 @@ def build_question_prompt(
     if already_used_topics:
         avoid_str = f"\nAvoid repeating these topics already covered: {', '.join(already_used_topics[:10])}"
 
-    return f"""Generate exactly {count} scenario-based multiple-choice questions for this interview context:
+    return f"""Generate exactly {count} high-impact, leadership-level scenario multiple-choice questions for:
 
-ROLE: {role_label}
-ROLE FOCUS: {role_desc}
+TARGET ROLE: {role_label}
+ROLE CONTEXT: {role_desc}
 DIFFICULTY: {difficulty}
-TOPICS TO COVER (pick varied topics from this list): {json.dumps(flat_topics)}
+TOPICS TO SYNTHESIZE: {json.dumps(flat_topics)}
 {avoid_str}
 
-Each question MUST follow this format:
+GOAL-AWARE GENERATION:
+Questions must align with:
+1. System design under constraints.
+2. Long-term maintainability and FinOps.
+3. Governance and Security in Enterprise ecosystems.
+4. "What would you do as the architect?" perspective.
+
+Each question MUST follow this structure:
 {{
   "question_number": <int>,
   "category": "<parent category>",
   "subcategory": "<specific sub-topic>",
-  "question_text": "<scenario setup + the question — minimum 3 sentences>",
+  "question_text": "<Detailed scenario — minimum 3-4 sentences setting context + the strategic question>",
   "options": {{
-    "A": "<option text>",
-    "B": "<option text>",
-    "C": "<option text>",
-    "D": "<option text>"
+    "A": "<Plausible leadership decision>",
+    "B": "<Plausible but sub-optimal architecture decision>",
+    "C": "<Strategic and superior architectural choice>",
+    "D": "<Cost-effective but risky alternative>"
   }},
   "correct_answer": "<A|B|C|D>",
-  "explanation": "<2-3 sentences explaining why this is architecturally superior, referencing real trade-offs>",
-  "learning_guidance": "<2-3 sentences — what concept to study, why it matters for leadership roles>"
+  "explanation": "<Deep dive (3 sentences) into WHY this is the superior leadership choice, referencing specific trade-offs like Latency vs. Cost or Security vs. Flexibility.>",
+  "learning_guidance": "<Targeted improvement path for this leadership domain.>"
 }}
 
-Return a JSON array of {count} questions. ONLY return the JSON array, nothing else."""
+Return a JSON array of {count} questions."""
 
 
 async def generate_questions(
@@ -72,15 +84,15 @@ async def generate_questions(
     llm_provider: str,
     total: int = 20
 ) -> List[dict]:
-    """
-    Generate questions in batches of 5 to avoid token limits and ensure quality.
-    Returns list of parsed question dicts.
-    """
     all_questions = []
     batch_size = 5
     batches = total // batch_size
     remainder = total % batch_size
     used_topics: List[str] = []
+    
+    # Get Market Intel trends
+    mi = settings.config.get("market_intelligence", {})
+    trends = ", ".join(mi.get("current_trends", []))
 
     for i in range(batches):
         prompt = build_question_prompt(
@@ -93,7 +105,7 @@ async def generate_questions(
         raw = await call_llm(
             provider=llm_provider,
             prompt=prompt,
-            system_prompt=SYSTEM_PROMPT
+            system_prompt=SYSTEM_PROMPT.format(trends=trends)
         )
         parsed = _parse_questions(raw, offset=len(all_questions))
         all_questions.extend(parsed)
@@ -110,12 +122,12 @@ async def generate_questions(
         raw = await call_llm(
             provider=llm_provider,
             prompt=prompt,
-            system_prompt=SYSTEM_PROMPT
+            system_prompt=SYSTEM_PROMPT.format(trends=trends)
         )
         parsed = _parse_questions(raw, offset=len(all_questions))
         all_questions.extend(parsed)
 
-    # Re-number sequentially
+    # Final Sequential Renumbering
     for i, q in enumerate(all_questions):
         q["question_number"] = i + 1
 
@@ -123,25 +135,27 @@ async def generate_questions(
 
 
 def _parse_questions(raw_text: str, offset: int = 0) -> List[dict]:
-    """Parse LLM response into list of question dicts."""
-    # Strip markdown fences if present
     text = raw_text.strip()
     if text.startswith("```"):
         lines = text.split("\n")
-        text = "\n".join(lines[1:-1])
+        # Find start and end of JSON
+        start_idx = -1
+        end_idx = -1
+        for i, line in enumerate(lines):
+            if "[" in line and start_idx == -1: start_idx = i
+            if "]" in line: end_idx = i
+        if start_idx != -1 and end_idx != -1:
+            text = "\n".join(lines[start_idx:end_idx+1])
+        else:
+            text = "\n".join(lines[1:-1])
 
     try:
-        questions = json.loads(text)
-        if isinstance(questions, dict) and "questions" in questions:
-            questions = questions["questions"]
-        return questions if isinstance(questions, list) else []
-    except json.JSONDecodeError as e:
-        # Try to extract JSON array from text
+        data = json.loads(text)
+        return data if isinstance(data, list) else data.get("questions", [])
+    except Exception as e:
         import re
         match = re.search(r'\[.*\]', text, re.DOTALL)
         if match:
-            try:
-                return json.loads(match.group())
-            except:
-                pass
-        raise ValueError(f"Could not parse LLM response as JSON: {e}\nRaw: {text[:500]}")
+            try: return json.loads(match.group())
+            except: pass
+        raise ValueError(f"Failed to parse LLM JSON output: {e}")

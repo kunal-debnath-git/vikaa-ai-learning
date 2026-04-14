@@ -1,7 +1,7 @@
 {
   "llm_providers": {
     "claude": {
-      "model": "claude-sonnet-4-20250514",
+      "model": "claude-3-5-sonnet-20240620",
       "api_key_env": "ANTHROPIC_API_KEY",
       "max_tokens": 4000
     },
@@ -12,22 +12,37 @@
     }
   },
   "difficulty_levels": ["Easy", "Medium", "Hard"],
+  "market_intelligence": {
+    "enabled": true,
+    "focus": "Fortune 100 Hiring Patterns (2025-2026)",
+    "current_trends": [
+      "Agentic RAG patterns",
+      "Unity Catalog migration from traditional Hive Metastore",
+      "Snowflake vs Databricks cost-benefit analysis at scale",
+      "FinOps for multi-cloud data estates",
+      "Transition from Data Mesh to centralized governance with decentralised ownership"
+    ]
+  },
   "roles": {
     "architect": {
       "label": "Lead Data Solution Architect",
-      "description": "End-to-end system design, enterprise architecture, governance, cost optimization"
+      "description": "End-to-end system design, enterprise architecture, governance, cost optimization",
+      "focus_areas": ["Data Architecture", "Cloud Platforms", "Data Governance"]
     },
     "engineer": {
       "label": "Lead Data Engineer",
-      "description": "Scalability, performance optimization, production-grade data pipelines"
+      "description": "Scalability, performance optimization, production-grade data pipelines",
+      "focus_areas": ["Data Engineering", "Core Data Platform"]
     },
     "ai_engineer": {
       "label": "Lead AI Engineer",
-      "description": "Productionizing AI systems, GenAI infrastructure, MLOps"
+      "description": "Productionizing AI systems, GenAI infrastructure, MLOps",
+      "focus_areas": ["Generative AI & AI Stack"]
     },
     "cto": {
       "label": "Chief Data Architect / CTO",
-      "description": "All-in-one enterprise data & GenAI platform leadership"
+      "description": "All-in-one enterprise data & GenAI platform leadership",
+      "focus_areas": ["Data Architecture", "Generative AI & AI Stack", "Cloud Platforms"]
     }
   },
   "categories": {
@@ -36,7 +51,9 @@
         "Azure (General)",
         "Multi-Cloud Strategy",
         "Hybrid Architecture",
-        "Azure Networking & Security"
+        "Azure Networking & Security",
+        "VNet Injection & Private Link",
+        "Secrets Management (Azure Key Vault)"
       ]
     },
     "Core Data Platform": {
@@ -57,34 +74,40 @@
       "subcategories": [
         "Medallion Architecture (Bronze/Silver/Gold)",
         "Lakehouse vs Data Warehouse",
+        "Databricks vs Snowflake Architecture Trade-offs",
         "Data Vault 2.0",
         "Star Schema & Dimensional Modelling",
         "Real-Time vs Batch Architecture",
         "Data Governance & Cataloguing",
-        "FinOps & Cost Optimization"
+        "FinOps & Cost Optimization",
+        "Cluster Optimization Strategies"
       ]
     },
     "Data Engineering": {
       "subcategories": [
-        "PySpark & Spark Optimization",
+        "PySpark & Spark Optimization (Data Skew, Shuffle Tuning)",
         "Delta Live Tables (DLT)",
         "Auto Loader & Streaming",
         "Snowpipe & Streams (CDC)",
         "Metadata-Driven Pipelines",
-        "CI/CD & DevOps (DAB, Git)",
-        "Observability & Pipeline Reliability"
+        "CI/CD & DevOps (DAB, Git Integrated Workflows)",
+        "Observability & Pipeline Reliability",
+        "Z-Ordering & Liquid Clustering",
+        "Photon Engine Performance"
       ]
     },
     "Generative AI & AI Stack": {
       "subcategories": [
         "Generative AI (General Concepts)",
-        "RAG – All Patterns",
-        "LangChain",
+        "RAG – All Patterns (Naive, Advanced, Agentic)",
+        "LangChain & Semantic Kernel",
         "Agentic AI Systems",
         "Vector Stores & Embeddings",
-        "LLMs: Gemini, Claude",
-        "MLflow & MLOps",
-        "Real-Time Inference Architecture"
+        "LLMs: Gemini, Claude, Llama 3",
+        "MLflow for Model Registry & Experiments",
+        "Real-Time Inference Architecture",
+        "Serving & Scalability (Serverless Model Serving)",
+        "Conversational AI/BI Systems"
       ]
     }
   },

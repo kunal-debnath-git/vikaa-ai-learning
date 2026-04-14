@@ -29,7 +29,7 @@ app.include_router(analytics.router, prefix="/api")
 
 # ── Static frontend ───────────────────────────────────────
 # We use root-level frontend directory
-frontend_path = Path(__file__).parent.parent / "frontend"
+frontend_path = Path(__file__).parent / "frontend"
 
 @app.get("/api/health")
 async def health():
