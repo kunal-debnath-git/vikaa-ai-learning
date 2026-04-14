@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Interview Prep - Leadership Roles</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+        .gradient-bg { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans min-h-screen" x-data="app()">
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b border-slate-200 py-4 px-8 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold">A</div>
+            <span class="font-bold text-xl tracking-tight">InterviewPrep<span class="text-blue-600">AI</span></span>
+        </div>
+        <template x-if="user">
+            <div class="flex items-center space-x-4">
+                <span class="text-sm text-slate-500" x-text="user.email"></span>
+                <button @click="logout()" class="text-sm font-medium text-red-600 hover:text-red-700">Logout</button>
+            </div>
+        </template>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto p-8">
+
+        <!-- Login / User Entry -->
+        <section x-show="!user" class="max-w-md mx-auto mt-20 p-8 bg-white rounded-xl shadow-lg border border-slate-200" x-cloak>
+            <h1 class="text-2xl font-bold mb-6 text-center">Executive Leadership Prep</h1>
+            <p class="text-slate-500 mb-8 text-center">Transition to Principal, Director, or CTO roles in Fortune 100 firms.</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-1">Full Name</label>
+                    <input type="text" x-model="loginForm.name" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Work Email</label>
+                    <input type="email" x-model="loginForm.email" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+                <button @click="login()" class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200" :disabled="loading">
+                    <span x-show="!loading">Get Started</span>
+                    <span x-show="loading">Loading...</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Configuration Screen -->
+        <section x-show="user && !session" x-cloak class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold mb-2">Configure Your Exam</h2>
+            <p class="text-slate-500 mb-8">Scenario-based questions tailored to your leadership track.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Role Selection -->
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-lg border-b pb-2">1. Select Target Role</h3>
+                    <template x-for="(roleInfo, key) in config.roles" :key="key">
+                        <label :class="{'border-blue-600 bg-blue-50': examForm.role === key}" class="block p-4 border rounded-xl cursor-pointer hover:border-blue-400 transition">
+                            <input type="radio" :value="key" x-model="examForm.role" class="hidden">
+                            <div class="font-bold" x-text="roleInfo.label"></div>
+                            <div class="text-sm text-slate-500" x-text="roleInfo.description"></div>
+                        </label>
+                    </template>
+                </div>
+
+                <!-- Technical Focus -->
+                <div class="space-y-4">
+                    <h3 class="font-semibold text-lg border-b pb-2">2. Technical Focus Areas</h3>
+                    <div class="max-h-[400px] overflow-y-auto pr-2 space-y-4">
+                        <template x-for="(catInfo, catName) in config.categories" :key="catName">
+                            <div>
+                                <div class="font-bold text-sm text-slate-400 uppercase tracking-wider mb-2" x-text="catName"></div>
+                                <div class="flex flex-wrap gap-2">
+                                    <template x-for="sub in catInfo.subcategories" :key="sub">
+                                        <button 
+                                            @click="toggleCategory(catName, sub)"
+                                            :class="isSelected(catName, sub) ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-200 hover:border-blue-400'"
+                                            class="text-xs px-3 py-1 rounded-full border transition"
+                                            x-text="sub">
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- LLM & Difficulty -->
+                <div class="col-span-full grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                    <div class="space-y-4">
+                        <h3 class="font-semibold text-lg border-b pb-2">3. Exam Settings</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1 uppercase">Difficulty</label>
+                                <select x-model="examForm.difficulty" class="w-full px-3 py-2 border rounded-lg">
+                                    <template x-for="level in config.difficulty_levels" :key="level">
+                                        <option :value="level" x-text="level"></option>
+                                    </template>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-slate-400 mb-1 uppercase">LLM Provider</label>
+                                <select x-model="examForm.llm_provider" class="w-full px-3 py-2 border rounded-lg">
+                                    <template x-for="(info, key) in config.llm_providers" :key="key">
+                                        <option :value="key" x-text="key.charAt(0).toUpperCase() + key.slice(1)"></option>
+                                    </template>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex flex-col justify-end">
+                        <button @click="startSession()" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold text-lg hover:bg-black shadow-xl transition transform active:scale-95" :disabled="loading">
+                            <span x-show="!loading">Launch Exam Engine</span>
+                            <span x-show="loading">Synthesizing Scenarios...</span>
+                        </button>
+                        <p class="text-[10px] text-center mt-2 text-slate-400">Powered by Hybrid Market Intelligence & LLM Synthesis</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Interface -->
+        <section x-show="session && questions.length > 0 && !results" x-cloak class="max-w-4xl mx-auto">
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex justify-between items-end mb-2">
+                    <div>
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" x-text="currentQuestion.category"></span>
+                        <h2 class="text-sm font-medium text-slate-500">Question <span x-text="currentIdx + 1"></span> of <span x-text="questions.length"></span></h2>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Time Remaining</span>
+                        <div class="text-xl font-mono font-bold" :class="timeLeft < 30 ? 'text-red-500' : 'text-slate-700'" x-text="formatTime(timeLeft)"></div>
+                    </div>
+                </div>
+                <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                    <div class="h-full bg-blue-600 transition-all duration-500" :style="`width: ${((currentIdx + 1) / questions.length) * 100}%`"></div>
+                </div>
+            </div>
+
+            <!-- Question Card -->
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
+                <div class="mb-8">
+                    <h3 class="text-xl font-semibold leading-relaxed" x-text="currentQuestion.question_text"></h3>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 mb-8">
+                    <template x-for="(optionText, key) in currentQuestion.options" :key="key">
+                        <button 
+                            @click="selectOption(key)"
+                            :disabled="answered"
+                            :class="getOptionClass(key)"
+                            class="flex items-center p-4 border-2 rounded-xl text-left transition group relative overflow-hidden">
+                            <div :class="getOptionLetterClass(key)" class="w-8 h-8 rounded-lg flex items-center justify-center font-bold mr-4 shrink-0 transition" x-text="key"></div>
+                            <span class="font-medium" x-text="optionText"></span>
+                            
+                            <!-- Correct/Incorrect Indicators -->
+                            <template x-if="answered && key === currentQuestion.correct_answer">
+                                <div class="absolute right-4 text-green-600">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                            </template>
+                            <template x-if="answered && selectedKey === key && key !== currentQuestion.correct_answer">
+                                <div class="absolute right-4 text-red-600">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                </div>
+                            </template>
+                        </button>
+                    </template>
+                </div>
+
+                <!-- Feedback Section -->
+                <div x-show="answered" class="mt-8 pt-8 border-t border-slate-100" x-transition>
+                    <div class="flex items-start space-x-4">
+                        <div :class="isCorrect ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'" class="p-3 rounded-xl shrink-0">
+                            <svg x-show="isCorrect" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <svg x-show="!isCorrect" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <h4 class="font-bold text-slate-900 mb-1">Architectural Rationale</h4>
+                                <p class="text-slate-600 text-sm leading-relaxed" x-text="feedback.explanation"></p>
+                            </div>
+                            <template x-if="!isCorrect">
+                                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                                    <h4 class="font-bold text-slate-900 text-xs uppercase tracking-widest mb-2">Leadership Guidance</h4>
+                                    <p class="text-slate-600 text-sm italic" x-text="feedback.learning_guidance"></p>
+                                </div>
+                            </template>
+                            <button @click="nextQuestion()" class="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition">
+                                <span x-text="currentIdx === questions.length - 1 ? 'Finish Exam' : 'Next Scenario'"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Screen -->
+        <section x-show="results" x-cloak class="max-w-2xl mx-auto text-center py-12">
+            <div class="mb-12">
+                <div class="inline-flex items-center justify-center w-24 h-24 bg-blue-600 text-white rounded-full text-3xl font-bold mb-6 shadow-xl shadow-blue-200" x-text="`${Math.round((results.score / questions.length) * 100)}%` font-size: 2rem;"></div>
+                <h2 class="text-4xl font-bold mb-4">Exam Completed</h2>
+                <p class="text-slate-500 text-lg">You correctly answered <span class="font-bold text-slate-900" x-text="results.score"></span> out of <span class="font-bold text-slate-900" x-text="questions.length"></span> scenario-based questions.</p>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4 mb-12">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Role Track</div>
+                    <div class="font-bold text-slate-900" x-text="config.roles[session.role].label"></div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200">
+                    <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Difficulty</div>
+                    <div class="font-bold text-slate-900" x-text="session.difficulty"></div>
+                </div>
+            </div>
+
+            <button @click="window.location.reload()" class="px-8 py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-black transition shadow-lg">
+                Back to Dashboard
+            </button>
+        </section>
+
+    </main>
+
+    <script>
+        function app() {
+            return {
+                user: null,
+                config: {},
+                loading: false,
+                loginForm: { name: '', email: '' },
+                examForm: { 
+                    role: 'architect', 
+                    difficulty: 'Medium', 
+                    llm_provider: 'gemini',
+                    categories: {} 
+                },
+                session: null,
+                questions: [],
+                currentIdx: 0,
+                timeLeft: 120,
+                timer: null,
+                answered: false,
+                selectedKey: null,
+                isCorrect: false,
+                feedback: {},
+                score: 0,
+                results: null,
+
+                async init() {
+                    const resp = await fetch('/api/config');
+                    this.config = await resp.json();
+                },
+
+                async login() {
+                    if (!this.loginForm.email) return;
+                    this.loading = true;
+                    try {
+                        const resp = await fetch('/api/users', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.loginForm)
+                        });
+                        this.user = await resp.json();
+                    } catch (e) {
+                        alert('Login failed');
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                logout() {
+                    this.user = null;
+                    this.session = null;
+                },
+
+                toggleCategory(cat, sub) {
+                    if (!this.examForm.categories[cat]) {
+                        this.examForm.categories[cat] = [];
+                    }
+                    const idx = this.examForm.categories[cat].indexOf(sub);
+                    if (idx > -1) {
+                        this.examForm.categories[cat].splice(idx, 1);
+                        if (this.examForm.categories[cat].length === 0) {
+                            delete this.examForm.categories[cat];
+                        }
+                    } else {
+                        this.examForm.categories[cat].push(sub);
+                    }
+                },
+
+                isSelected(cat, sub) {
+                    return this.examForm.categories[cat] && this.examForm.categories[cat].includes(sub);
+                },
+
+                async startSession() {
+                    if (Object.keys(this.examForm.categories).length === 0) {
+                        alert('Please select at least one focus area');
+                        return;
+                    }
+                    this.loading = true;
+                    try {
+                        // Create session
+                        const sResp = await fetch('/api/sessions', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                user_id: this.user.id,
+                                ...this.examForm
+                            })
+                        });
+                        this.session = await sResp.json();
+
+                        // Generate questions
+                        await fetch(`/api/sessions/${this.session.id}/generate`, { method: 'POST' });
+
+                        // Get questions
+                        const qResp = await fetch(`/api/sessions/${this.session.id}/questions`);
+                        this.questions = await qResp.json();
+                        
+                        this.startTimer();
+                    } catch (e) {
+                        alert('Failed to start session');
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                get currentQuestion() {
+                    return this.questions[this.currentIdx];
+                },
+
+                startTimer() {
+                    this.timeLeft = 120;
+                    if (this.timer) clearInterval(this.timer);
+                    this.timer = setInterval(() => {
+                        this.timeLeft--;
+                        if (this.timeLeft <= 0) {
+                            this.selectOption(null); // Timeout
+                        }
+                    }, 1000);
+                },
+
+                formatTime(seconds) {
+                    const m = Math.floor(seconds / 60);
+                    const s = seconds % 60;
+                    return `${m}:${s.toString().padStart(2, '0')}`;
+                },
+
+                async selectOption(key) {
+                    if (this.answered) return;
+                    clearInterval(this.timer);
+                    this.answered = true;
+                    this.selectedKey = key;
+
+                    const resp = await fetch(`/api/sessions/${this.session.id}/answers`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            question_id: this.currentQuestion.id,
+                            user_answer: key || 'NONE',
+                            time_taken_seconds: 120 - this.timeLeft
+                        })
+                    });
+                    this.feedback = await resp.json();
+                    this.isCorrect = this.feedback.is_correct;
+                    if (this.isCorrect) this.score++;
+                },
+
+                getOptionClass(key) {
+                    if (!this.answered) {
+                        return this.selectedKey === key ? 'border-blue-600 bg-blue-50' : 'border-slate-200 hover:border-blue-400 bg-white';
+                    }
+                    if (key === this.currentQuestion.correct_answer) return 'border-green-600 bg-green-50';
+                    if (this.selectedKey === key && key !== this.currentQuestion.correct_answer) return 'border-red-600 bg-red-50';
+                    return 'border-slate-100 bg-white opacity-50';
+                },
+
+                getOptionLetterClass(key) {
+                    if (!this.answered) {
+                        return this.selectedKey === key ? 'bg-blue-600 text-white' : 'bg-slate-100 text-slate-500 group-hover:bg-blue-100 group-hover:text-blue-600';
+                    }
+                    if (key === this.currentQuestion.correct_answer) return 'bg-green-600 text-white';
+                    if (this.selectedKey === key && key !== this.currentQuestion.correct_answer) return 'bg-red-600 text-white';
+                    return 'bg-slate-50 text-slate-300';
+                },
+
+                async nextQuestion() {
+                    if (this.currentIdx < this.questions.length - 1) {
+                        this.currentIdx++;
+                        this.answered = false;
+                        this.selectedKey = null;
+                        this.feedback = {};
+                        this.startTimer();
+                    } else {
+                        await this.finishExam();
+                    }
+                },
+
+                async finishExam() {
+                    const resp = await fetch(`/api/sessions/${this.session.id}/complete?score=${this.score}`, { method: 'PATCH' });
+                    this.results = await resp.json();
+                }
+            }
+        }
+    </script>
+</body>
+</html>

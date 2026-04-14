@@ -1,0 +1,95 @@
+{
+  "llm_providers": {
+    "claude": {
+      "model": "claude-sonnet-4-20250514",
+      "api_key_env": "ANTHROPIC_API_KEY",
+      "max_tokens": 4000
+    },
+    "gemini": {
+      "model": "gemini-1.5-pro",
+      "api_key_env": "GEMINI_API_KEY",
+      "max_tokens": 4000
+    }
+  },
+  "difficulty_levels": ["Easy", "Medium", "Hard"],
+  "roles": {
+    "architect": {
+      "label": "Lead Data Solution Architect",
+      "description": "End-to-end system design, enterprise architecture, governance, cost optimization"
+    },
+    "engineer": {
+      "label": "Lead Data Engineer",
+      "description": "Scalability, performance optimization, production-grade data pipelines"
+    },
+    "ai_engineer": {
+      "label": "Lead AI Engineer",
+      "description": "Productionizing AI systems, GenAI infrastructure, MLOps"
+    },
+    "cto": {
+      "label": "Chief Data Architect / CTO",
+      "description": "All-in-one enterprise data & GenAI platform leadership"
+    }
+  },
+  "categories": {
+    "Cloud Platforms": {
+      "subcategories": [
+        "Azure (General)",
+        "Multi-Cloud Strategy",
+        "Hybrid Architecture",
+        "Azure Networking & Security"
+      ]
+    },
+    "Core Data Platform": {
+      "subcategories": [
+        "Azure Data Factory (ADF)",
+        "Azure Data Lake Storage Gen2 (ADLS)",
+        "Azure Synapse Analytics",
+        "Azure Event Hub",
+        "Azure SQL Database",
+        "Azure Key Vault",
+        "Azure Databricks",
+        "Snowflake",
+        "Delta Lake",
+        "Unity Catalog"
+      ]
+    },
+    "Data Architecture": {
+      "subcategories": [
+        "Medallion Architecture (Bronze/Silver/Gold)",
+        "Lakehouse vs Data Warehouse",
+        "Data Vault 2.0",
+        "Star Schema & Dimensional Modelling",
+        "Real-Time vs Batch Architecture",
+        "Data Governance & Cataloguing",
+        "FinOps & Cost Optimization"
+      ]
+    },
+    "Data Engineering": {
+      "subcategories": [
+        "PySpark & Spark Optimization",
+        "Delta Live Tables (DLT)",
+        "Auto Loader & Streaming",
+        "Snowpipe & Streams (CDC)",
+        "Metadata-Driven Pipelines",
+        "CI/CD & DevOps (DAB, Git)",
+        "Observability & Pipeline Reliability"
+      ]
+    },
+    "Generative AI & AI Stack": {
+      "subcategories": [
+        "Generative AI (General Concepts)",
+        "RAG – All Patterns",
+        "LangChain",
+        "Agentic AI Systems",
+        "Vector Stores & Embeddings",
+        "LLMs: Gemini, Claude",
+        "MLflow & MLOps",
+        "Real-Time Inference Architecture"
+      ]
+    }
+  },
+  "session_config": {
+    "questions_per_session": 20,
+    "time_per_question_seconds": 120
+  }
+}
