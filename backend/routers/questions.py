@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import Dict, List, Optional
 from backend.db import tbl, bypass_session
 from backend.config import settings
 from backend.question_gen import generate_questions, save_to_bank
@@ -10,6 +10,9 @@ from backend.question_gen import generate_questions, save_to_bank
 router = APIRouter(tags=["questions"])
 
 BANK_PATH = Path(__file__).parent.parent / "question_bank.json"
+
+# In-memory store for bypass-session LLM-generated questions
+_bypass_generated: Dict[str, List[dict]] = {}
 
 
 # ── Spaced Repetition Helper ───────────────────────────────────────────────────
@@ -47,9 +50,24 @@ async def _get_spaced_rep_questions(user_id: str, role: str, difficulty: str, li
 
 @router.post("/sessions/{session_id}/generate")
 async def generate_session_questions(session_id: str):
-    # BYPASS FOR TESTING
+    # BYPASS FOR TESTING — uses real LLM pipeline so prompt changes are visible
     if session_id == "11111111-1111-1111-1111-111111111111":
-        return {"status": "success", "count": 20, "mode": "bypass"}
+        total = bypass_session.get("total_questions") or \
+                settings.config.get("session_config", {}).get("questions_per_session", 20)
+        cats = bypass_session.get("categories", {})
+        if cats:
+            questions = await generate_questions(
+                role=bypass_session.get("role", "cto"),
+                difficulty=bypass_session.get("difficulty", "Medium"),
+                categories=cats,
+                llm_provider=bypass_session.get("llm_provider", "gemini"),
+                brain_mode=bypass_session.get("brain_mode", "llm"),
+                total=total,
+            )
+            _bypass_generated[session_id] = questions
+            return {"status": "success", "count": len(questions), "mode": "bypass_llm"}
+        # No categories selected yet — fall back to static templates
+        return {"status": "success", "count": 20, "mode": "bypass_static"}
 
     session_resp = tbl("sessions").select("*").eq("id", session_id).execute()
     if not session_resp.data:
@@ -260,15 +278,32 @@ _BYPASS_QUESTION_TEMPLATES = [
 @router.get("/sessions/{session_id}/questions")
 async def get_questions(session_id: str):
     if session_id == "11111111-1111-1111-1111-111111111111":
+        # Serve LLM-generated questions if available (populated by /generate)
+        if session_id in _bypass_generated:
+            qs = _bypass_generated[session_id]
+            for i, q in enumerate(qs):
+                q.setdefault("id", f"q{i + 1}")
+            return qs
+
+        # Fallback: static templates (generate was never called or had no categories)
         total = bypass_session.get("total_questions") or \
                 settings.config.get("session_config", {}).get("questions_per_session", 20)
-
-        # Filter templates to only the categories the user selected
         selected_cats = set(bypass_session.get("categories", {}).keys())
+        selected_subs = {
+            sub
+            for subs in bypass_session.get("categories", {}).values()
+            for sub in subs
+        }
         if selected_cats:
-            pool = [t for t in _BYPASS_QUESTION_TEMPLATES if t["category"] in selected_cats]
+            pool = [
+                t for t in _BYPASS_QUESTION_TEMPLATES
+                if t["category"] in selected_cats
+                and (not selected_subs or t["subcategory"] in selected_subs)
+            ]
             if not pool:
-                pool = _BYPASS_QUESTION_TEMPLATES  # fallback if nothing matches
+                pool = [t for t in _BYPASS_QUESTION_TEMPLATES if t["category"] in selected_cats]
+            if not pool:
+                pool = _BYPASS_QUESTION_TEMPLATES
         else:
             pool = _BYPASS_QUESTION_TEMPLATES
 
@@ -303,7 +338,26 @@ class AnswerSubmit(BaseModel):
 @router.post("/sessions/{session_id}/answers")
 async def submit_answer(session_id: str, answer: AnswerSubmit):
     if session_id == "11111111-1111-1111-1111-111111111111":
-        # Use same filtered pool as get_questions so correct_answer matches what was served
+        # If LLM-generated questions exist in cache, look up by id
+        if session_id in _bypass_generated:
+            qs = _bypass_generated[session_id]
+            question = next((q for q in qs if q.get("id") == answer.question_id), None)
+            if question is None:
+                try:
+                    idx = int(answer.question_id.lstrip("q")) - 1
+                    question = qs[idx] if 0 <= idx < len(qs) else qs[0]
+                except (ValueError, IndexError):
+                    question = qs[0]
+            correct = question["correct_answer"]
+            is_correct = answer.user_answer.strip() == correct
+            return {
+                "is_correct": is_correct,
+                "correct_answer": correct,
+                "explanation": question.get("explanation", ""),
+                "learning_guidance": question.get("learning_guidance") if not is_correct else None,
+            }
+
+        # Fallback: static templates
         selected_cats = set(bypass_session.get("categories", {}).keys())
         pool = [t for t in _BYPASS_QUESTION_TEMPLATES if t["category"] in selected_cats] \
                if selected_cats else _BYPASS_QUESTION_TEMPLATES
@@ -320,7 +374,7 @@ async def submit_answer(session_id: str, answer: AnswerSubmit):
             "is_correct": is_correct,
             "correct_answer": correct,
             "explanation": tmpl["explanation"],
-            "learning_guidance": tmpl["learning_guidance"] if not is_correct else None
+            "learning_guidance": tmpl["learning_guidance"] if not is_correct else None,
         }
 
     q_resp = tbl("questions").select("*").eq("id", answer.question_id).execute()

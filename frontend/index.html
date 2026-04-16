@@ -175,9 +175,17 @@
                                                 x-text="`${categorySelectedCount(catName)} of ${catInfo.subcategories.length}`">
                                             </span>
                                         </div>
-                                        <svg :class="openCategories[catName] ? 'rotate-180' : ''" class="w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                        </svg>
+                                        <div class="flex items-center space-x-3">
+                                            <span
+                                                role="button"
+                                                @click.stop="allSelectedInCategory(catName) ? clearCategory(catName) : selectAllInCategory(catName)"
+                                                class="text-[10px] font-bold text-[#17bcfe] hover:text-[#0e7490] cursor-pointer select-none">
+                                                <span x-text="allSelectedInCategory(catName) ? 'Unselect all' : 'Select all'"></span>
+                                            </span>
+                                            <svg :class="openCategories[catName] ? 'rotate-180' : ''" class="w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </div>
                                     </button>
 
                                     <!-- Checkbox List -->
@@ -236,7 +244,7 @@
                                 <select x-model="examForm.brain_mode" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-[#17bcfe]">
                                     <option value="llm">Pure LLM — Fresh AI Generation</option>
                                     <option value="adaptive">Adaptive — Target Your Weak Spots</option>
-                                    <option value="bank">Question Bank — Public Domain</option>
+                                    <option value="bank">Question Bank — AI-Augmented Pool</option>
                                 </select>
                             </div>
                         </div>
@@ -650,6 +658,23 @@
 
                 categorySelectedCount(catName) {
                     return (this.examForm.categories[catName] || []).length;
+                },
+
+                allSelectedInCategory(catName) {
+                    const catInfo = this.filteredCategories[catName] || this.config.categories[catName];
+                    if (!catInfo || !catInfo.subcategories) return false;
+                    const selected = this.examForm.categories[catName] || [];
+                    return catInfo.subcategories.length > 0 && selected.length === catInfo.subcategories.length;
+                },
+
+                selectAllInCategory(catName) {
+                    const catInfo = this.filteredCategories[catName] || this.config.categories[catName];
+                    if (!catInfo || !catInfo.subcategories) return;
+                    this.examForm.categories[catName] = [...catInfo.subcategories];
+                },
+
+                clearCategory(catName) {
+                    delete this.examForm.categories[catName];
                 },
 
                 async startSession() {
