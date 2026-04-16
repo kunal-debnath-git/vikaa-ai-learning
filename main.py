@@ -9,31 +9,29 @@ from backend.routers import sessions, questions, analytics, users
 app = FastAPI(
     title="Advanced Interview Prep System",
     description="Leadership-level interview preparation for Data, Cloud & GenAI roles",
-    version="1.0.0",
+    version="1.0.5",
 )
 
-# ── CORS ──────────────────────────────────────────────────
+@app.get("/api/health")
+async def health():
+    return {"status": "ok", "version": "1.0.5"}
+
+# CORS — wildcard without credentials is valid for local dev
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ── Routers ───────────────────────────────────────────────
+# Routers
 app.include_router(users.router, prefix="/api")
 app.include_router(sessions.router, prefix="/api")
 app.include_router(questions.router, prefix="/api")
 app.include_router(analytics.router, prefix="/api")
 
-# ── Static frontend ───────────────────────────────────────
-# We use root-level frontend directory
+# Static frontend
 frontend_path = Path(__file__).parent / "frontend"
-
-@app.get("/api/health")
-async def health():
-    return {"status": "ok", "version": "1.0.0"}
 
 if frontend_path.exists():
     app.mount("/static", StaticFiles(directory=str(frontend_path)), name="static")

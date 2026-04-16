@@ -1,0 +1,212 @@
+[
+  {
+    "category": "Cloud Platforms",
+    "subcategory": "Multi-Cloud Strategy",
+    "difficulty": "Hard",
+    "question_text": "You are Lead Architect at a Fortune 100 financial services firm. The CISO mandates zero vendor lock-in for Tier-1 workloads, while the CFO demands consolidated billing and committed spend discounts. Your stack is 80% Azure with a secondary GCP footprint. A new data residency regulation requires presence in 5 new regions by Q2. What is the most strategically sound architectural approach?",
+    "options": {
+      "A": "Migrate all workloads to HashiCorp Terraform-managed equal split across Azure and GCP",
+      "B": "Maintain Azure as primary, extend GCP for regulated regions only, adopt a cloud-agnostic data plane (Delta Lake + Kubernetes) for portability without sacrificing committed discounts",
+      "C": "Adopt full active-active multi-cloud with identical infrastructure on both clouds to eliminate lock-in",
+      "D": "Negotiate a single-vendor EA with Azure covering all 5 regions to simplify governance and maximize discount tiers"
+    },
+    "correct_answer": "B",
+    "explanation": "Option B balances portability with commercial pragmatism — a cloud-agnostic data plane (Delta Lake + Kubernetes) means workloads can migrate without rewrites while Azure primary preserves committed spend. Full active-active (C) introduces operational complexity and cost overhead that rarely justifies itself at this scale. Single-vendor (D) directly violates the CISO mandate.",
+    "learning_guidance": "Study the Cloud-Agnostic Data Plane pattern: Delta Lake or Apache Iceberg on object storage as the abstraction layer, compute via Spark or Kubernetes on top. Review Azure Savings Plans vs Reserved Instances trade-offs for multi-region commitments."
+  },
+  {
+    "category": "Cloud Platforms",
+    "subcategory": "Azure Networking & Security",
+    "difficulty": "Medium",
+    "question_text": "You are a Lead Data Architect at a healthcare enterprise moving sensitive patient data pipelines to Azure. The compliance team requires all data movement to remain within the Azure backbone — no public internet traversal — and all secrets must be rotated automatically. Your pipelines use ADF, ADLS Gen2, and Azure Databricks. What is the architecturally correct network and secrets strategy?",
+    "options": {
+      "A": "Use Service Endpoints on all storage accounts and store secrets as ADF pipeline parameters",
+      "B": "Deploy Private Endpoints for ADLS and Databricks, use VNet-injected Databricks clusters, store all secrets in Azure Key Vault and reference via ADF Linked Service with Managed Identity — no static credentials",
+      "C": "Enable Azure Firewall and whitelist Databricks and ADF IPs, store secrets in Azure DevOps Variable Groups",
+      "D": "Use NSGs to restrict traffic to known IP ranges and rotate secrets manually on a quarterly schedule"
+    },
+    "correct_answer": "B",
+    "explanation": "Private Endpoints guarantee traffic stays on the Microsoft backbone (no public internet exposure), VNet injection places Databricks clusters inside your network perimeter, and Managed Identity with Key Vault eliminates static credential exposure and enables automatic rotation. Service Endpoints (A) still traverse the public internet path logically. Manual rotation (D) is a compliance violation in healthcare.",
+    "learning_guidance": "Study Azure Private Link vs Service Endpoints differences, VNet Injection for Databricks, and the Managed Identity + Key Vault reference pattern in ADF Linked Services. Review Azure Policy for enforcing Private Endpoint requirements."
+  },
+  {
+    "category": "Core Data Platform",
+    "subcategory": "Unity Catalog",
+    "difficulty": "Hard",
+    "question_text": "You are the Lead Data Architect at a multinational retail company migrating from legacy Hive Metastore to Databricks Unity Catalog. You have 15 business units each with their own Databricks workspace, 3 data domains (Customer, Product, Finance), and strict requirements that Finance data must never be accessible to Customer domain teams. The migration must be zero-downtime. What is the correct Unity Catalog governance design?",
+    "options": {
+      "A": "Create one metastore per business unit so each team manages their own governance independently",
+      "B": "Create one metastore per region, structure as Catalog-per-domain (Customer/Product/Finance catalogs), apply column-level security and row filters at the Finance catalog, use workspace-catalog bindings to control cross-workspace access — migrate using CREATE TABLE AS SELECT with dual-write during cutover",
+      "C": "Create a single shared catalog for all domains and use schema-level permissions to segregate Finance data",
+      "D": "Keep Hive Metastore for Finance data and migrate only Customer and Product domains to Unity Catalog"
+    },
+    "correct_answer": "B",
+    "explanation": "One metastore per region (Unity Catalog's architectural constraint) with domain-level catalogs gives clean data boundary enforcement — Finance catalog permissions are isolated by design, not by convention. Column-level security and row filters provide fine-grained access without data duplication. Single catalog with schema permissions (C) creates audit and governance complexity at scale. Hybrid approach (D) creates two governance models to maintain.",
+    "learning_guidance": "Study Unity Catalog's three-level namespace (Catalog > Schema > Table), the workspace-to-catalog binding model, and Delta Sharing for cross-metastore access. Review the Unity Catalog migration guide for Hive Metastore upgrade paths."
+  },
+  {
+    "category": "Core Data Platform",
+    "subcategory": "Delta Lake",
+    "difficulty": "Medium",
+    "question_text": "You are a Lead Data Engineer at a logistics company. A critical Delta Lake table used by 12 downstream pipelines is growing at 50GB/day. After 90 days, VACUUM operations take 3 hours, query performance has degraded 40%, and storage costs are rising sharply. The table is queried by date range and by shipment_region. What is the optimal long-term architecture decision?",
+    "options": {
+      "A": "Increase VACUUM retention to 30 days and run it weekly to reduce overhead",
+      "B": "Apply Z-Ordering on shipment_date and shipment_region, implement Liquid Clustering as the table grows beyond 1TB, set up automated OPTIMIZE + VACUUM jobs with 7-day retention, and partition only if cardinality justifies it",
+      "C": "Partition the table by shipment_date and shipment_region to speed up queries",
+      "D": "Migrate to a Parquet-only format to avoid Delta overhead for this high-volume table"
+    },
+    "correct_answer": "B",
+    "explanation": "Z-Ordering co-locates related data within files improving skip rates on multi-dimensional queries; Liquid Clustering removes the static partition limitation and handles skew automatically at scale. Over-partitioning by two columns (C) creates a small-files problem at 50GB/day scale. Parquet-only (D) loses ACID guarantees, time travel, and schema evolution — unacceptable for 12 downstream dependents.",
+    "learning_guidance": "Study the difference between Z-Ordering and Liquid Clustering, when to use each based on table size and query patterns. Review Delta Lake OPTIMIZE strategies and understand how file size tuning (target file size) affects both write and read performance."
+  },
+  {
+    "category": "Data Architecture",
+    "subcategory": "Medallion Architecture (Bronze/Silver/Gold)",
+    "difficulty": "Medium",
+    "question_text": "You are Lead Data Architect at a global e-commerce company. Three months post-launch of a Medallion Architecture on Azure Databricks, Gold layer tables take 4+ hours to compute, BI teams report stale data, and storage costs have tripled. A Product Manager demands near-real-time dashboards. What architectural change delivers the highest impact with the least refactor?",
+    "options": {
+      "A": "Scale up the Databricks cluster tier for Gold layer jobs",
+      "B": "Introduce a streaming Silver layer via Auto Loader + Delta Live Tables, serve Gold as incremental materialized aggregates using Change Data Feed — full recomputes replaced by delta processing",
+      "C": "Move Gold layer processing to Azure Synapse Analytics for faster SQL performance",
+      "D": "Add Redis caching in front of Gold tables for all BI queries"
+    },
+    "correct_answer": "B",
+    "explanation": "The root cause is full batch recompute of Gold aggregates. Switching to incremental DLT pipelines with CDF at Silver means Gold only processes changed records, reducing 4-hour jobs to minutes. Scaling clusters (A) treats the symptom and increases cost without solving staleness. Synapse migration (C) introduces dual-platform complexity. Redis (D) masks staleness rather than fixing it.",
+    "learning_guidance": "Study Delta Live Tables (DLT) APPEND vs COMPLETE pipeline modes, Change Data Feed (CDF) as the incremental layer between Silver and Gold, and the concept of materialized Gold views vs scheduled full rewrites."
+  },
+  {
+    "category": "Data Architecture",
+    "subcategory": "FinOps & Cost Optimization",
+    "difficulty": "Hard",
+    "question_text": "You are Chief Data Architect at a SaaS company with a $2.4M/year Databricks spend. The CFO has demanded a 30% cost reduction within 2 quarters without impacting SLA. Your estate includes: 40 always-on interactive clusters, 200 scheduled jobs using general-purpose clusters, 3 streaming pipelines running 24/7, and 15TB of Delta tables queried ad-hoc. What is the highest ROI cost optimization strategy?",
+    "options": {
+      "A": "Negotiate a larger Databricks commit discount and move all workloads to spot instances",
+      "B": "Convert all scheduled jobs to Jobs Compute (formerly automated clusters), enable Photon on high-throughput jobs, implement cluster auto-termination policies (10-15 min idle), right-size interactive clusters to match actual usage via Ganglia metrics, and tier streaming pipelines to use Enhanced Autoscaling",
+      "C": "Migrate all workloads to open-source Apache Spark on AKS to eliminate DBU costs entirely",
+      "D": "Reduce job frequency — move daily jobs to weekly and archive Delta tables older than 90 days to cold storage"
+    },
+    "correct_answer": "B",
+    "explanation": "Converting to Jobs Compute eliminates the interactive cluster premium (often 2-3x cost difference), Photon delivers 2-8x performance improvement meaning fewer DBUs per job, and auto-termination eliminates idle waste which typically accounts for 20-40% of interactive cluster costs. Full migration to AKS (C) sacrifices managed service benefits and requires significant engineering investment that won't deliver within 2 quarters.",
+    "learning_guidance": "Study the Databricks cost tiers: Jobs Compute vs All-Purpose Compute DBU pricing. Review Photon engine compatibility and workload profiling. Learn Databricks Cluster Policies for enforcing cost guardrails across teams."
+  },
+  {
+    "category": "Data Engineering",
+    "subcategory": "PySpark & Spark Optimization (Data Skew, Shuffle Tuning)",
+    "difficulty": "Hard",
+    "question_text": "You are a Lead Data Engineer at a retail analytics firm. A PySpark job joining a 10TB customer transaction table with a 500GB product dimension table takes 6 hours. Spark UI shows 3 tasks running for 5+ hours while 200 tasks completed in under 10 minutes. The customer table has heavy skew on a small number of high-volume merchant IDs. What is the correct diagnostic and remediation strategy?",
+    "options": {
+      "A": "Increase executor memory and the number of cores per executor",
+      "B": "Enable AQE with skew join optimization (spark.sql.adaptive.skewJoin.enabled), apply salting to the merchant_id join key to distribute skewed partitions, and repartition by a composite key before the join",
+      "C": "Repartition the customer table to 2000 partitions before the join to spread data more evenly",
+      "D": "Cache the 500GB product dimension table in memory across all executors before the join"
+    },
+    "correct_answer": "B",
+    "explanation": "The Spark UI signature — few long-running tasks while most complete quickly — is the definitive indicator of data skew on the join key. AQE's skew join detection splits oversized skewed partitions automatically, while manual salting provides deterministic distribution. Generic repartitioning (C) doesn't resolve skew because the skew follows the join key. Caching a 500GB table (D) is impractical and doesn't address skew.",
+    "learning_guidance": "Study AQE in Spark 3.x: spark.sql.adaptive.enabled, spark.sql.adaptive.skewJoin.skewedPartitionThresholdInBytes. Master the salting pattern for skewed joins: adding a random salt prefix to the key, exploding the smaller table. Understand Spark UI's Stage Details and Task Timeline to diagnose skew."
+  },
+  {
+    "category": "Data Engineering",
+    "subcategory": "CI/CD & DevOps (DAB, Git Integrated Workflows)",
+    "difficulty": "Medium",
+    "question_text": "You are Lead Data Engineer at a financial services firm. Your team of 12 data engineers deploys Databricks jobs manually using the UI. Three production incidents in the last month were caused by untested notebooks deployed directly to prod. The Head of Engineering mandates a proper CI/CD pipeline within 6 weeks. Your stack is Azure DevOps + Databricks. What is the correct implementation path?",
+    "options": {
+      "A": "Require all engineers to use Git-backed Databricks notebooks and manually peer-review before prod deployment",
+      "B": "Implement Databricks Asset Bundles (DAB) for infrastructure-as-code job definitions, set up Azure DevOps pipelines with separate stages (dev/staging/prod), enforce Databricks unit testing with pytest + dbutils.notebook.run, and use environment-specific bundle targets for parameterized deployments",
+      "C": "Use Azure Data Factory as the orchestration layer to add deployment controls around Databricks notebooks",
+      "D": "Deploy jobs via Databricks REST API calls scripted in Azure DevOps pipelines with environment variable substitution"
+    },
+    "correct_answer": "B",
+    "explanation": "Databricks Asset Bundles (DAB) is the current official IaC approach replacing the legacy CLI bundle format — it natively supports multi-environment targets, resource definitions as YAML, and integrates directly with Azure DevOps pipelines. Manual Git review (A) doesn't prevent direct UI deployments. ADF orchestration (C) doesn't solve the deployment governance problem. Raw REST API scripts (D) are fragile and non-idempotent.",
+    "learning_guidance": "Study Databricks Asset Bundles (DAB) documentation: bundle.yml structure, targets for dev/staging/prod, variable overrides per environment. Review Databricks Labs pytest integration for unit testing PySpark transformations and the databricks-connect local testing pattern."
+  },
+  {
+    "category": "Generative AI & AI Stack",
+    "subcategory": "RAG – All Patterns (Naive, Advanced, Agentic)",
+    "difficulty": "Hard",
+    "question_text": "You are Lead AI Engineer at a legal technology firm. You built a Naive RAG system over 500,000 legal documents. In production, users report: (1) answers missing context from multiple document sections, (2) wrong answers on procedural questions that require step-by-step reasoning, and (3) hallucinated case citations. The firm's compliance team has flagged the citation issue as a legal liability. What architectural evolution solves all three failure modes?",
+    "options": {
+      "A": "Increase the chunk size to capture more context per retrieval and switch to a larger embedding model",
+      "B": "Implement Agentic RAG: use a reasoning agent with tool calls for multi-hop retrieval, add a citation verification tool that cross-references retrieved chunks against source documents, implement re-ranking with a cross-encoder, and add a structured chain-of-thought prompt layer for procedural questions",
+      "C": "Switch from vector similarity search to BM25 keyword search for legal terminology precision",
+      "D": "Fine-tune the LLM on the legal document corpus to bake domain knowledge into model weights"
+    },
+    "correct_answer": "B",
+    "explanation": "Naive RAG's single-pass retrieval fundamentally fails on multi-hop reasoning — Agentic RAG with iterative tool-use retrieval addresses failure modes 1 and 2 by allowing the agent to fetch additional context dynamically. Citation verification via a dedicated tool directly mitigates the legal liability (failure 3) by grounding citations to source chunks before returning answers. Fine-tuning (D) improves general knowledge but doesn't solve retrieval accuracy or citation hallucination.",
+    "learning_guidance": "Study the progression from Naive RAG → Advanced RAG (re-ranking, hybrid search, query rewriting) → Agentic RAG (ReAct pattern, tool-use, multi-hop). Review LlamaIndex Agentic RAG patterns and LangGraph for stateful agent workflows. Understand cross-encoder re-ranking vs bi-encoder retrieval trade-offs."
+  },
+  {
+    "category": "Generative AI & AI Stack",
+    "subcategory": "Agentic AI Systems",
+    "difficulty": "Hard",
+    "question_text": "You are Lead AI Engineer at a global bank. You are designing an AI agent system for automated financial report analysis — the system must read PDFs, query internal databases, run Python calculations, and produce regulatory-grade summaries. The compliance team requires full auditability of every decision step, and the system must not execute irreversible actions without human approval. Which architecture is most appropriate?",
+    "options": {
+      "A": "A single large LLM prompt that receives all context at once and generates the full report in one call",
+      "B": "A LangGraph-based stateful multi-agent system with: a Supervisor agent orchestrating specialist sub-agents (PDF reader, DB query, calculator), Human-in-the-Loop interrupt nodes before any write operation, full state graph persistence to a checkpointer for audit replay, and tool call logging at every node",
+      "C": "A ReAct single-agent loop with all tools available, running autonomously until the task completes",
+      "D": "A microservices architecture where each capability (PDF, DB, calc) is a separate API endpoint called sequentially by an orchestrator script"
+    },
+    "correct_answer": "B",
+    "explanation": "LangGraph's stateful graph model with checkpointing provides the audit trail required for regulatory compliance — every node transition, tool call, and agent decision is persisted and replayable. Human-in-the-Loop interrupt nodes satisfy the irreversible action approval requirement by design. A single-prompt approach (A) has no auditability or step-by-step reasoning transparency. A fully autonomous ReAct loop (C) cannot enforce human approval gates.",
+    "learning_guidance": "Study LangGraph state graphs: nodes, edges, conditional routing, and checkpointers (SqliteSaver, PostgresSaver). Review the Human-in-the-Loop pattern with interrupt_before and interrupt_after. Understand the Supervisor pattern for multi-agent coordination vs peer-to-peer agent communication."
+  },
+  {
+    "category": "Generative AI & AI Stack",
+    "subcategory": "Vector Stores & Embeddings",
+    "difficulty": "Medium",
+    "question_text": "You are Lead AI Engineer at a healthcare company building a semantic search system over 10 million clinical trial documents. The system must return results in under 200ms at peak load (1000 concurrent queries), support metadata filtering by trial_phase and disease_area, and remain accurate as new documents are added daily. You are evaluating vector store options. What is the correct architectural choice?",
+    "options": {
+      "A": "Store embeddings in Azure Blob Storage and compute cosine similarity in Python at query time",
+      "B": "Use a managed vector database (Pinecone, Weaviate, or Azure AI Search with vector fields) with HNSW indexing, pre-filter on metadata before ANN search, implement an embedding pipeline that upserts new documents incrementally, and batch-regenerate embeddings only when the base model changes",
+      "C": "Use PostgreSQL with the pgvector extension for all vector storage and similarity search",
+      "D": "Fine-tune a domain-specific embedding model and store embeddings in Redis for sub-millisecond retrieval"
+    },
+    "correct_answer": "B",
+    "explanation": "HNSW indexing in a managed vector DB achieves sub-linear search complexity (O(log n)) enabling <200ms at 10M scale — flat cosine similarity (A) is O(n) and completely infeasible at this scale. Pre-filtering on metadata before ANN search is critical for accuracy: post-filtering on ANN results loses relevant documents. Incremental upserts handle daily additions without full re-indexing. pgvector (C) is appropriate for millions of vectors but struggles with performance at 10M+ at 1000 QPS without significant tuning.",
+    "learning_guidance": "Study HNSW vs IVFFlat index types in vector databases — HNSW for query speed, IVFFlat for memory efficiency. Review Azure AI Search vector search, Pinecone namespaces for metadata isolation, and Weaviate hybrid search (vector + BM25). Understand embedding model update strategies and when to regenerate vs retain existing embeddings."
+  },
+  {
+    "category": "Data Architecture",
+    "subcategory": "Databricks vs Snowflake Architecture Trade-offs",
+    "difficulty": "Hard",
+    "question_text": "You are Chief Data Architect at a media company. Your team is split: data engineers advocate for Databricks as the single platform for all workloads, while the analytics team insists Snowflake's SQL performance and data sharing capabilities are essential for their use case. The CFO wants to avoid paying for both. You have 500TB of data, 80% of which is accessed via SQL by business analysts, 15% via Spark for ML feature engineering, and 5% via streaming ingestion. What is the architecturally defensible recommendation?",
+    "options": {
+      "A": "Standardise on Databricks — SQL Warehouse provides Snowflake-equivalent SQL performance and Photon makes it cost-competitive",
+      "B": "Standardise on Snowflake — use Snowpark for Python/ML workloads and Snowpipe for streaming, eliminating the need for Databricks",
+      "C": "Implement a Lakehouse pattern: Databricks on Delta Lake as the compute and ML platform, expose Gold tables to Snowflake via Delta Sharing or external tables for analyst SQL workloads — one data copy, two compute engines matched to workload type",
+      "D": "Split by team: give data engineers Databricks credits and analysts Snowflake credits, manage data sync between platforms via ADF"
+    },
+    "correct_answer": "C",
+    "explanation": "Delta Sharing allows Snowflake to query Delta Lake tables directly without data duplication — this gives analysts Snowflake's superior concurrency and caching for SQL (80% of the workload) while retaining Databricks for ML and streaming (20%). Forcing 80% SQL workloads onto Databricks (A) is a legitimate option but sacrifices Snowflake's analyst experience. ADF sync (D) creates a second data copy, doubling storage costs and introducing consistency lag.",
+    "learning_guidance": "Study Delta Sharing protocol: how Databricks shares Delta tables as open REST endpoints consumable by Snowflake, Power BI, and other clients. Review Snowflake External Tables on Delta Lake vs Delta Sharing performance characteristics. Understand when a single-platform vs best-of-breed approach makes financial and operational sense."
+  },
+  {
+    "category": "Claude & Anthropic Stack",
+    "subcategory": "Claude Certified Architect Patterns",
+    "difficulty": "Hard",
+    "question_text": "You are Lead AI Architect at a global insurance company deploying Claude as the backbone of an automated claims analysis system. The system must process 50,000 claims/day, each requiring multi-document reasoning across policy PDFs, incident reports, and fraud signals. The compliance team requires every decision to be auditable with a traceable chain of reasoning. Latency must stay under 8 seconds per claim. What architectural pattern best satisfies all constraints?",
+    "options": {
+      "A": "Send all documents for each claim in a single Claude API call with a large context window",
+      "B": "Implement a multi-step Claude pipeline: (1) structured extraction agent per document type using tool use, (2) a reasoning agent that synthesises extracted data with Claude's extended thinking enabled, (3) a decision agent that outputs a structured JSON verdict with citations — use prompt caching on static policy documents to stay within latency budget",
+      "C": "Fine-tune a smaller open-source model on historical claims data to reduce cost and latency",
+      "D": "Use Claude for initial triage only and route complex claims to human adjusters"
+    },
+    "correct_answer": "B",
+    "explanation": "A multi-step pipeline with specialist agents maps naturally to the claim workflow — extraction, reasoning, decision — keeping each step's context focused and traceable. Extended thinking on the reasoning agent produces auditable chain-of-thought that satisfies compliance. Prompt caching on static policy documents (often 80%+ of input tokens) reduces both latency and cost dramatically, hitting the 8-second SLA. Single large-context calls (A) sacrifice traceability and hit token limits at scale.",
+    "learning_guidance": "Study Claude's extended thinking feature for multi-step reasoning transparency. Review Anthropic's prompt caching documentation: cache_control breakpoints for large static contexts. Study the tool use pattern for structured extraction and JSON output enforcement. Review Claude's context window limits vs multi-turn conversation patterns for long-document workflows."
+  },
+  {
+    "category": "Claude & Anthropic Stack",
+    "subcategory": "Cost Optimisation with Prompt Caching",
+    "difficulty": "Medium",
+    "question_text": "You are Lead AI Engineer at a legal tech company. Your Claude-powered contract review system processes 2,000 contracts/day. Each API call includes a 15,000-token system prompt containing legal guidelines, a 5,000-token contract document, and a 500-token user query. Monthly API costs have reached $45,000 and the CFO has flagged it as unsustainable. You need to cut costs by at least 60% without degrading quality. What is the correct optimisation strategy?",
+    "options": {
+      "A": "Switch to Claude Haiku for all requests to reduce per-token cost",
+      "B": "Apply prompt caching with cache_control breakpoints: cache the 15,000-token static legal guidelines system prompt (refreshed every 5 minutes), batch similar contracts together, and use Claude Haiku only for initial document classification with Sonnet reserved for complex clause analysis",
+      "C": "Reduce the system prompt to under 2,000 tokens by removing detailed guidelines",
+      "D": "Move to a fine-tuned open-source model to eliminate API costs entirely"
+    },
+    "correct_answer": "B",
+    "explanation": "Prompt caching on the static 15,000-token legal guidelines achieves ~90% cache hit rate in production (guidelines rarely change), reducing effective input tokens per call from 20,500 to ~5,500 — a 73% input cost reduction on cached portions. Intelligent model routing (Haiku for classification, Sonnet for analysis) further reduces average cost per contract. Switching entirely to Haiku (A) risks quality degradation on complex multi-clause analysis that requires Sonnet's reasoning capability.",
+    "learning_guidance": "Study Anthropic's prompt caching documentation: minimum token thresholds (1024 for Sonnet), cache_control type: 'ephemeral' breakpoints, and 5-minute TTL refresh patterns. Review intelligent model routing patterns: task classification → model selection. Calculate break-even points for caching vs non-caching based on your request volume and cache hit rate assumptions."
+  }
+]

@@ -1,14 +1,12 @@
 {
   "llm_providers": {
-    "claude": {
-      "model": "claude-3-5-sonnet-20240620",
-      "api_key_env": "ANTHROPIC_API_KEY",
-      "max_tokens": 4000
-    },
     "gemini": {
-      "model": "gemini-1.5-pro",
-      "api_key_env": "GEMINI_API_KEY",
-      "max_tokens": 4000
+      "model": "gemini-2.0-flash",
+      "max_tokens": 8000
+    },
+    "claude": {
+      "model": "claude-sonnet-4-6",
+      "max_tokens": 8000
     }
   },
   "difficulty_levels": ["Easy", "Medium", "Hard"],
@@ -37,12 +35,12 @@
     "ai_engineer": {
       "label": "Lead AI Engineer",
       "description": "Productionizing AI systems, GenAI infrastructure, MLOps",
-      "focus_areas": ["Generative AI & AI Stack"]
+      "focus_areas": ["Generative AI & AI Stack", "Claude & Anthropic Stack"]
     },
     "cto": {
       "label": "Chief Data Architect / CTO",
       "description": "All-in-one enterprise data & GenAI platform leadership",
-      "focus_areas": ["Data Architecture", "Generative AI & AI Stack", "Cloud Platforms"]
+      "focus_areas": ["Data Architecture", "Generative AI & AI Stack", "Cloud Platforms", "Claude & Anthropic Stack"]
     }
   },
   "categories": {
@@ -108,6 +106,17 @@
         "Real-Time Inference Architecture",
         "Serving & Scalability (Serverless Model Serving)",
         "Conversational AI/BI Systems"
+      ]
+    },
+    "Claude & Anthropic Stack": {
+      "subcategories": [
+        "Claude API & Prompt Engineering",
+        "Claude Certified Architect Patterns",
+        "Multi-Model Strategy (Claude + Gemini + Llama)",
+        "Claude in Enterprise RAG Pipelines",
+        "Responsible AI & Constitutional AI",
+        "Claude Tool Use & Agentic Workflows",
+        "Cost Optimisation with Prompt Caching"
       ]
     }
   },

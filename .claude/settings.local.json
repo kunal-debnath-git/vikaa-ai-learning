@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c \"import supabase; import inspect; print\\([m for m in dir\\(supabase.Client\\) if 'schema' in m.lower\\(\\)]\\)\")",
+      "Bash(python -c \"from postgrest import SyncRequestBuilder, SyncClient; print\\([m for m in dir\\(SyncClient\\) if 'schema' in m.lower\\(\\)]\\)\")",
+      "Bash(python:*)"
+    ]
+  }
+}

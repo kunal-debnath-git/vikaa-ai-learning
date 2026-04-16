@@ -3,26 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Interview Prep - Leadership Roles</title>
+    <title>VikaaAI — Leadership Interview Prep</title>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         [x-cloak] { display: none !important; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { font-family: 'Montserrat', sans-serif; color: #333333; }
         .gradient-bg { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
         .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
     </style>
 </head>
-<body class="bg-[#f8fafc] text-[#0f172a] min-h-screen" x-data="app()">
+<body class="bg-[#eaeaea] text-[#333333] min-h-screen" x-data="app()">
 
     <!-- Header -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+    <header class="bg-white sticky top-0 z-40" style="border-bottom: 2px solid #17bcfe;">
         <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-extrabold text-xl shadow-lg shadow-indigo-200">V</div>
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center text-white font-extrabold text-xl shadow-lg" style="background:#17bcfe;">V</div>
                 <div>
-                    <span class="font-extrabold text-xl tracking-tight text-slate-900 leading-none block">Vikaa<span class="text-indigo-600">AI</span></span>
+                    <span class="font-extrabold text-xl tracking-tight text-slate-900 leading-none block">Vikaa<span style="color:#17bcfe;">AI</span></span>
                     <span class="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Leadership Prep</span>
                 </div>
             </div>
@@ -30,7 +33,7 @@
             <div class="flex items-center space-x-6">
                 <template x-if="user">
                     <div class="flex items-center space-x-6">
-                        <button @click="showDashboard = !showDashboard" class="text-sm font-bold text-slate-600 hover:text-indigo-600 transition" x-text="showDashboard ? 'Back to Prep' : 'My Analytics'"></button>
+                        <button @click="showDashboard = !showDashboard" class="text-sm font-bold text-slate-600 hover:text-[#17bcfe] transition" x-text="showDashboard ? 'Back to Prep' : 'My Analytics'"></button>
                         <div class="h-4 w-[1px] bg-slate-200"></div>
                         <div class="flex items-center space-x-2">
                             <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-600" x-text="user.name.charAt(0)"></div>
@@ -56,11 +59,11 @@
                 <div class="space-y-5">
                     <div>
                         <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Full Name</label>
-                        <input type="text" x-model="loginForm.name" placeholder="John Doe" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition">
+                        <input type="text" x-model="loginForm.name" placeholder="John Doe" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#17bcfe] focus:bg-white outline-none transition">
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Work Email</label>
-                        <input type="email" x-model="loginForm.email" placeholder="john@fortune100.com" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition">
+                        <input type="email" x-model="loginForm.email" placeholder="john@fortune100.com" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#17bcfe] focus:bg-white outline-none transition">
                     </div>
                     <button @click="login()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-black transition transform active:scale-[0.98] shadow-lg" :disabled="loading">
                         <span x-show="!loading">Initialize System</span>
@@ -87,10 +90,10 @@
                                 <h3 class="font-bold text-slate-900" x-text="p.category"></h3>
                                 <p class="text-xs text-slate-400 font-bold uppercase tracking-widest" x-text="p.difficulty"></p>
                             </div>
-                            <div class="px-2 py-1 bg-indigo-50 text-indigo-600 text-[10px] font-bold rounded-lg" x-text="`${Math.round((p.total_correct / p.total_attempted) * 100)}% Proficiency`"></div>
+                            <div class="px-2 py-1 bg-[#eaf9ff] text-[#17bcfe] text-[10px] font-bold rounded-lg" x-text="`${Math.round((p.total_correct / p.total_attempted) * 100)}% Proficiency`"></div>
                         </div>
                         <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-indigo-600 rounded-full" :style="`width: ${(p.total_correct / p.total_attempted) * 100}%`"></div>
+                            <div class="h-full bg-[#17bcfe] rounded-full" :style="`width: ${(p.total_correct / p.total_attempted) * 100}%`"></div>
                         </div>
                         <div class="mt-4 flex justify-between text-xs font-bold text-slate-500">
                             <span>Attempts: <span class="text-slate-900" x-text="p.total_attempted"></span></span>
@@ -120,8 +123,8 @@
         <!-- 3. CONFIGURATION -->
         <section x-show="user && !session && !showDashboard" x-cloak>
             <div class="mb-10 text-center max-w-2xl mx-auto">
-                <h2 class="text-4xl font-extrabold mb-4">Exam Configuration</h2>
-                <p class="text-slate-500">Our <span class="text-indigo-600 font-bold">Market Intelligence Layer</span> is active, scanning for Fortune 100 interview patterns for your selected role.</p>
+                <h3 class="text-4xl font-extrabold mb-4">Exam Configuration</h3>
+                <p class="text-slate-500">Our <span class="text-[#17bcfe] font-bold">Market Intelligence Layer</span> is active <BR> Scanning for Fortune 100 interview patterns for your selected role.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -132,14 +135,14 @@
                         <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-6">Target Track</h3>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <template x-for="(roleInfo, key) in config.roles" :key="key">
-                                <label :class="examForm.role === key ? 'border-indigo-600 bg-indigo-50 ring-2 ring-indigo-500/10' : 'border-slate-100 hover:border-indigo-200 hover:bg-slate-50'" class="block p-5 border-2 rounded-2xl cursor-pointer transition-all duration-300">
+                                <label :class="examForm.role === key ? 'border-[#17bcfe] bg-[#eaf9ff] ring-2 ring-[#17bcfe]/10' : 'border-slate-100 hover:border-[#b3ecff] hover:bg-slate-50'" class="block p-5 border-2 rounded-2xl cursor-pointer transition-all duration-300">
                                     <input type="radio" :value="key" x-model="examForm.role" class="hidden">
                                     <div class="flex justify-between items-start">
                                         <div>
                                             <div class="font-bold text-slate-900 mb-1" x-text="roleInfo.label"></div>
                                             <div class="text-[11px] text-slate-500 leading-relaxed pr-4" x-text="roleInfo.description"></div>
                                         </div>
-                                        <div x-show="examForm.role === key" class="text-indigo-600">
+                                        <div x-show="examForm.role === key" class="text-[#17bcfe]">
                                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                                         </div>
                                     </div>
@@ -150,24 +153,54 @@
 
                     <!-- Category Selection -->
                     <div class="bg-white p-8 rounded-[2rem] border border-slate-200 shadow-sm">
-                        <div class="flex justify-between items-center mb-6">
+                        <div class="flex justify-between items-center mb-5">
                             <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em]">Domain Specialization</h3>
-                            <span class="text-[10px] font-bold text-slate-400 bg-slate-100 px-2 py-1 rounded-full">Select multiple areas</span>
+                            <span class="text-[10px] font-bold text-[#17bcfe] bg-[#eaf9ff] px-2 py-1 rounded-full" x-text="totalSelected() > 0 ? `${totalSelected()} selected` : 'None selected'"></span>
                         </div>
-                        <div class="space-y-6">
+                        <div class="space-y-2">
                             <template x-for="(catInfo, catName) in filteredCategories" :key="catName">
-                                <div class="p-6 bg-slate-50 rounded-2xl border border-slate-100">
-                                    <div class="font-bold text-sm text-slate-900 mb-4" x-text="catName"></div>
-                                    <div class="flex flex-wrap gap-2">
+                                <div class="border border-slate-200 rounded-2xl overflow-hidden">
+
+                                    <!-- Accordion Header -->
+                                    <button
+                                        type="button"
+                                        @click="toggleCategoryOpen(catName)"
+                                        class="w-full flex items-center justify-between px-5 py-4 bg-slate-50 hover:bg-slate-100 transition-colors text-left">
+                                        <div class="flex items-center space-x-3">
+                                            <span class="font-bold text-sm text-slate-800" x-text="catName"></span>
+                                            <span
+                                                x-show="categorySelectedCount(catName) > 0"
+                                                class="text-[10px] font-bold text-[#17bcfe] bg-[#eaf9ff] px-2 py-0.5 rounded-full"
+                                                x-text="`${categorySelectedCount(catName)} of ${catInfo.subcategories.length}`">
+                                            </span>
+                                        </div>
+                                        <svg :class="openCategories[catName] ? 'rotate-180' : ''" class="w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </button>
+
+                                    <!-- Checkbox List -->
+                                    <div x-show="openCategories[catName]" class="px-4 py-3 space-y-0.5 bg-white border-t border-slate-100">
                                         <template x-for="sub in catInfo.subcategories" :key="sub">
-                                            <button 
-                                                @click="toggleCategory(catName, sub)"
-                                                :class="isSelected(catName, sub) ? 'bg-indigo-600 text-white border-indigo-600 shadow-lg shadow-indigo-100' : 'bg-white text-slate-600 border-slate-200 hover:border-indigo-300'"
-                                                class="text-[11px] font-bold px-4 py-2 rounded-xl border transition-all duration-200"
-                                                x-text="sub">
-                                            </button>
+                                            <label
+                                                @click.prevent="toggleCategory(catName, sub)"
+                                                class="flex items-center space-x-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 cursor-pointer group transition-colors">
+                                                <div
+                                                    :class="isSelected(catName, sub) ? 'bg-[#17bcfe] border-[#17bcfe]' : 'bg-white border-slate-300 group-hover:border-[#17bcfe]'"
+                                                    class="w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-colors">
+                                                    <svg x-show="isSelected(catName, sub)" class="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                    </svg>
+                                                </div>
+                                                <span
+                                                    :class="isSelected(catName, sub) ? 'text-[#0077a3] font-bold' : 'text-slate-600 font-semibold'"
+                                                    class="text-xs transition-colors"
+                                                    x-text="sub">
+                                                </span>
+                                            </label>
                                         </template>
                                     </div>
+
                                 </div>
                             </template>
                         </div>
@@ -182,7 +215,7 @@
                         <div class="space-y-6">
                             <div>
                                 <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Complexity Depth</label>
-                                <select x-model="examForm.difficulty" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+                                <select x-model="examForm.difficulty" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-[#17bcfe]">
                                     <template x-for="level in config.difficulty_levels" :key="level">
                                         <option :value="level" x-text="level"></option>
                                     </template>
@@ -190,10 +223,19 @@
                             </div>
                             <div>
                                 <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Synthesis Model</label>
-                                <select x-model="examForm.llm_provider" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+                                <select x-model="examForm.llm_provider" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-[#17bcfe]">
                                     <template x-for="(info, key) in config.llm_providers" :key="key">
-                                        <option :value="key" x-text="key === 'gemini' ? 'Gemini 1.5 Pro' : 'Claude 3.5 Sonnet'"></option>
+                                        <option :value="key" x-text="key === 'gemini' ? 'Gemini 2.0 Flash' : 'Claude Sonnet 4.6'"></option>
                                     </template>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Brain Mode</label>
+                                <select x-model="examForm.brain_mode" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl font-bold text-sm outline-none focus:ring-2 focus:ring-[#17bcfe]">
+                                    <option value="llm">Pure LLM — Fresh AI Generation</option>
+                                    <option value="adaptive">Adaptive — Target Your Weak Spots</option>
+                                    <option value="bank">Question Bank — Public Domain</option>
                                 </select>
                             </div>
                         </div>
@@ -209,14 +251,14 @@
                         <div class="space-y-3">
                             <template x-for="trend in config.market_intelligence.current_trends" :key="trend">
                                 <div class="flex items-start space-x-2 group">
-                                    <svg class="w-4 h-4 text-indigo-400 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <svg class="w-4 h-4 text-[#17bcfe] mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                                     <span class="text-[10px] text-slate-400 group-hover:text-slate-200 transition" x-text="trend"></span>
                                 </div>
                             </template>
                         </div>
                     </div>
 
-                    <button @click="startSession()" class="w-full py-6 bg-indigo-600 text-white rounded-[2rem] font-extrabold text-lg hover:bg-indigo-700 transition transform active:scale-[0.98] shadow-2xl shadow-indigo-200" :disabled="loading">
+                    <button @click="startSession()" class="w-full py-6 bg-[#17bcfe] text-white rounded-[2rem] font-extrabold text-lg hover:bg-[#0891b2] transition transform active:scale-[0.98] shadow-2xl shadow-sky-200" :disabled="loading">
                         <span x-show="!loading">Launch Exam Suite</span>
                         <span x-show="loading">Synthesizing Scenarios...</span>
                     </button>
@@ -231,21 +273,16 @@
             <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div>
                     <div class="flex items-center space-x-2 mb-2">
-                        <span class="px-2 py-1 bg-indigo-100 text-indigo-700 rounded text-[10px] font-black uppercase tracking-widest" x-text="currentQuestion.category"></span>
+                        <span class="px-2 py-1 bg-[#caf4ff] text-[#0077a3] rounded text-[10px] font-black uppercase tracking-widest" x-text="currentQuestion.category"></span>
                         <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest">•</span>
                         <span class="text-slate-400 text-[10px] font-bold uppercase tracking-widest" x-text="currentQuestion.subcategory"></span>
                     </div>
-                    <h2 class="text-2xl font-extrabold">Strategic Case Study <span class="text-indigo-600" x-text="currentIdx + 1"></span> of <span x-text="questions.length"></span></h2>
+                    <h2 class="text-2xl font-extrabold">Strategic Case Study <span class="text-[#17bcfe]" x-text="currentIdx + 1"></span> of <span x-text="questions.length"></span></h2>
                 </div>
                 <div class="flex items-center space-x-6">
                     <div class="text-right">
-                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-1">Time Remaining</span>
-                        <span class="text-2xl font-mono font-black" :class="timeLeft < 30 ? 'text-red-500' : 'text-slate-900'" x-text="formatTime(timeLeft)"></span>
-                    </div>
-                    <div class="w-[1px] h-10 bg-slate-200"></div>
-                    <div class="text-right">
                         <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] block mb-1">Current Score</span>
-                        <span class="text-2xl font-mono font-black text-indigo-600" x-text="score"></span>
+                        <span class="text-2xl font-mono font-black text-[#17bcfe]" x-text="score"></span>
                     </div>
                 </div>
             </div>
@@ -254,30 +291,58 @@
             <div class="bg-white p-10 rounded-[3rem] shadow-xl shadow-slate-200/40 border border-slate-100 relative overflow-hidden">
                 <!-- Progress Line -->
                 <div class="absolute top-0 left-0 w-full h-1 bg-slate-50">
-                    <div class="h-full bg-indigo-600 transition-all duration-1000" :style="`width: ${((currentIdx + 1) / questions.length) * 100}%`"></div>
+                    <div class="h-full bg-[#17bcfe] transition-all duration-1000" :style="`width: ${((currentIdx + 1) / questions.length) * 100}%`"></div>
                 </div>
 
-                <div class="mb-10">
-                    <p class="text-xl font-bold leading-[1.6] text-slate-800" x-text="currentQuestion.question_text"></p>
+                <div class="flex items-start justify-between mb-10 gap-4">
+                    <p class="text-xl font-bold leading-[1.6] text-slate-800 flex-1" x-text="currentQuestion.question_text"></p>
+                    <button
+                        @click="toggleBookmark(currentQuestion.id)"
+                        :class="isBookmarked(currentQuestion.id) ? 'text-amber-400' : 'text-slate-200 hover:text-amber-300'"
+                        class="shrink-0 mt-1 transition-colors"
+                        title="Flag for review">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path></svg>
+                    </button>
                 </div>
 
-                <div class="grid grid-cols-1 gap-4 mb-10">
+                <div class="space-y-3 mb-6">
                     <template x-for="(optionText, key) in currentQuestion.options" :key="key">
-                        <button 
-                            @click="selectOption(key)"
-                            :disabled="answered"
+                        <div
+                            @click="!answered && toggleOption(key)"
                             :class="getOptionClass(key)"
-                            class="flex items-center p-6 border-2 rounded-2xl text-left transition-all duration-300 group relative">
-                            <div :class="getOptionLetterClass(key)" class="w-10 h-10 rounded-xl flex items-center justify-center font-black mr-6 shrink-0 transition-colors" x-text="key"></div>
-                            <span class="font-bold text-sm leading-relaxed pr-8" x-text="optionText"></span>
-                            
+                            class="flex items-center p-5 border-2 rounded-2xl transition-all duration-200 select-none"
+                            :style="answered ? 'cursor:default' : 'cursor:pointer'">
+
+                            <!-- Checkbox -->
+                            <div :class="getCheckboxClass(key)" class="w-5 h-5 rounded border-2 flex items-center justify-center mr-4 shrink-0 transition-all">
+                                <svg x-show="selectedKeys.includes(key) || (answered && key === currentQuestion.correct_answer)" class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                            </div>
+
+                            <!-- Option Letter Badge -->
+                            <div :class="getOptionLetterClass(key)" class="w-9 h-9 rounded-xl flex items-center justify-center font-black mr-4 shrink-0 text-sm transition-colors" x-text="key"></div>
+
+                            <!-- Text -->
+                            <span class="font-semibold text-sm leading-relaxed flex-1" x-text="optionText"></span>
+
+                            <!-- Correct answer indicator -->
                             <template x-if="answered && key === currentQuestion.correct_answer">
-                                <div class="absolute right-6 text-green-500 bg-green-50 p-1 rounded-full border border-green-200">
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                <div class="ml-4 shrink-0 text-green-500">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
                                 </div>
                             </template>
-                        </button>
+                        </div>
                     </template>
+                </div>
+
+                <!-- Submit row — hidden once answered -->
+                <div x-show="!answered" class="flex items-center justify-between mb-8">
+                    <p class="text-xs font-semibold text-slate-400" x-text="selectedKeys.length === 0 ? 'Select up to 2 options, then lock in.' : `${selectedKeys.length} option${selectedKeys.length > 1 ? 's' : ''} selected`"></p>
+                    <button
+                        @click="submitAnswer()"
+                        :disabled="selectedKeys.length === 0"
+                        class="px-8 py-3 bg-[#17bcfe] text-white rounded-xl font-bold hover:bg-[#0891b2] transition disabled:opacity-30 disabled:cursor-not-allowed">
+                        Lock In Answer
+                    </button>
                 </div>
 
                 <!-- Feedack & Rationale -->
@@ -294,9 +359,9 @@
                             </div>
                             
                             <template x-if="!isCorrect">
-                                <div class="bg-indigo-50/50 p-6 rounded-[2rem] border border-indigo-100/50">
-                                    <h4 class="text-xs font-black text-indigo-500 uppercase tracking-widest mb-3">Leadership Improvement Path</h4>
-                                    <p class="text-indigo-900 text-sm font-bold italic" x-text="feedback.learning_guidance"></p>
+                                <div class="bg-[#eaf9ff]/50 p-6 rounded-[2rem] border border-[#caf4ff]/50">
+                                    <h4 class="text-xs font-black text-[#17bcfe] uppercase tracking-widest mb-3">Leadership Improvement Path</h4>
+                                    <p class="text-[#004d6b] text-sm font-bold italic" x-text="feedback.learning_guidance"></p>
                                 </div>
                             </template>
 
@@ -313,20 +378,23 @@
 
         <!-- 5. FINAL RESULTS -->
         <section x-show="results" x-cloak class="max-w-4xl mx-auto py-10">
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center justify-center w-32 h-32 bg-indigo-600 text-white rounded-[2.5rem] text-4xl font-black mb-8 shadow-2xl shadow-indigo-200" x-text="`${Math.round((results.score / questions.length) * 100)}%` font-size: 2.5rem;"></div>
+
+            <!-- Score Hero -->
+            <div class="text-center mb-12">
+                <div class="inline-flex items-center justify-center w-32 h-32 bg-[#17bcfe] text-white rounded-[2.5rem] text-4xl font-black mb-8 shadow-2xl shadow-sky-200" x-text="`${Math.round((results.score / questions.length) * 100)}%`"></div>
                 <h2 class="text-5xl font-extrabold mb-4">Exam Finalized</h2>
                 <p class="text-slate-500 text-lg">Leadership performance synthesized for <span class="text-slate-900 font-bold" x-text="user.name"></span>.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                 <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 text-center">
-                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Track Performance</div>
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Score</div>
                     <div class="text-2xl font-black" x-text="`${results.score} / ${questions.length}`"></div>
                 </div>
                 <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 text-center">
                     <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Target Role</div>
-                    <div class="text-sm font-black" x-text="config.roles[session.role].label"></div>
+                    <div class="text-sm font-black" x-text="config.roles[session.role] ? config.roles[session.role].label : session.role"></div>
                 </div>
                 <div class="bg-white p-8 rounded-[2.5rem] border border-slate-200 text-center">
                     <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Complexity</div>
@@ -334,19 +402,124 @@
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
-                <button @click="window.location.reload()" class="w-full md:w-auto px-12 py-5 bg-indigo-600 text-white rounded-[2rem] font-black hover:bg-indigo-700 transition shadow-2xl shadow-indigo-100">
+            <!-- Action Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button @click="window.location.reload()" class="px-10 py-4 bg-[#17bcfe] text-white rounded-2xl font-black hover:bg-[#0891b2] transition shadow-xl shadow-sky-100">
                     New Exam Session
                 </button>
-                <button @click="showDashboard = true; results = null; session = null;" class="w-full md:w-auto px-12 py-5 bg-white text-slate-900 border-2 border-slate-200 rounded-[2rem] font-black hover:bg-slate-50 transition">
-                    View My Progress
+                <button @click="showDashboard = true; results = null; session = null;" class="px-10 py-4 bg-white text-slate-900 border-2 border-slate-200 rounded-2xl font-black hover:bg-slate-50 transition">
+                    My Progress
+                </button>
+                <button @click="exportSession()" class="px-10 py-4 bg-white text-slate-700 border-2 border-slate-200 rounded-2xl font-bold hover:bg-slate-50 transition flex items-center space-x-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <span>Export Review (.md)</span>
                 </button>
             </div>
+
+            <!-- Flagged Questions -->
+            <template x-if="bookmarkedIds.length > 0">
+                <div class="mb-10">
+                    <div class="flex items-center space-x-3 mb-5">
+                        <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path></svg>
+                        <h3 class="text-xl font-extrabold">Flagged for Review</h3>
+                        <span class="text-xs font-black text-amber-600 bg-amber-50 px-2 py-1 rounded-full" x-text="`${bookmarkedIds.length} question${bookmarkedIds.length > 1 ? 's' : ''}`"></span>
+                    </div>
+                    <div class="space-y-4">
+                        <template x-for="ans in sessionAnswers.filter(a => bookmarkedIds.includes(a.question.id))" :key="ans.question.id">
+                            <div class="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+                                <div class="flex items-center space-x-2 mb-3">
+                                    <span class="text-[10px] font-black text-amber-700 bg-amber-100 px-2 py-1 rounded-lg" x-text="ans.question.category"></span>
+                                    <span class="text-[10px] text-amber-600 font-bold" x-text="'› ' + ans.question.subcategory"></span>
+                                    <span :class="ans.isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'" class="ml-auto text-[10px] font-black px-2 py-1 rounded-lg" x-text="ans.isCorrect ? '✓ Correct' : '✗ Incorrect'"></span>
+                                </div>
+                                <p class="text-sm font-semibold text-slate-800 mb-4 leading-relaxed" x-text="ans.question.question_text"></p>
+                                <div class="bg-white/70 p-4 rounded-xl">
+                                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Rationale</div>
+                                    <p class="text-xs text-slate-700 leading-relaxed" x-text="ans.feedback.explanation || ans.question.explanation"></p>
+                                </div>
+                                <template x-if="!ans.isCorrect">
+                                    <div class="mt-3 bg-[#eaf9ff] p-4 rounded-xl border border-[#caf4ff]">
+                                        <div class="text-[10px] font-black text-[#17bcfe] uppercase tracking-widest mb-2">Learning Path</div>
+                                        <p class="text-xs text-[#004d6b] italic leading-relaxed" x-text="ans.feedback.learning_guidance || ans.question.learning_guidance"></p>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <!-- Full Review Sheet -->
+            <div class="border border-slate-200 rounded-3xl overflow-hidden">
+                <button @click="showReview = !showReview" class="w-full flex items-center justify-between px-8 py-5 bg-slate-50 hover:bg-slate-100 transition-colors text-left">
+                    <div class="flex items-center space-x-3">
+                        <span class="font-extrabold text-slate-800">Full Session Review</span>
+                        <span class="text-xs font-bold text-slate-400" x-text="`${sessionAnswers.length} questions · ${sessionAnswers.filter(a=>a.isCorrect).length} correct`"></span>
+                    </div>
+                    <svg :class="showReview ? 'rotate-180' : ''" class="w-5 h-5 text-slate-400 transition-transform duration-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
+
+                <div x-show="showReview" class="divide-y divide-slate-100">
+                    <template x-for="(ans, idx) in sessionAnswers" :key="ans.question.id">
+                        <div class="p-6">
+                            <!-- Q Header -->
+                            <div class="flex items-center space-x-3 mb-4">
+                                <span class="text-xs font-black text-slate-400" x-text="`Q${idx + 1}`"></span>
+                                <span class="text-[10px] font-bold text-[#17bcfe] bg-[#eaf9ff] px-2 py-1 rounded-lg" x-text="ans.question.category"></span>
+                                <span class="text-[10px] text-slate-400 font-semibold" x-text="'› ' + ans.question.subcategory"></span>
+                                <span :class="ans.isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'" class="ml-auto text-[10px] font-black px-2 py-1 rounded-lg flex items-center space-x-1">
+                                    <span x-text="ans.isCorrect ? '✓ Correct' : '✗ Incorrect'"></span>
+                                </span>
+                                <template x-if="bookmarkedIds.includes(ans.question.id)">
+                                    <svg class="w-4 h-4 text-amber-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z"></path></svg>
+                                </template>
+                            </div>
+
+                            <!-- Question Text -->
+                            <p class="text-sm font-semibold text-slate-800 mb-5 leading-relaxed" x-text="ans.question.question_text"></p>
+
+                            <!-- Options -->
+                            <div class="space-y-2 mb-5">
+                                <template x-for="(optText, optKey) in ans.question.options" :key="optKey">
+                                    <div :class="optKey === ans.question.correct_answer ? 'border-green-400 bg-green-50' : (ans.selectedKeys.includes(optKey) ? 'border-red-300 bg-red-50' : 'border-slate-100 bg-white opacity-60')"
+                                        class="flex items-center space-x-3 px-4 py-3 border-2 rounded-xl">
+                                        <div :class="optKey === ans.question.correct_answer ? 'bg-green-500 text-white' : (ans.selectedKeys.includes(optKey) ? 'bg-red-400 text-white' : 'bg-slate-100 text-slate-400')"
+                                            class="w-7 h-7 rounded-lg flex items-center justify-center font-black text-xs shrink-0" x-text="optKey"></div>
+                                        <span class="text-xs font-semibold leading-relaxed" x-text="optText"></span>
+                                        <template x-if="optKey === ans.question.correct_answer">
+                                            <span class="ml-auto text-[10px] font-black text-green-600 shrink-0">Correct</span>
+                                        </template>
+                                        <template x-if="ans.selectedKeys.includes(optKey) && optKey !== ans.question.correct_answer">
+                                            <span class="ml-auto text-[10px] font-black text-red-500 shrink-0">Your pick</span>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+
+                            <!-- Explanation -->
+                            <div class="bg-slate-50 p-4 rounded-xl">
+                                <div class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Architectural Rationale</div>
+                                <p class="text-xs text-slate-700 leading-relaxed" x-text="ans.feedback.explanation || ans.question.explanation"></p>
+                            </div>
+
+                            <template x-if="!ans.isCorrect">
+                                <div class="mt-3 bg-[#eaf9ff]/60 p-4 rounded-xl border border-[#caf4ff]">
+                                    <div class="text-[10px] font-black text-[#17bcfe] uppercase tracking-widest mb-2">Learning Path</div>
+                                    <p class="text-xs text-[#004d6b] italic leading-relaxed" x-text="ans.feedback.learning_guidance || ans.question.learning_guidance"></p>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
         </section>
 
     </main>
 
     <script>
+        const API_BASE = 'http://localhost:9000';
+
         function app() {
             return {
                 user: null,
@@ -354,43 +527,64 @@
                 loading: false,
                 showDashboard: false,
                 performance: [],
-                loginForm: { name: '', email: '' },
-                examForm: { 
-                    role: 'architect', 
-                    difficulty: 'Medium', 
+                loginForm: { name: 'test', email: 'test@testemail.com' },
+                examForm: {
+                    role: 'architect',
+                    difficulty: 'Medium',
                     llm_provider: 'gemini',
-                    categories: {} 
+                    brain_mode: 'llm',
+                    categories: {}
                 },
+                openCategories: {},
                 session: null,
                 questions: [],
                 currentIdx: 0,
-                timeLeft: 120,
-                timer: null,
+                questionStartTime: null,
                 answered: false,
-                selectedKey: null,
+                selectedKeys: [],
                 isCorrect: false,
                 feedback: {},
                 score: 0,
                 results: null,
+                sessionAnswers: [],
+                bookmarkedIds: [],
+                showReview: false,
 
                 async init() {
-                    const resp = await fetch('/api/config');
+                    const resp = await fetch(`${API_BASE}/api/config`);
                     this.config = await resp.json();
+                    this.examForm.llm_provider = 'gemini';
                 },
 
                 async login() {
                     if (!this.loginForm.email || !this.loginForm.name) return;
                     this.loading = true;
                     try {
-                        const resp = await fetch('/api/users', {
+                        const resp = await fetch(`${API_BASE}/api/users`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify(this.loginForm)
                         });
-                        this.user = await resp.json();
+                        
+                        const text = await resp.text();
+                        let data = {};
+                        try {
+                            data = text ? JSON.parse(text) : {};
+                        } catch (e) {
+                            console.error('Failed to parse response:', text);
+                            throw new Error('Server returned invalid format');
+                        }
+
+                        if (!resp.ok) {
+                            const errorMsg = data.detail || text || 'Unknown Server Error';
+                            throw new Error(errorMsg);
+                        }
+                        
+                        this.user = data;
                         await this.fetchPerformance();
                     } catch (e) {
-                        alert('Initialization failed');
+                        console.error('Login failed:', e);
+                        alert('Initialization failed: ' + e.message);
                     } finally {
                         this.loading = false;
                     }
@@ -398,8 +592,15 @@
 
                 async fetchPerformance() {
                     if (!this.user) return;
-                    const resp = await fetch(`/api/users/${this.user.id}/performance`);
-                    this.performance = await resp.json();
+                    try {
+                        const resp = await fetch(`${API_BASE}/api/users/${this.user.id}/performance`);
+                        const text = await resp.text();
+                        if (!resp.ok) throw new Error('Failed to fetch performance data');
+                        this.performance = text ? JSON.parse(text) : [];
+                    } catch (e) {
+                        console.error('Fetch performance failed:', e);
+                        throw e;
+                    }
                 },
 
                 logout() {
@@ -441,6 +642,18 @@
                     return this.examForm.categories[cat] && this.examForm.categories[cat].includes(sub);
                 },
 
+                toggleCategoryOpen(catName) {
+                    this.openCategories[catName] = !this.openCategories[catName];
+                },
+
+                totalSelected() {
+                    return Object.values(this.examForm.categories).reduce((sum, subs) => sum + subs.length, 0);
+                },
+
+                categorySelectedCount(catName) {
+                    return (this.examForm.categories[catName] || []).length;
+                },
+
                 async startSession() {
                     if (Object.keys(this.examForm.categories).length === 0) {
                         alert('Please select at least one domain specialization');
@@ -449,20 +662,24 @@
                     this.loading = true;
                     this.showDashboard = false;
                     try {
-                        const sResp = await fetch('/api/sessions', {
+                        const sResp = await fetch(`${API_BASE}/api/sessions`, {
                             method: 'POST',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({
                                 user_id: this.user.id,
-                                ...this.examForm
+                                role: this.examForm.role,
+                                difficulty: this.examForm.difficulty,
+                                llm_provider: this.examForm.llm_provider,
+                                brain_mode: this.examForm.brain_mode,
+                                categories: this.examForm.categories
                             })
                         });
                         this.session = await sResp.json();
 
-                        const genResp = await fetch(`/api/sessions/${this.session.id}/generate`, { method: 'POST' });
+                        const genResp = await fetch(`${API_BASE}/api/sessions/${this.session.id}/generate`, { method: 'POST' });
                         if (!genResp.ok) throw new Error('Generation failed');
 
-                        const qResp = await fetch(`/api/sessions/${this.session.id}/questions`);
+                        const qResp = await fetch(`${API_BASE}/api/sessions/${this.session.id}/questions`);
                         this.questions = await qResp.json();
                         
                         this.currentIdx = 0;
@@ -482,57 +699,80 @@
                 },
 
                 startTimer() {
-                    this.timeLeft = 120;
-                    if (this.timer) clearInterval(this.timer);
-                    this.timer = setInterval(() => {
-                        this.timeLeft--;
-                        if (this.timeLeft <= 0) {
-                            this.selectOption(null);
-                        }
-                    }, 1000);
+                    this.questionStartTime = Date.now();
                 },
 
-                formatTime(seconds) {
-                    const m = Math.floor(seconds / 60);
-                    const s = seconds % 60;
-                    return `${m}:${s.toString().padStart(2, '0')}`;
+                toggleOption(key) {
+                    const idx = this.selectedKeys.indexOf(key);
+                    if (idx > -1) {
+                        this.selectedKeys.splice(idx, 1);
+                    } else if (this.selectedKeys.length < 2) {
+                        this.selectedKeys.push(key);
+                    }
                 },
 
-                async selectOption(key) {
+                async submitAnswer() {
                     if (this.answered) return;
-                    clearInterval(this.timer);
+                    if (this.selectedKeys.length === 0) return;
                     this.answered = true;
-                    this.selectedKey = key;
 
-                    const resp = await fetch(`/api/sessions/${this.session.id}/answers`, {
+                    const elapsed = this.questionStartTime
+                        ? Math.round((Date.now() - this.questionStartTime) / 1000)
+                        : 0;
+
+                    const resp = await fetch(`${API_BASE}/api/sessions/${this.session.id}/answers`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             question_id: this.currentQuestion.id,
-                            user_answer: key || 'NONE',
-                            time_taken_seconds: 120 - this.timeLeft
+                            user_answer: this.selectedKeys.join(',') || 'NONE',
+                            time_taken_seconds: elapsed
                         })
                     });
                     this.feedback = await resp.json();
                     this.isCorrect = this.feedback.is_correct;
                     if (this.isCorrect) this.score++;
+
+                    // Record for post-exam review
+                    this.sessionAnswers.push({
+                        question: Object.assign({}, this.currentQuestion),
+                        selectedKeys: [...this.selectedKeys],
+                        feedback: Object.assign({}, this.feedback),
+                        isCorrect: this.isCorrect,
+                        bookmarked: this.isBookmarked(this.currentQuestion.id)
+                    });
                 },
 
                 getOptionClass(key) {
                     if (!this.answered) {
-                        return this.selectedKey === key ? 'border-indigo-600 bg-indigo-50 ring-2 ring-indigo-500/10' : 'border-slate-100 hover:border-indigo-200 bg-white shadow-sm';
+                        return this.selectedKeys.includes(key)
+                            ? 'border-[#17bcfe] bg-[#eaf9ff]'
+                            : 'border-slate-100 bg-white hover:border-[#b3ecff] hover:bg-slate-50';
                     }
                     if (key === this.currentQuestion.correct_answer) return 'border-green-500 bg-green-50';
-                    if (this.selectedKey === key && key !== this.currentQuestion.correct_answer) return 'border-red-500 bg-red-50';
-                    return 'border-slate-50 bg-white opacity-40';
+                    if (this.selectedKeys.includes(key)) return 'border-red-400 bg-red-50';
+                    return 'border-slate-100 bg-white opacity-50';
+                },
+
+                getCheckboxClass(key) {
+                    if (!this.answered) {
+                        return this.selectedKeys.includes(key)
+                            ? 'border-[#17bcfe] bg-[#17bcfe] text-white'
+                            : 'border-slate-300 bg-white text-transparent';
+                    }
+                    if (key === this.currentQuestion.correct_answer) return 'border-green-500 bg-green-500 text-white';
+                    if (this.selectedKeys.includes(key)) return 'border-red-400 bg-red-400 text-white';
+                    return 'border-slate-200 bg-slate-50 text-transparent';
                 },
 
                 getOptionLetterClass(key) {
                     if (!this.answered) {
-                        return this.selectedKey === key ? 'bg-indigo-600 text-white' : 'bg-slate-50 text-slate-400 group-hover:bg-indigo-100 group-hover:text-indigo-600';
+                        return this.selectedKeys.includes(key)
+                            ? 'bg-[#17bcfe] text-white'
+                            : 'bg-slate-100 text-slate-500';
                     }
                     if (key === this.currentQuestion.correct_answer) return 'bg-green-500 text-white';
-                    if (this.selectedKey === key && key !== this.currentQuestion.correct_answer) return 'bg-red-500 text-white';
+                    if (this.selectedKeys.includes(key)) return 'bg-red-400 text-white';
                     return 'bg-slate-100 text-slate-300';
                 },
 
@@ -540,7 +780,7 @@
                     if (this.currentIdx < this.questions.length - 1) {
                         this.currentIdx++;
                         this.answered = false;
-                        this.selectedKey = null;
+                        this.selectedKeys = [];
                         this.feedback = {};
                         this.startTimer();
                     } else {
@@ -549,12 +789,86 @@
                 },
 
                 async finishExam() {
-                    const resp = await fetch(`/api/sessions/${this.session.id}/complete?score=${this.score}`, { method: 'PATCH' });
+                    const resp = await fetch(`${API_BASE}/api/sessions/${this.session.id}/complete?score=${this.score}`, { method: 'PATCH' });
                     this.results = await resp.json();
                     await this.fetchPerformance();
+                },
+
+                toggleBookmark(questionId) {
+                    const idx = this.bookmarkedIds.indexOf(questionId);
+                    if (idx > -1) this.bookmarkedIds.splice(idx, 1);
+                    else this.bookmarkedIds.push(questionId);
+                },
+
+                isBookmarked(questionId) {
+                    return this.bookmarkedIds.includes(questionId);
+                },
+
+                exportSession() {
+                    if (!this.results || !this.sessionAnswers.length) return;
+                    const role = this.config.roles[this.session.role]?.label || this.session.role;
+                    const date = new Date().toISOString().split('T')[0];
+                    const pct = Math.round((this.results.score / this.questions.length) * 100);
+
+                    const lines = [
+                        `# VikaaAI Exam Review`,
+                        ``,
+                        `| | |`,
+                        `|---|---|`,
+                        `| **Date** | ${date} |`,
+                        `| **Role** | ${role} |`,
+                        `| **Difficulty** | ${this.session.difficulty} |`,
+                        `| **Brain Mode** | ${this.session.brain_mode || 'llm'} |`,
+                        `| **Score** | ${this.results.score} / ${this.questions.length} (${pct}%) |`,
+                        ``,
+                        `---`,
+                        ``
+                    ];
+
+                    this.sessionAnswers.forEach((ans, i) => {
+                        const q = ans.question;
+                        const flag = this.bookmarkedIds.includes(q.id) ? ' 🔖' : '';
+                        lines.push(`## Q${i + 1} — ${q.category} › ${q.subcategory}${flag}`);
+                        lines.push(``);
+                        lines.push(q.question_text);
+                        lines.push(``);
+                        lines.push(`**Options:**`);
+                        Object.entries(q.options).forEach(([k, v]) => {
+                            const correct = k === q.correct_answer ? ' ✅' : '';
+                            const picked = ans.selectedKeys.includes(k) && k !== q.correct_answer ? ' ❌ ← your pick' : '';
+                            lines.push(`- **${k}:** ${v}${correct}${picked}`);
+                        });
+                        lines.push(``);
+                        lines.push(`**Result:** ${ans.isCorrect ? '✅ Correct' : '❌ Incorrect'} | **Your answer:** ${ans.selectedKeys.join(', ') || 'No answer'}`);
+                        lines.push(``);
+                        lines.push(`**Explanation:** ${ans.feedback.explanation || q.explanation || ''}`);
+                        if (!ans.isCorrect && (ans.feedback.learning_guidance || q.learning_guidance)) {
+                            lines.push(``);
+                            lines.push(`> **Learning Path:** ${ans.feedback.learning_guidance || q.learning_guidance}`);
+                        }
+                        lines.push(``);
+                        lines.push(`---`);
+                        lines.push(``);
+                    });
+
+                    const blob = new Blob([lines.join('\n')], { type: 'text/markdown' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `vikaa-review-${date}.md`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
                 }
             }
         }
+
+        // Anti-copy / right-click prevention
+        document.addEventListener("contextmenu", e => e.preventDefault());
+        document.onkeydown = e => {
+            if (e.ctrlKey && ['u', 's', 'c'].includes(e.key.toLowerCase())) e.preventDefault();
+        };
     </script>
 </body>
 </html>
