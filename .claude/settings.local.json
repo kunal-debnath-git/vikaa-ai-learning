@@ -3,7 +3,12 @@
     "allow": [
       "Bash(python -c \"import supabase; import inspect; print\\([m for m in dir\\(supabase.Client\\) if 'schema' in m.lower\\(\\)]\\)\")",
       "Bash(python -c \"from postgrest import SyncRequestBuilder, SyncClient; print\\([m for m in dir\\(SyncClient\\) if 'schema' in m.lower\\(\\)]\\)\")",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(venv/Scripts/pip uninstall *)",
+      "Bash(venv/Scripts/pip install *)",
+      "Bash(venv/Scripts/python -c \"from google import genai; print\\('google-genai OK:', genai.__version__\\)\")",
+      "Bash(venv/Scripts/python -c \"from backend.llm import call_llm; print\\('llm.py imports OK'\\)\")",
+      "Bash(venv/Scripts/python -c \"import main; print\\('main.py imports OK'\\)\")"
     ]
   }
 }

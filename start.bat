@@ -16,7 +16,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-:: ── 2. Create venv on first run ───────────────────────────────────────────────
+:: ── 2. Create venv if missing ────────────────────────────────────────────────
 if not exist "venv\Scripts\activate.bat" (
     echo  [Setup] Creating virtual environment...
     python -m venv venv
@@ -25,19 +25,21 @@ if not exist "venv\Scripts\activate.bat" (
         pause
         exit /b 1
     )
-    echo  [Setup] Installing dependencies ^(first run only^)...
-    venv\Scripts\pip install --quiet --upgrade pip
-    venv\Scripts\pip install --quiet -r requirements.txt
-    if errorlevel 1 (
-        echo  [ERROR] pip install failed. Check requirements.txt and your internet connection.
-        pause
-        exit /b 1
-    )
-    echo  [Setup] Done.
-    echo.
 )
 
-:: ── 3. Check .env exists ──────────────────────────────────────────────────────
+:: ── 3. Sync dependencies (fast no-op if already up to date) ──────────────────
+echo  [Setup] Checking dependencies...
+venv\Scripts\pip install --quiet --upgrade pip
+venv\Scripts\pip install --quiet -r requirements.txt
+if errorlevel 1 (
+    echo  [ERROR] pip install failed. Check requirements.txt and your internet connection.
+    pause
+    exit /b 1
+)
+echo  [Setup] OK.
+echo.
+
+:: ── 4. Check .env exists ──────────────────────────────────────────────────────
 if not exist ".env" (
     echo  [WARN] No .env file found. Create one with:
     echo         SUPABASE_URL=...
@@ -49,10 +51,10 @@ if not exist ".env" (
     pause >nul
 )
 
-:: ── 4. Open browser after server is ready ────────────────────────────────────
+:: ── 5. Open browser after server is ready ────────────────────────────────────
 start /b powershell -NoProfile -Command "Start-Sleep 3; Start-Process 'http://localhost:9000'"
 
-:: ── 5. Start server ───────────────────────────────────────────────────────────
+:: ── 6. Start server ───────────────────────────────────────────────────────────
 echo  [Start] Server starting at http://localhost:9000
 echo  [Start] Press Ctrl+C to stop.
 echo.
