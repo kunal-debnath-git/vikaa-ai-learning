@@ -39,8 +39,9 @@
                             <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-600" x-text="user.name.charAt(0)"></div>
                             <span class="text-sm font-bold" x-text="user.name"></span>
                         </div>
-                        <button @click="logout()" class="p-2 text-slate-400 hover:text-red-500 transition">
+                        <button @click="logout()" class="flex items-center space-x-2 px-3 py-2 text-sm font-bold text-slate-400 hover:text-red-500 transition">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                            <span>Logout</span>
                         </button>
                     </div>
                 </template>
@@ -241,23 +242,6 @@
                         </div>
                     </div>
 
-                    <!-- Market Intel Card -->
-                    <div class="bg-slate-900 text-white p-8 rounded-[2rem] shadow-xl shadow-slate-200">
-                        <div class="flex items-center space-x-2 mb-4">
-                            <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">Market Intelligence Live</span>
-                        </div>
-                        <h4 class="text-sm font-bold mb-4">Latest Fortune 100 Trends</h4>
-                        <div class="space-y-3">
-                            <template x-for="trend in config.market_intelligence.current_trends" :key="trend">
-                                <div class="flex items-start space-x-2 group">
-                                    <svg class="w-4 h-4 text-[#17bcfe] mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-                                    <span class="text-[10px] text-slate-400 group-hover:text-slate-200 transition" x-text="trend"></span>
-                                </div>
-                            </template>
-                        </div>
-                    </div>
-
                     <button @click="startSession()" class="w-full py-6 bg-[#17bcfe] text-white rounded-[2rem] font-extrabold text-lg hover:bg-[#0891b2] transition transform active:scale-[0.98] shadow-2xl shadow-sky-200" :disabled="loading">
                         <span x-show="!loading">Launch Exam Suite</span>
                         <span x-show="loading">Synthesizing Scenarios...</span>
@@ -336,7 +320,15 @@
 
                 <!-- Submit row — hidden once answered -->
                 <div x-show="!answered" class="flex items-center justify-between mb-8">
-                    <p class="text-xs font-semibold text-slate-400" x-text="selectedKeys.length === 0 ? 'Select up to 2 options, then lock in.' : `${selectedKeys.length} option${selectedKeys.length > 1 ? 's' : ''} selected`"></p>
+                    <div class="flex flex-col gap-1">
+                        <p class="text-xs font-semibold text-slate-400" x-text="selectedKeys.length === 0 ? 'Select up to 2 options, then lock in.' : `${selectedKeys.length} option${selectedKeys.length > 1 ? 's' : ''} selected`"></p>
+                        <button
+                            @click="exitExam()"
+                            type="button"
+                            class="self-start mt-1 px-8 py-3 bg-red-500 text-white rounded-xl font-bold hover:bg-red-600 transition">
+                            Exit Exam
+                        </button>
+                    </div>
                     <button
                         @click="submitAnswer()"
                         :disabled="selectedKeys.length === 0"
@@ -365,7 +357,13 @@
                                 </div>
                             </template>
 
-                            <div class="flex justify-end">
+                            <div class="flex justify-between items-center">
+                                <button
+                                    @click="exitExam()"
+                                    type="button"
+                                    class="px-8 py-3 bg-red-500 text-white rounded-xl font-bold hover:bg-red-600 transition">
+                                    Exit Exam
+                                </button>
                                 <button @click="nextQuestion()" class="px-10 py-4 bg-slate-900 text-white rounded-2xl font-black hover:bg-black transition shadow-xl shadow-slate-200 transform active:scale-95">
                                     <span x-text="currentIdx === questions.length - 1 ? 'Finalize Exam' : 'Next Case Study'"></span>
                                 </button>
@@ -792,6 +790,18 @@
                     const resp = await fetch(`${API_BASE}/api/sessions/${this.session.id}/complete?score=${this.score}`, { method: 'PATCH' });
                     this.results = await resp.json();
                     await this.fetchPerformance();
+                },
+
+                exitExam() {
+                    this.session = null;
+                    this.questions = [];
+                    this.currentIdx = 0;
+                    this.answered = false;
+                    this.selectedKeys = [];
+                    this.feedback = {};
+                    this.score = 0;
+                    this.results = null;
+                    this.showDashboard = false;
                 },
 
                 toggleBookmark(questionId) {
