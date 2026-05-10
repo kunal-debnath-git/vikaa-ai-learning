@@ -1,8 +1,8 @@
 {
   "llm_providers": {
     "gemini": {
-      "model": "gemini-2.0-flash",
-      "max_tokens": 8000
+      "model": "gemini-2.5-flash",
+      "max_tokens": 4000
     },
     "claude": {
       "model": "claude-sonnet-4-6",

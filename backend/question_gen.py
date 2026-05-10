@@ -30,6 +30,12 @@ QUESTION DESIGN LAWS:
 MARKET INTELLIGENCE:
 Incorporate these active enterprise patterns where relevant: {trends}
 
+OUTPUT LENGTH LIMITS (hard constraints — exceeding these breaks parsing):
+- question_text: maximum 60 words
+- Options: exactly 4 (A, B, C, D only — no E or beyond), maximum 25 words each
+- explanation: maximum 3 sentences
+- learning_guidance: maximum 2 sentences
+
 Return ONLY valid JSON — no markdown, no preamble, no text outside the JSON array."""
 
 ADAPTIVE_SYSTEM_PROMPT = BASE_SYSTEM_PROMPT + """
@@ -250,16 +256,16 @@ Each object in the array must have exactly these fields:
   "question_number": <int, 1-{count}>,
   "category": "<exact category name from the topic menu above>",
   "subcategory": "<exact subcategory name from the topic menu above>",
-  "question_text": "<Scenario: 3-5 sentences with concrete context (company type, scale, team, constraint). End with a precise strategic question — not 'what should you do?' but the specific decision to make.>",
+  "question_text": "<2-3 sentences max (under 75 words). State company type, scale, and ONE key constraint. End with the specific decision question.>",
   "options": {{
-    "A": "<architecturally valid option>",
-    "B": "<architecturally valid option>",
-    "C": "<architecturally valid option>",
-    "D": "<architecturally valid option>"
+    "A": "<one sentence, under 30 words>",
+    "B": "<one sentence, under 30 words>",
+    "C": "<one sentence, under 30 words>",
+    "D": "<one sentence, under 30 words>"
   }},
   "correct_answer": "<A|B|C|D>",
-  "explanation": "<5 sentences: (1) Why the correct answer wins given the SPECIFIC scenario constraint — name the constraint explicitly. (2) Why the strongest distractor is insufficient for THIS scenario — name what context would make it correct instead. (3) Why the second distractor fails — name the specific flaw. (4) The core architectural principle or decision framework this scenario tests. (5) The one-line mental model to carry forward: 'When X condition exists, choose Y because Z.'>",
-  "learning_guidance": "<If you got this wrong, here is what to focus on: (1) The specific concept or pattern you likely confused. (2) The decision trigger — what scenario signals should make you choose this pattern over alternatives. (3) Named Azure services, features, or documentation sections to review. (4) One practical exercise or comparison to sharpen this area.>"
+  "explanation": "<3 sentences max: (1) Why the correct answer wins given the specific constraint. (2) Why the strongest distractor fails for this scenario. (3) The mental model: When X condition exists, choose Y because Z.>",
+  "learning_guidance": "<2 sentences max: The concept you likely confused and the named Azure service or pattern to review.>"
 }}
 
 Return a JSON array of exactly {count} objects. No markdown fences, no preamble, no text outside the JSON array."""
@@ -307,32 +313,59 @@ async def _llm_batch_generate(
     if total <= 0:
         return []
 
+    batch_size = 2
+    batch_sizes = [batch_size] * (total // batch_size)
+    if total % batch_size:
+        batch_sizes.append(total % batch_size)
+
+    # Pre-assign different subcategory slices to each batch so parallel calls
+    # cover different topics rather than all competing for the same subcategories.
+    all_subs = [sub for subs in categories.values() for sub in subs]
+    n = len(batch_sizes)
+    slice_size = max(1, len(all_subs) // n) if n else 1
+
+    async def _one_batch(count: int, batch_idx: int) -> List[dict]:
+        avoid = all_subs[:batch_idx * slice_size]
+        active = _active_categories(categories, avoid) if avoid else categories
+        prompt = build_question_prompt(
+            role, difficulty, active, count,
+            already_used_topics=avoid[:12],
+            focus_areas=focus_areas,
+        )
+        raw = await _call_with_retry(llm_provider, prompt, system_prompt)
+        questions = _parse_questions(raw)
+        # Salvage: if we got fewer than requested, that's still valid
+        return questions if questions else []
+
+    # return_exceptions=True: a single bad batch does not kill the whole gather
+    results = await asyncio.gather(
+        *[_one_batch(s, i) for i, s in enumerate(batch_sizes)],
+        return_exceptions=True,
+    )
+
     all_questions: List[dict] = []
-    batch_size = 5
-    used_subcats: List[str] = []
+    retry_tasks = []
+    for i, result in enumerate(results):
+        if isinstance(result, Exception):
+            print(f"[question_gen] batch {i} failed ({type(result).__name__}), retrying with 1 question")
+            retry_tasks.append(_one_batch(1, i))
+        else:
+            all_questions.extend(result)
 
-    for _ in range(total // batch_size):
-        # Prune exhausted subcategories so distribution adjusts to remaining pool
-        active_cats = _active_categories(categories, used_subcats)
-        prompt = build_question_prompt(
-            role, difficulty, active_cats, batch_size,
-            already_used_topics=used_subcats, focus_areas=focus_areas
+    # Retry each failed batch with a single question (simpler, smaller output)
+    if retry_tasks:
+        retry_results = await asyncio.gather(*retry_tasks, return_exceptions=True)
+        for result in retry_results:
+            if not isinstance(result, Exception):
+                all_questions.extend(result)
+
+    if not all_questions:
+        raise RuntimeError(
+            f"All {len(batch_sizes)} LLM batches failed. "
+            "Check API key, model availability, and token limits."
         )
-        raw = await _call_with_retry(llm_provider, prompt, system_prompt)
-        parsed = _parse_questions(raw)
-        all_questions.extend(parsed)
-        used_subcats.extend(q.get("subcategory", "") for q in parsed)
 
-    remainder = total % batch_size
-    if remainder > 0:
-        active_cats = _active_categories(categories, used_subcats)
-        prompt = build_question_prompt(
-            role, difficulty, active_cats, remainder,
-            already_used_topics=used_subcats, focus_areas=focus_areas
-        )
-        raw = await _call_with_retry(llm_provider, prompt, system_prompt)
-        all_questions.extend(_parse_questions(raw))
-
+    print(f"[question_gen] generated {len(all_questions)} questions")
     return all_questions
 
 
@@ -444,17 +477,75 @@ def _parse_questions(raw_text: str) -> List[dict]:
         text = re.sub(r"\n?```$", "", text.strip())
         text = text.strip()
 
+    # Try clean parse first
     try:
         data = json.loads(text)
-        return data if isinstance(data, list) else data.get("questions", [])
+        raw = data if isinstance(data, list) else data.get("questions", [])
+        return _validate_questions(raw)
     except json.JSONDecodeError:
         pass
 
+    # Try extracting the array portion
     match = re.search(r'\[.*\]', text, re.DOTALL)
     if match:
         try:
-            return json.loads(match.group())
+            return _validate_questions(json.loads(match.group()))
         except json.JSONDecodeError:
             pass
 
+    # Truncated JSON recovery: extract complete {...} objects, skipping } inside strings
+    salvaged = []
+    depth = 0
+    start = None
+    in_string = False
+    escaped = False
+    for i, ch in enumerate(text):
+        if escaped:
+            escaped = False
+            continue
+        if ch == '\\' and in_string:
+            escaped = True
+            continue
+        if ch == '"':
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+        if ch == '{':
+            if depth == 0:
+                start = i
+            depth += 1
+        elif ch == '}':
+            depth -= 1
+            if depth == 0 and start is not None:
+                try:
+                    obj = json.loads(text[start:i + 1])
+                    if isinstance(obj, dict) and "question_text" in obj:
+                        salvaged.append(obj)
+                except json.JSONDecodeError:
+                    pass
+                start = None
+
+    if salvaged:
+        return _validate_questions(salvaged)
+
     raise ValueError(f"Failed to parse LLM JSON output. First 500 chars: {text[:500]}")
+
+
+def _validate_questions(questions: List[dict]) -> List[dict]:
+    valid = []
+    required_keys = {"question_text", "options", "correct_answer"}
+    valid_answers = {"A", "B", "C", "D"}
+    for q in questions:
+        if not required_keys.issubset(q.keys()):
+            continue
+        opts = q.get("options", {})
+        if not isinstance(opts, dict) or not {"A", "B", "C", "D"}.issubset(opts.keys()):
+            continue
+        if q.get("correct_answer", "").strip().upper() not in valid_answers:
+            continue
+        # Trim options to A-D only
+        q["options"] = {k: opts[k] for k in ["A", "B", "C", "D"]}
+        q["correct_answer"] = q["correct_answer"].strip().upper()
+        valid.append(q)
+    return valid

@@ -248,7 +248,7 @@ The LLM system prompt is enriched with current Fortune 100 hiring trends (config
 
 | Provider | Model | Max Tokens |
 |---|---|---|
-| Gemini (default) | `gemini-2.0-flash` | 8000 |
+| Gemini (default) | `gemini-2.5-flash` | 8000 |
 | Claude | `claude-sonnet-4-6` | 8000 |
 
 Gemini SDK is synchronous — calls are wrapped in `asyncio.to_thread()` to avoid blocking the event loop.  

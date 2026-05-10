@@ -208,5 +208,200 @@
     "correct_answer": "B",
     "explanation": "Prompt caching on the static 15,000-token legal guidelines achieves ~90% cache hit rate in production (guidelines rarely change), reducing effective input tokens per call from 20,500 to ~5,500 — a 73% input cost reduction on cached portions. Intelligent model routing (Haiku for classification, Sonnet for analysis) further reduces average cost per contract. Switching entirely to Haiku (A) risks quality degradation on complex multi-clause analysis that requires Sonnet's reasoning capability.",
     "learning_guidance": "Study Anthropic's prompt caching documentation: minimum token thresholds (1024 for Sonnet), cache_control type: 'ephemeral' breakpoints, and 5-minute TTL refresh patterns. Review intelligent model routing patterns: task classification → model selection. Calculate break-even points for caching vs non-caching based on your request volume and cache hit rate assumptions."
+  },
+  {
+    "category": "Platform & Data Migration",
+    "subcategory": "On-Premises to Azure Migration (Lift-Shift vs Re-architect)",
+    "difficulty": "Hard",
+    "question_text": "You are Lead Data Architect at a UK financial institution running a 400TB Oracle-based data warehouse on-premises with 600 downstream BI reports and 15 ETL pipelines in Informatica. The board has mandated full Azure migration within 18 months. The data team has strong SQL skills but no cloud experience. The risk committee requires a zero-data-loss cutover with rollback capability within 4 hours. Which migration strategy is most appropriate?",
+    "options": {
+      "A": "Lift-and-shift: replicate the Oracle warehouse to an Azure VM, then migrate BI reports and ETL pipelines in a second phase",
+      "B": "Re-architect directly to Azure Synapse Analytics with a Medallion Architecture, rewriting all 600 BI reports and 15 Informatica pipelines in parallel with migration",
+      "C": "Phased re-architecture: migrate data to ADLS Gen2 using Azure Database Migration Service for initial load + ongoing replication, stand up Azure Synapse as the target, validate BI reports in waves using dual-run (on-prem + Azure simultaneously), cut over by report group with per-group rollback — ETL rewrite deferred until data validation passes",
+      "D": "Migrate to Snowflake on Azure to avoid Azure vendor lock-in while still meeting the cloud mandate"
+    },
+    "correct_answer": "C",
+    "explanation": "Phased re-architecture with dual-run satisfies the rollback constraint (on-prem remains live until each wave is validated) while avoiding the technical debt of lift-and-shift (A) which defers the real migration work. Full parallel re-architecture (B) is too high-risk for a team with no cloud experience — rewriting 600 reports while migrating data breaches the risk committee's rollback requirement. The per-group cutover allows 4-hour rollback at any point. When X is a large regulated estate with zero-loss requirements, phased dual-run re-architecture wins over speed.",
+    "learning_guidance": "Study Azure Database Migration Service (DMS) for Oracle-to-Synapse migration paths. Review the Dual-Run migration pattern and how Azure Synapse external tables can validate data parity before cutover. Understand Azure Data Factory's Informatica connector for lift-and-shift of existing ETL logic before re-engineering."
+  },
+  {
+    "category": "Platform & Data Migration",
+    "subcategory": "High-Volume & Large-Scale Data Migration (PB-scale)",
+    "difficulty": "Hard",
+    "question_text": "You are Lead Architect at a telecoms company migrating 2.4PB of historical call data from on-premises HDFS to Azure Data Lake Storage Gen2. The data must be available for regulatory queries within 10 days. Your Azure ExpressRoute connection has 10Gbps dedicated bandwidth. The data contains PII that must be masked before landing in Azure. The network team calculates that transferring 2.4PB over ExpressRoute at full utilisation will take 22 days. What is the correct strategy?",
+    "options": {
+      "A": "Compress all data with Snappy codec before transfer to reduce size and fit within the timeline",
+      "B": "Use Azure Data Box (100TB appliance) to ship the bulk of historical data physically, run ExpressRoute in parallel for incremental delta since the Data Box snapshot, apply ADF's data masking transformation before landing in ADLS — total timeline 8-10 days",
+      "C": "Increase the ExpressRoute circuit to 100Gbps to meet the 10-day deadline",
+      "D": "Migrate only the last 2 years of data within 10 days and queue historical data for background transfer"
+    },
+    "correct_answer": "B",
+    "explanation": "At 2.4PB, network transfer is physically bounded — even at 10Gbps full utilisation the maths don't work in 10 days. Azure Data Box ships 100TB appliances (order multiple) with physical transit of 5-7 days, while ExpressRoute handles the live delta that accumulates during shipping. PII masking via ADF during the landing step satisfies compliance without a separate pipeline. Compression alone (A) at best halves the data, still ~11 days. Partial migration (D) directly violates the regulatory requirement.",
+    "learning_guidance": "Study Azure Data Box family: Data Box (100TB), Data Box Disk (8TB SSDs), Data Box Heavy (1PB). Understand the offline+online hybrid migration pattern: Data Box for bulk, then live sync via ADF or AzCopy for delta. Review ADF's data masking and dynamic data masking capabilities in Azure Synapse for PII handling during migration."
+  },
+  {
+    "category": "Platform & Data Migration",
+    "subcategory": "Migration Risk, Cutover Planning & Rollback Strategy",
+    "difficulty": "Medium",
+    "question_text": "You are Lead Data Architect at a retail bank. You are 3 weeks away from cutting over a critical customer data platform from on-prem SQL Server to Azure SQL Managed Instance. Your data validation UAT has found 0.3% row discrepancies in 12 tables out of 800. The business sponsor wants to proceed on schedule; the risk team insists on 0% discrepancy. You have 5 engineers for the final sprint. What is the correct position to take?",
+    "options": {
+      "A": "Proceed on schedule — 0.3% discrepancy in 12 of 800 tables is within acceptable tolerance for a bank migration",
+      "B": "Delay cutover, triage all 12 affected tables to identify root cause (transformation bug, CDC lag, or data type mismatch), fix and re-validate, then proceed — present the risk sponsor with a root-cause report, not just a pass/fail",
+      "C": "Proceed with cutover but exclude the 12 problematic tables, maintaining them on-prem until a second wave",
+      "D": "Accept the discrepancy, build reconciliation jobs in Azure to fix the 0.3% post-cutover"
+    },
+    "correct_answer": "B",
+    "explanation": "In a regulated financial environment, any unresolved data discrepancy is a migration defect, not a tolerance — the 0.3% could represent critical customer balance records. More importantly, unexplained discrepancies signal an unknown root cause: a systematic CDC lag means the issue will recur post-cutover. Presenting root-cause analysis (not just a delay) to the sponsor converts a technical problem into a governed risk decision. Partial cutover (C) creates a split-system operational nightmare. Post-cutover reconciliation (D) means the bank operates on incorrect data, even temporarily. When X is a financial regulated system, 0% discrepancy is non-negotiable before cutover.",
+    "learning_guidance": "Study common migration data discrepancy causes: CDC lag windows, data type mapping differences (SQL Server DATETIME2 vs Azure precision), collation mismatches, and null handling divergence. Review the migration validation checklist pattern: row count, checksum, business-rule-level validation (not just technical parity). Understand how to build a migration risk register with rollback trigger conditions."
+  },
+  {
+    "category": "Data Architecture",
+    "subcategory": "Data Warehouse Architecture — When & Where to Apply",
+    "difficulty": "Medium",
+    "question_text": "You are Lead Data Architect at an insurance company. The analytics team runs 500 daily scheduled reports, all SQL-based, on structured claims and policy data. The data model is stable and has been unchanged for 3 years. There is no ML workload, no streaming requirement, and the team is entirely made up of SQL analysts with no Python experience. The CTO asks whether to migrate to a Lakehouse. What is your recommendation?",
+    "options": {
+      "A": "Migrate to a Lakehouse — it is the modern standard and will future-proof the platform",
+      "B": "Stay with the Data Warehouse (Azure Synapse Dedicated SQL Pool or Snowflake) — the workload is SQL-only, structured, stable schema, and analyst-only. A Lakehouse adds operational complexity (cluster management, Delta table tuning) with no workload benefit in this context",
+      "C": "Migrate to a Lakehouse but restrict the team to using only the SQL interface so they don't notice the change",
+      "D": "Migrate to a Lakehouse only for new data assets, maintain the existing data warehouse in parallel"
+    },
+    "correct_answer": "B",
+    "explanation": "A Data Warehouse is architecturally correct when the workload is: structured data only, SQL-primary, stable schema, no ML or streaming, and consumed by analysts not engineers. All five conditions are met here. Lakehouses excel when you need unified batch+streaming, Python/ML alongside SQL, and schema flexibility — none of which applies. Migrating for 'future-proofing' (A) introduces real operational cost today for hypothetical future benefit. When X is a stable SQL-only structured analytics workload, a Data Warehouse is the right choice — not everything needs to be a Lakehouse.",
+    "learning_guidance": "Study the Data Warehouse vs Lakehouse decision framework: structured vs semi-structured data, SQL-only vs mixed compute, stable vs evolving schema, BI vs ML consumers. Review Azure Synapse Dedicated SQL Pool and Snowflake's strengths for pure SQL workloads: query caching, materialized views, result caching. Understand when NOT to adopt a pattern is as important as knowing the pattern itself."
+  },
+  {
+    "category": "Data Architecture",
+    "subcategory": "Lakehouse Architecture — When & Where to Apply",
+    "difficulty": "Medium",
+    "question_text": "You are Lead Data Architect at a e-commerce company. The data team runs daily batch ETL jobs feeding BI dashboards, but the ML team is demanding real-time feature pipelines, and the data science team wants to train models directly on raw event data without waiting for ETL transformations. The current SQL data warehouse cannot handle Python workloads or unstructured event logs. The CEO wants a single platform decision within 30 days. What is your recommendation?",
+    "options": {
+      "A": "Keep the data warehouse for BI and add a separate ML platform (Azure ML) — best-of-breed for each workload",
+      "B": "Adopt a Lakehouse architecture on Azure Databricks with Delta Lake: unified storage layer for raw, curated, and feature-store data; Databricks SQL for BI, PySpark and MLflow for ML and model training, Delta Live Tables for streaming features — single governance model, single data copy",
+      "C": "Migrate to Snowflake and use Snowpark for Python ML workloads",
+      "D": "Keep the data warehouse and ask the ML team to work from exported CSV files"
+    },
+    "correct_answer": "B",
+    "explanation": "A Lakehouse is architecturally justified when the workload spans SQL BI, Python ML, and streaming — all three are present here. A single storage layer (Delta Lake) eliminates data duplication between the warehouse and ML platform, and Databricks unifies compute for all three workload types. Best-of-breed (A) creates two governance models, two copies of data, and two ETL pipelines. Snowpark (C) handles Python but does not natively support streaming feature pipelines at the level of Delta Live Tables. When X is a mixed SQL+ML+streaming workload needing a single data copy, a Lakehouse is the correct choice.",
+    "learning_guidance": "Study the Lakehouse reference architecture: Delta Lake as open storage format, Databricks SQL for BI, MLflow + Feature Store for ML, DLT for streaming. Understand the total cost of ownership difference between single-platform Lakehouse vs best-of-breed warehouse+ML platform. Review the Feature Store concept — why ML teams need curated feature tables rather than raw warehouse exports."
+  },
+  {
+    "category": "API Design & System Integration",
+    "subcategory": "REST API Design Principles for Data Platforms",
+    "difficulty": "Medium",
+    "question_text": "You are Lead Data Architect at a logistics company building a data platform API that will be consumed by 8 internal teams and 3 external partners. The API will expose shipment tracking data, route analytics, and real-time delivery status. One team queries 90-day historical data in bulk; another needs sub-second current status. A partner requires webhook callbacks on delivery events. What is the correct API design approach?",
+    "options": {
+      "A": "Build a single REST endpoint that accepts date range parameters and returns all data types, letting consumers filter client-side",
+      "B": "Design resource-oriented REST endpoints per domain (GET /shipments/{id}, GET /shipments/{id}/status, GET /routes/analytics), use pagination + filtering for bulk historical (cursor-based for large datasets), add a separate webhook registration endpoint for event callbacks, version the API from day one (/v1/) and document with OpenAPI spec",
+      "C": "Build a GraphQL API so each consumer can request exactly the fields they need",
+      "D": "Expose the database directly via an OData endpoint to give consumers maximum flexibility"
+    },
+    "correct_answer": "B",
+    "explanation": "Resource-oriented REST with domain separation matches the access patterns: bulk historical uses cursor pagination (not offset, which degrades at 90 days of shipment data), real-time status is a separate lightweight endpoint, and webhook registration decouples event consumers from polling. GraphQL (C) is a valid alternative but introduces query complexity and n+1 problem risks for inexperienced consumers — REST with good resource design serves 8 teams more safely. Direct OData/DB exposure (D) leaks the data model and creates a governance and security nightmare with external partners. When X is a multi-consumer platform with mixed access patterns, resource-oriented REST with versioning is the safe enterprise choice.",
+    "learning_guidance": "Study REST API design: resource naming conventions, cursor-based vs offset pagination trade-offs for large datasets, HTTP verb semantics. Review webhook registration patterns and retry/at-least-once delivery guarantees. Understand OpenAPI 3.0 specification and how to version APIs from the start. Review Azure API Management for publishing internal + external APIs with rate limiting and auth."
+  },
+  {
+    "category": "API Design & System Integration",
+    "subcategory": "FastAPI for Data & AI Services",
+    "difficulty": "Medium",
+    "question_text": "You are Lead Data Engineer building an internal ML inference API using FastAPI. The model takes 3-5 seconds to return predictions. In load testing, 50 concurrent requests cause the server to queue and timeout. The model is CPU-bound and loaded once at startup. You need to handle 200 concurrent requests with p95 latency under 8 seconds. What is the correct FastAPI architecture?",
+    "options": {
+      "A": "Switch to Flask — FastAPI's async overhead makes it slower for CPU-bound tasks",
+      "B": "Use FastAPI with background tasks to run predictions asynchronously and poll for results",
+      "C": "Run multiple FastAPI worker processes via uvicorn with --workers N (N = CPU cores), use async def for I/O-bound endpoints but sync def (run_in_threadpool) for the CPU-bound model inference, and place a load balancer in front — the GIL is bypassed by multi-process, not multi-thread",
+      "D": "Use asyncio.gather() to run model predictions concurrently within a single async endpoint"
+    },
+    "correct_answer": "C",
+    "explanation": "Python's GIL makes threading ineffective for CPU-bound work — multi-process is required. FastAPI's sync def endpoints are automatically run in a thread pool by Starlette, but for CPU-bound ML inference, multiple worker processes via uvicorn --workers is the correct pattern, bypassing the GIL entirely. asyncio.gather() (D) creates concurrent coroutines but they all share one Python thread — CPU-bound work still serialises on the GIL. Background tasks (B) add polling complexity unnecessarily when multi-process handles concurrency directly. When X is CPU-bound ML inference at scale, multi-process uvicorn workers + sync endpoint is the correct FastAPI pattern.",
+    "learning_guidance": "Study the GIL's impact on CPU-bound vs I/O-bound Python concurrency. Review uvicorn --workers deployment for production FastAPI, Gunicorn as a process manager for FastAPI workers, and when to use async def vs def in FastAPI route handlers. Review FastAPI's run_in_threadpool for offloading blocking sync work from the event loop."
+  },
+  {
+    "category": "Solution Architecture & Pre-Sales",
+    "subcategory": "Business Case Development & TCO Analysis",
+    "difficulty": "Hard",
+    "question_text": "You are Lead Data Architect preparing a business case for migrating a client's on-premises data warehouse to Azure Synapse Analytics. The client's CFO is sceptical — the on-prem system is 'paid off' and the team is 'comfortable with it'. Your migration estimate is £1.8M over 18 months. The CFO asks why they should spend money on something that already works. How do you construct the most compelling business case?",
+    "options": {
+      "A": "Present a feature comparison table showing Azure Synapse has more capabilities than their current system",
+      "B": "Present a 5-year TCO comparison: include the often-ignored on-prem costs (hardware refresh cycles every 3-5 years, datacenter power/cooling/space, DBA headcount for maintenance, licence renewals, and the opportunity cost of 6-week provisioning cycles vs on-demand Azure scaling) against Azure's pay-per-use model — quantify the business value of agility: faster time-to-insight, ability to scale for seasonal peaks without over-provisioning",
+      "C": "Emphasise security improvements and compliance benefits of moving to Azure",
+      "D": "Show that Azure is cheaper per TB than their on-prem storage costs"
+    },
+    "correct_answer": "B",
+    "explanation": "A CFO who says the system is 'paid off' is using incomplete accounting. The full 5-year TCO must surface hidden on-prem costs that are real but invisible: hardware refresh (typically every 3-5 years at 40-60% of original cost), power/cooling (often 30-40% of hardware cost annually), FTE maintenance overhead, and licence renewals. The agility value (provisioning days vs weeks, peak scaling without waste) translates directly to revenue impact. Feature lists (A) and per-TB storage comparisons (D) don't speak CFO language. Security (C) is valid but rarely closes a CFO. When X is a business case to a cost-focused CFO, full 5-year TCO with hidden cost visibility beats feature comparison every time.",
+    "learning_guidance": "Study the Total Cost of Ownership framework for on-prem vs cloud: direct costs (hardware, licences, power, space) and indirect costs (FTE time, provisioning lag, over-capacity waste, business agility loss). Review Microsoft's Azure TCO Calculator and how to use it in client conversations. Understand how to translate technical agility (faster provisioning, auto-scale) into business value metrics a CFO understands (revenue per sprint, cost of delay)."
+  },
+  {
+    "category": "Solution Architecture & Pre-Sales",
+    "subcategory": "Solution Proposal & Architecture Framing",
+    "difficulty": "Hard",
+    "question_text": "You are Lead Data Architect responding to an RFP from a 5,000-person manufacturing company. They want to 'modernise their data platform'. The RFP is vague — it asks for a 'cloud data platform solution' with no technical specifications. Your competitor is proposing a full Databricks enterprise implementation. You have 2 weeks to respond. What is the correct approach to your proposal?",
+    "options": {
+      "A": "Match your competitor — propose a full Databricks implementation with all features to show equal capability",
+      "B": "Propose your preferred technology stack regardless of the client's context since you know it best",
+      "C": "Request a 2-hour discovery call before the written proposal — use it to identify: current pain points (not features they want), data maturity level, team skill profile, regulatory constraints, and a specific measurable business outcome they want to achieve. Frame the proposal around solving those specific problems with a phased roadmap, not a technology feature list. If the RFP timeline doesn't allow discovery, make your assumptions explicit and offer a Phase 0 assessment",
+      "D": "Submit the proposal quickly to show responsiveness — speed signals strong interest to the client"
+    },
+    "correct_answer": "C",
+    "explanation": "A vague RFP for 'data platform modernisation' is a pre-sales trap — it invites technology feature battles. The winning proposal solves a specific business problem, not a technology wish list. Discovery before writing allows you to reframe the proposal around their actual pain (e.g., 'we can't answer production questions faster than 3 days') rather than a generic platform comparison. Explicit assumptions in lieu of discovery signal architectural rigour, not weakness. Matching competitors (A) turns the decision into a commodity price comparison. Speed (D) without substance signals desperation, not capability. When X is a vague enterprise RFP, diagnostic framing beats feature-list proposals every time.",
+    "learning_guidance": "Study the pre-sales architecture engagement model: discovery → pain identification → solution framing → proof-of-concept → proposal. Review how to write an Architecture Decision Record (ADR) style proposal: problem statement, constraints, options considered, recommendation, risks. Learn to distinguish between a client's stated want ('we want a data lake') and their underlying need ('we want faster access to production data')."
+  },
+  {
+    "category": "Security, Compliance & Governance",
+    "subcategory": "Regulatory Compliance (GDPR, CCPA, SOX, HIPAA) in Data Platforms",
+    "difficulty": "Hard",
+    "question_text": "You are Chief Data Architect at a healthcare company processing patient records across Azure in the UK and Germany. GDPR requires data residency within the EU/UK. HIPAA requires audit logs for all data access. The analytics team needs to run ML models on patient data, which requires moving data to an Azure ML workspace for training. The compliance team says ML training constitutes 'processing' under GDPR and needs a lawful basis. What is the correct architectural approach?",
+    "options": {
+      "A": "Copy patient data to the ML workspace in the same region and rely on anonymisation to remove GDPR applicability",
+      "B": "Implement a compliant ML data pipeline: apply k-anonymity and differential privacy techniques to create a privacy-preserving training dataset in the same Azure region (no cross-border transfer), use Azure Purview to enforce data classification and residency policies, implement Azure Monitor + Diagnostic Logs for HIPAA-compliant audit trails on all data access, and document the 'legitimate interest' or 'scientific research' lawful basis for processing in the data processing register",
+      "C": "Restrict ML model training to use only synthetic data generated from real patient records",
+      "D": "Store all data in Azure Switzerland North as a neutral jurisdiction that satisfies both UK GDPR and German data residency"
+    },
+    "correct_answer": "B",
+    "explanation": "GDPR applies to identifiable personal data — pseudonymisation reduces but does not eliminate applicability unless k-anonymity thresholds are met. Staying within the same Azure region for ML training avoids cross-border transfer issues. Azure Purview enforces classification and residency policies at the platform level rather than relying on manual controls. HIPAA audit requirements are non-negotiable — every data access event must be logged. The lawful basis must be documented in the processing register before training begins. Simple anonymisation (A) is legally insufficient if re-identification is possible. Switzerland (D) doesn't resolve the HIPAA audit requirement and introduces a separate jurisdiction. When X is a regulated healthcare ML workload, privacy-preserving techniques + regional residency + complete audit trails is the minimum viable compliance architecture.",
+    "learning_guidance": "Study GDPR Article 89 on processing for scientific research and the conditions for pseudonymisation. Review k-anonymity and differential privacy as techniques for privacy-preserving ML. Study Microsoft Purview data governance for classification and residency policy enforcement. Understand HIPAA Technical Safeguards: access controls, audit controls, integrity controls, and transmission security requirements in Azure."
+  },
+  {
+    "category": "Security, Compliance & Governance",
+    "subcategory": "Zero Trust Architecture for Data & AI Platforms",
+    "difficulty": "Hard",
+    "question_text": "You are Lead Security Architect at a financial services firm. A recent internal audit found that 15 data engineers have standing admin access to production Databricks workspaces and ADLS Gen2 storage accounts 24/7 — even when not on shift. The CISO mandates Zero Trust implementation within 90 days: no standing privileged access, every access must be verified, least privilege enforced. What is the correct implementation?",
+    "options": {
+      "A": "Implement IP whitelisting — only allow access from office IP ranges to production systems",
+      "B": "Require VPN for all production access and audit access logs monthly",
+      "C": "Implement Azure AD Privileged Identity Management (PIM) for just-in-time elevated access (engineers request time-bound access with justification, auto-expires), enforce Conditional Access policies (MFA + compliant device + known location), assign Databricks workspace permissions via Azure AD groups at minimum privilege, apply ADLS Gen2 ACLs at folder level mapped to roles — all access events flow to Azure Sentinel for real-time anomaly detection",
+      "D": "Remove all admin access and require engineers to submit tickets for a central DBA team to execute changes"
+    },
+    "correct_answer": "C",
+    "explanation": "Zero Trust is 'never trust, always verify' — not 'never access'. PIM eliminates standing privilege while preserving operational capability through JIT access with time-bound expiry and approval workflows. Conditional Access enforces the 'verify explicitly' principle (MFA, device compliance, location). Granular ADLS ACLs enforce 'least privilege access'. Sentinel provides continuous validation through anomaly detection — the 'assume breach' principle. IP whitelisting (A) is perimeter security, not Zero Trust. VPN (B) is network-level access, not identity-level verification. Ticket-based DBA access (D) eliminates productivity and doesn't address the verification requirement. When X is a Zero Trust mandate for privileged data access, PIM + Conditional Access + granular RBAC + SIEM is the reference architecture.",
+    "learning_guidance": "Study Azure AD Privileged Identity Management: eligible assignments, JIT activation, approval workflows, and access reviews. Review Conditional Access policies: MFA enforcement, compliant device requirements, and sign-in risk policies. Understand ADLS Gen2 ACL model vs RBAC and when each applies. Study Microsoft Sentinel analytics rules for data platform access anomaly detection."
+  },
+  {
+    "category": "Enterprise Architecture & CTO Strategy",
+    "subcategory": "Build vs Buy Decisions at Enterprise Scale",
+    "difficulty": "Hard",
+    "question_text": "You are Chief Data Architect at a 10,000-person retail enterprise. The data engineering team (20 engineers) has spent 18 months building a custom data orchestration platform because 'Airflow doesn't meet our needs'. The platform now has 40,000 lines of Python, two dedicated maintainers, and a 6-week onboarding curve for new engineers. A new CTO asks you to evaluate whether to continue building or switch to a managed solution. What is the correct strategic recommendation?",
+    "options": {
+      "A": "Continue building — 18 months of investment should not be abandoned, and custom platforms provide competitive differentiation",
+      "B": "Switch immediately to Apache Airflow or Azure Data Factory — custom platforms are always the wrong choice",
+      "C": "Conduct a structured build vs buy evaluation: quantify the true cost of the custom platform (2 dedicated FTE × salary + benefits + opportunity cost + onboarding overhead + bug fix cycles), evaluate whether the original 'Airflow doesn't meet our needs' requirements are still valid or have been solved by Airflow 2.x / ADF updates, and recommend migration if managed solutions now meet 80%+ of requirements — accept the 20% gap as a better trade-off than owning orchestration infrastructure as a core competency",
+      "D": "Keep the custom platform for existing pipelines and use a managed solution for all new pipelines"
+    },
+    "correct_answer": "C",
+    "explanation": "The sunk cost fallacy drives option A — 18 months of past investment is irrelevant to the future cost decision. A rigorous build vs buy re-evaluation must account for the ongoing total cost of ownership (2 FTE opportunity cost is typically £200-300K/year), not just the migration cost. Technology requirements from 18 months ago may have been solved by Airflow 2.x or ADF updates — the original gap should be re-validated, not assumed. The 80/20 rule applies: if a managed solution covers 80% of requirements, the 20% gap is almost always cheaper to work around than to build and maintain core infrastructure. The hybrid approach (D) creates two systems to maintain, doubling operational burden. When X is custom-built infrastructure competing with mature managed services, re-evaluate with full TCO before committing to further investment.",
+    "learning_guidance": "Study the Build vs Buy decision framework: feature fit, total cost of ownership (build + maintain + opportunity cost), vendor lock-in risk, team capability alignment, and time-to-value. Review Airflow 2.x capabilities vs 1.x to understand how the ecosystem has evolved. Understand the 'core competency' principle — data orchestration is infrastructure, not a competitive differentiator for a retail company. Review migration strategies from custom platforms to managed services with minimal disruption."
+  },
+  {
+    "category": "Enterprise Architecture & CTO Strategy",
+    "subcategory": "Technology Roadmap Planning & Prioritisation",
+    "difficulty": "Hard",
+    "question_text": "You are Chief Data Architect presenting a 3-year data platform roadmap to the executive board. The platform has 4 major capability gaps: (1) real-time data access for the product team, (2) ML infrastructure for the data science team, (3) data governance and lineage for the compliance team, and (4) self-service analytics for business units. All four teams claim their need is highest priority. The budget allows delivery of 2 capabilities per year. How do you determine the correct sequencing?",
+    "options": {
+      "A": "Prioritise based on which team has the most senior executive sponsor",
+      "B": "Deliver all four simultaneously by splitting each capability into a smaller MVP to show progress across all workstreams",
+      "C": "Apply a structured prioritisation framework: map each capability against (a) regulatory/compliance risk if not delivered (compliance gaps carry non-negotiable deadlines), (b) revenue or cost impact if delivered, (c) foundational dependency (governance must precede self-service; real-time infrastructure enables ML features), and (d) team readiness. Sequence: governance first (compliance risk), then real-time (foundational for ML), then ML, then self-service — present the sequencing rationale to all four teams transparently",
+      "D": "Conduct a team vote and implement the top two based on popular demand"
+    },
+    "correct_answer": "C",
+    "explanation": "Roadmap sequencing must be determined by risk, dependency, and value — not political pressure. Governance first is non-negotiable when compliance risk exists (regulatory penalties are dated and specific). Real-time infrastructure is foundational for ML feature pipelines, so delivering ML before real-time creates rework. Transparent sequencing rationale converts a political prioritisation fight into a technical dependency discussion. Splitting all four (B) creates four concurrent half-finished capabilities, each too thin to deliver business value. Political prioritisation (A) or democratic voting (D) optimises for stakeholder harmony, not business outcomes. When X is multi-stakeholder roadmap prioritisation with budget constraints, risk + dependency + value sequencing is the framework that holds up in board presentation.",
+    "learning_guidance": "Study technology roadmap frameworks: MoSCoW prioritisation, WSJF (Weighted Shortest Job First from SAFe), and dependency mapping. Understand how to present technical sequencing rationale to non-technical executives — use business risk language, not technical dependency language. Review how data governance as a foundational capability enables downstream self-service analytics. Study the Platform Engineering roadmap pattern: infrastructure capabilities before consumer-facing capabilities."
   }
 ]

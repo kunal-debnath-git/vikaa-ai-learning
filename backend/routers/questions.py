@@ -56,14 +56,17 @@ async def generate_session_questions(session_id: str):
                 settings.config.get("session_config", {}).get("questions_per_session", 20)
         cats = bypass_session.get("categories", {})
         if cats:
-            questions = await generate_questions(
-                role=bypass_session.get("role", "cto"),
-                difficulty=bypass_session.get("difficulty", "Medium"),
-                categories=cats,
-                llm_provider=bypass_session.get("llm_provider", "gemini"),
-                brain_mode=bypass_session.get("brain_mode", "llm"),
-                total=total,
-            )
+            try:
+                questions = await generate_questions(
+                    role=bypass_session.get("role", "cto"),
+                    difficulty=bypass_session.get("difficulty", "Medium"),
+                    categories=cats,
+                    llm_provider=bypass_session.get("llm_provider", "gemini"),
+                    brain_mode=bypass_session.get("brain_mode", "llm"),
+                    total=total,
+                )
+            except Exception as exc:
+                raise HTTPException(status_code=500, detail=str(exc))
             _bypass_generated[session_id] = questions
             return {"status": "success", "count": len(questions), "mode": "bypass_llm"}
         # No categories selected yet — fall back to static templates
@@ -91,16 +94,19 @@ async def generate_session_questions(session_id: str):
         difficulty=session["difficulty"],
     )
 
-    questions = await generate_questions(
-        role=session["role"],
-        difficulty=session["difficulty"],
-        categories=session["categories"],
-        llm_provider=session["llm_provider"],
-        brain_mode=brain_mode,
-        user_performance=user_performance,
-        pre_loaded_questions=spaced_questions,
-        total=session.get("total_questions", 20),
-    )
+    try:
+        questions = await generate_questions(
+            role=session["role"],
+            difficulty=session["difficulty"],
+            categories=session["categories"],
+            llm_provider=session["llm_provider"],
+            brain_mode=brain_mode,
+            user_performance=user_performance,
+            pre_loaded_questions=spaced_questions,
+            total=session.get("total_questions", 20),
+        )
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc))
 
     for q in questions:
         q["session_id"] = session_id
@@ -399,6 +405,7 @@ async def submit_answer(session_id: str, answer: AnswerSubmit):
         perf_resp = tbl("performance_tracking").select("*").match({
             "user_id": u["user_id"],
             "category": question["category"],
+            "subcategory": question.get("subcategory"),
             "difficulty": u["difficulty"]
         }).execute()
 
