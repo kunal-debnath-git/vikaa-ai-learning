@@ -49,6 +49,26 @@
         </div>
     </header>
 
+    <!-- LOADING OVERLAY — fixed full-screen, always in DOM, never missable -->
+    <div x-show="user && loading" x-cloak
+         class="fixed inset-0 z-50 flex items-center justify-center bg-[#eaeaea]">
+        <div class="max-w-sm w-full text-center px-8">
+            <div class="w-16 h-16 bg-[#17bcfe] rounded-[1.5rem] flex items-center justify-center mx-auto mb-6 shadow-xl shadow-sky-200">
+                <svg class="w-8 h-8 text-white animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+            </div>
+            <h2 class="text-xl font-extrabold mb-2 text-slate-900">Building Your Exam</h2>
+            <p class="text-slate-500 text-sm mb-6 min-h-[1.2rem]" x-text="loadingStep"></p>
+            <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                <div class="h-full bg-[#17bcfe] rounded-full transition-all duration-700 ease-out"
+                     :style="`width: ${loadingProgress}%`"></div>
+            </div>
+            <p class="text-xs text-slate-400 mt-3 font-medium">Typically 15–20 seconds</p>
+        </div>
+    </div>
+
     <main class="max-w-7xl mx-auto px-6 py-10">
         
         <!-- 1. AUTH SCREEN -->
@@ -91,10 +111,10 @@
                                 <h3 class="font-bold text-slate-900" x-text="p.category"></h3>
                                 <p class="text-xs text-slate-400 font-bold uppercase tracking-widest" x-text="p.difficulty"></p>
                             </div>
-                            <div class="px-2 py-1 bg-[#eaf9ff] text-[#17bcfe] text-[10px] font-bold rounded-lg" x-text="`${Math.round((p.total_correct / p.total_attempted) * 100)}% Proficiency`"></div>
+                            <div class="px-2 py-1 bg-[#eaf9ff] text-[#17bcfe] text-[10px] font-bold rounded-lg" x-text="`${p.total_attempted > 0 ? Math.round((p.total_correct / p.total_attempted) * 100) : 0}% Proficiency`"></div>
                         </div>
                         <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
-                            <div class="h-full bg-[#17bcfe] rounded-full" :style="`width: ${(p.total_correct / p.total_attempted) * 100}%`"></div>
+                            <div class="h-full bg-[#17bcfe] rounded-full" :style="`width: ${p.total_attempted > 0 ? (p.total_correct / p.total_attempted) * 100 : 0}%`"></div>
                         </div>
                         <div class="mt-4 flex justify-between text-xs font-bold text-slate-500">
                             <span>Attempts: <span class="text-slate-900" x-text="p.total_attempted"></span></span>
@@ -106,11 +126,11 @@
 
             <h3 class="text-xl font-bold mb-4">Weak Areas Requiring Focus</h3>
             <div class="bg-amber-50 border border-amber-100 p-6 rounded-3xl">
-                <template x-if="performance.filter(p => (p.total_correct / p.total_attempted) < 0.7).length === 0">
+                <template x-if="performance.filter(p => p.total_attempted > 0 && (p.total_correct / p.total_attempted) < 0.7).length === 0">
                     <p class="text-amber-800 text-sm">Great job! No critical weak areas identified yet. Keep practicing to build more data points.</p>
                 </template>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <template x-for="p in performance.filter(p => (p.total_correct / p.total_attempted) < 0.7)" :key="p.id">
+                    <template x-for="p in performance.filter(p => p.total_attempted > 0 && (p.total_correct / p.total_attempted) < 0.7)" :key="p.id">
                         <div class="flex items-center space-x-3 bg-white/50 p-3 rounded-2xl border border-amber-200">
                             <div class="w-2 h-2 rounded-full bg-amber-500"></div>
                             <span class="text-sm font-bold text-amber-900" x-text="p.category"></span>
@@ -155,30 +175,11 @@
             </template>
         </section>
 
-        <!-- 3. LOADING SCREEN -->
-        <section x-show="user && loading" x-cloak>
-            <div class="max-w-md mx-auto mt-28 text-center px-6">
-                <div class="w-16 h-16 bg-[#17bcfe] rounded-[1.5rem] flex items-center justify-center mx-auto mb-8 shadow-xl shadow-sky-200">
-                    <svg class="w-8 h-8 text-white animate-spin" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                    </svg>
-                </div>
-                <h2 class="text-2xl font-extrabold mb-2 text-slate-900">Building Your Exam</h2>
-                <p class="text-slate-500 text-sm mb-8 min-h-[1.25rem]" x-text="loadingStep"></p>
-                <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
-                    <div class="h-full bg-[#17bcfe] rounded-full transition-all duration-700 ease-out"
-                         :style="`width: ${loadingProgress}%`"></div>
-                </div>
-                <p class="text-xs text-slate-400 mt-4 font-medium">Typically 15–20 seconds with parallel synthesis</p>
-            </div>
-        </section>
-
-        <!-- 4. CONFIGURATION -->
+        <!-- 3. CONFIGURATION -->
         <section x-show="user && !session && !showDashboard && !loading" x-cloak>
             <div class="mb-8 text-center max-w-2xl mx-auto">
                 <h3 class="text-2xl font-extrabold mb-3">Exam Configuration</h3>
-                <p class="text-slate-500 text-sm">Our <span class="text-[#17bcfe] font-bold">Market Intelligence Layer</span> is active <BR> Scanning for Fortune 100 interview patterns for your selected role.</p>
+                <p class="text-slate-500 text-sm">Our <span class="text-[#17bcfe] font-bold">Market Intelligence Layer</span> is active <br> Scanning for Fortune 100 interview patterns for your selected role.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -463,7 +464,7 @@
 
             <!-- Action Buttons -->
             <div class="flex flex-wrap justify-center gap-4 mb-12">
-                <button @click="window.location.reload()" class="px-10 py-4 bg-[#17bcfe] text-white rounded-2xl font-black hover:bg-[#0891b2] transition shadow-xl shadow-sky-100">
+                <button @click="exitExam()" class="px-10 py-4 bg-[#17bcfe] text-white rounded-2xl font-black hover:bg-[#0891b2] transition shadow-xl shadow-sky-100">
                     New Exam Session
                 </button>
                 <button @click="showDashboard = true; results = null; session = null;" class="px-10 py-4 bg-white text-slate-900 border-2 border-slate-200 rounded-2xl font-black hover:bg-slate-50 transition">
@@ -615,9 +616,13 @@
                 showReview: false,
 
                 async init() {
-                    const resp = await fetch(`${API_BASE}/api/config`);
-                    this.config = await resp.json();
-                    this.examForm.llm_provider = 'gemini';
+                    try {
+                        const resp = await fetch(`${API_BASE}/api/config`);
+                        this.config = await resp.json();
+                        this.examForm.llm_provider = 'gemini';
+                    } catch (e) {
+                        console.error('Failed to load config:', e);
+                    }
                 },
 
                 async login() {
@@ -851,16 +856,25 @@
                         ? Math.round((Date.now() - this.questionStartTime) / 1000)
                         : 0;
 
-                    const resp = await fetch(`${API_BASE}/api/sessions/${this.session.id}/answers`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            question_id: this.currentQuestion.id,
-                            user_answer: this.selectedKeys.join(',') || 'NONE',
-                            time_taken_seconds: elapsed
-                        })
-                    });
-                    this.feedback = await resp.json();
+                    try {
+                        const resp = await fetch(`${API_BASE}/api/sessions/${this.session.id}/answers`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                question_id: this.currentQuestion.id,
+                                user_answer: this.selectedKeys.join(',') || 'NONE',
+                                time_taken_seconds: elapsed
+                            })
+                        });
+                        this.feedback = await resp.json();
+                    } catch (e) {
+                        console.error('Submit answer failed:', e);
+                        this.feedback = {
+                            is_correct: this.selectedKeys[0] === this.currentQuestion.correct_answer,
+                            explanation: this.currentQuestion.explanation || '',
+                            learning_guidance: this.currentQuestion.learning_guidance || ''
+                        };
+                    }
                     this.isCorrect = this.feedback.is_correct;
                     if (this.isCorrect) this.score++;
 
@@ -920,9 +934,14 @@
                 },
 
                 async finishExam() {
-                    const resp = await fetch(`${API_BASE}/api/sessions/${this.session.id}/complete?score=${this.score}`, { method: 'PATCH' });
-                    this.results = await resp.json();
-                    await this.fetchPerformance();
+                    try {
+                        const resp = await fetch(`${API_BASE}/api/sessions/${this.session.id}/complete?score=${this.score}`, { method: 'PATCH' });
+                        this.results = await resp.json();
+                        await this.fetchPerformance();
+                    } catch (e) {
+                        console.error('Finish exam failed:', e);
+                        this.results = { score: this.score };
+                    }
                 },
 
                 exitExam() {
@@ -980,7 +999,7 @@
                         lines.push(q.question_text);
                         lines.push(``);
                         lines.push(`**Options:**`);
-                        Object.entries(q.options).forEach(([k, v]) => {
+                        Object.entries(q.options).filter(([k]) => ['A','B','C','D'].includes(k)).forEach(([k, v]) => {
                             const correct = k === q.correct_answer ? ' ✅' : '';
                             const picked = ans.selectedKeys.includes(k) && k !== q.correct_answer ? ' ❌ ← your pick' : '';
                             lines.push(`- **${k}:** ${v}${correct}${picked}`);
