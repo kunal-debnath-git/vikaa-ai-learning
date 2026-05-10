@@ -1,5 +1,5 @@
 @echo off
-cd /d "%~dp0"
+cd /d "e:\_VIKAA-AI-Learning"
 title VikaaAI — Leadership Prep
 
 echo.

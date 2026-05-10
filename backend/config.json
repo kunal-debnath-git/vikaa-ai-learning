@@ -18,29 +18,32 @@
       "Unity Catalog migration from traditional Hive Metastore",
       "Snowflake vs Databricks cost-benefit analysis at scale",
       "FinOps for multi-cloud data estates",
-      "Transition from Data Mesh to centralized governance with decentralised ownership"
+      "Transition from Data Mesh to centralized governance with decentralised ownership",
+      "Zero Trust security adoption for enterprise data platforms",
+      "API-first data product architecture",
+      "Large-scale on-premises to Azure cloud migration waves"
     ]
   },
   "roles": {
     "architect": {
       "label": "Lead Data Solution Architect",
       "description": "End-to-end system design, enterprise architecture, governance, cost optimization",
-      "focus_areas": ["Data Architecture", "Cloud Platforms", "Data Governance"]
+      "focus_areas": ["Data Architecture", "Cloud Platforms", "Data Governance", "Platform & Data Migration", "Solution Architecture & Pre-Sales"]
     },
     "engineer": {
       "label": "Lead Data Engineer",
       "description": "Scalability, performance optimization, production-grade data pipelines",
-      "focus_areas": ["Data Engineering", "Core Data Platform"]
+      "focus_areas": ["Data Engineering", "Core Data Platform", "API Design & System Integration", "Platform & Data Migration"]
     },
     "ai_engineer": {
       "label": "Lead AI Engineer",
       "description": "Productionizing AI systems, GenAI infrastructure, MLOps",
-      "focus_areas": ["Generative AI & AI Stack", "Claude & Anthropic Stack"]
+      "focus_areas": ["Generative AI & AI Stack", "Claude & Anthropic Stack", "API Design & System Integration"]
     },
     "cto": {
       "label": "Chief Data Architect / CTO",
       "description": "All-in-one enterprise data & GenAI platform leadership",
-      "focus_areas": ["Data Architecture", "Generative AI & AI Stack", "Cloud Platforms", "Claude & Anthropic Stack"]
+      "focus_areas": ["Data Architecture", "Generative AI & AI Stack", "Cloud Platforms", "Claude & Anthropic Stack", "Enterprise Architecture & CTO Strategy", "Security, Compliance & Governance", "Solution Architecture & Pre-Sales"]
     }
   },
   "categories": {
@@ -72,6 +75,8 @@
       "subcategories": [
         "Medallion Architecture (Bronze/Silver/Gold)",
         "Lakehouse vs Data Warehouse",
+        "Lakehouse Architecture — When & Where to Apply",
+        "Data Warehouse Architecture — When & Where to Apply",
         "Databricks vs Snowflake Architecture Trade-offs",
         "Data Vault 2.0",
         "Star Schema & Dimensional Modelling",
@@ -92,6 +97,66 @@
         "Observability & Pipeline Reliability",
         "Z-Ordering & Liquid Clustering",
         "Photon Engine Performance"
+      ]
+    },
+    "Platform & Data Migration": {
+      "subcategories": [
+        "Core Data Migration Strategy & Patterns",
+        "On-Premises to Azure Migration (Lift-Shift vs Re-architect)",
+        "Database Platform Migration (SQL Server, Oracle to Azure SQL / Synapse)",
+        "Data Warehouse Migration to Cloud (Teradata, Netezza to Azure)",
+        "Application & Workload Migration to Azure",
+        "High-Volume & Large-Scale Data Migration (PB-scale)",
+        "Migration Risk, Cutover Planning & Rollback Strategy",
+        "Azure Migrate, Database Migration Service & Tooling"
+      ]
+    },
+    "API Design & System Integration": {
+      "subcategories": [
+        "REST API Design Principles for Data Platforms",
+        "FastAPI for Data & AI Services",
+        "API Gateway Patterns (Azure API Management)",
+        "Event-Driven Integration Architecture",
+        "Real-Time Data API & Streaming Integration",
+        "GraphQL vs REST for Data Products",
+        "API Security (OAuth 2.0, API Keys, Rate Limiting)",
+        "Microservices Integration Patterns for Data"
+      ]
+    },
+    "Solution Architecture & Pre-Sales": {
+      "subcategories": [
+        "Solution Proposal & Architecture Framing",
+        "Business Case Development & TCO Analysis",
+        "Platform Evaluation & Vendor Selection",
+        "Architecture Decision Records (ADRs)",
+        "RFP Response & Proof-of-Concept Design",
+        "Executive & Stakeholder Communication",
+        "Scope Definition & Risk Identification in Proposals",
+        "Estimation & Delivery Roadmap Planning"
+      ]
+    },
+    "Security, Compliance & Governance": {
+      "subcategories": [
+        "Data Security Architecture for Cloud Platforms",
+        "Regulatory Compliance (GDPR, CCPA, SOX, HIPAA) in Data Platforms",
+        "PII Masking, Tokenisation & Data Anonymisation",
+        "Zero Trust Architecture for Data & AI Platforms",
+        "Identity & Access Management (IAM, RBAC, ABAC)",
+        "Encryption at Rest & In Transit",
+        "Data Lineage, Audit Trails & Compliance Reporting",
+        "Insider Threat & Data Exfiltration Prevention"
+      ]
+    },
+    "Enterprise Architecture & CTO Strategy": {
+      "subcategories": [
+        "Enterprise Data Strategy & Digital Transformation",
+        "Build vs Buy Decisions at Enterprise Scale",
+        "Data Team Structure & Platform Engineering Organisation",
+        "Technology Roadmap Planning & Prioritisation",
+        "Data Product Thinking & Internal Data Marketplace",
+        "Disaster Recovery & Business Continuity for Data Platforms",
+        "Data Culture, Change Management & Adoption",
+        "M&A Data Integration & Platform Consolidation"
       ]
     },
     "Generative AI & AI Stack": {
