@@ -10,6 +10,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
         [x-cloak] { display: none !important; }
         body { font-family: 'Montserrat', sans-serif; color: #333333; }
@@ -33,7 +34,9 @@
             <div class="flex items-center space-x-6">
                 <template x-if="user">
                     <div class="flex items-center space-x-6">
-                        <button @click="showDashboard = !showDashboard; if(showDashboard){ fetchPerformance(); fetchSessionHistory(); }" class="text-sm font-bold text-slate-600 hover:text-[#17bcfe] transition" x-text="showDashboard ? 'Back to Prep' : 'My Analytics'"></button>
+                        <button @click="showDuk = !showDuk; showDashboard = false;" class="text-sm font-bold text-slate-600 hover:text-[#17bcfe] transition" x-text="showDuk ? '← Back to Prep' : 'Do U Know?'"></button>
+                        <div class="h-4 w-[1px] bg-slate-200"></div>
+                        <button @click="showDashboard = !showDashboard; showDuk = false; if(showDashboard){ fetchPerformance(); fetchSessionHistory(); }" class="text-sm font-bold text-slate-600 hover:text-[#17bcfe] transition" x-text="showDashboard ? '← Back to Prep' : 'My Analytics'"></button>
                         <div class="h-4 w-[1px] bg-slate-200"></div>
                         <div class="flex items-center space-x-2">
                             <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-600" x-text="user.name.charAt(0)"></div>
@@ -176,7 +179,7 @@
         </section>
 
         <!-- 3. CONFIGURATION -->
-        <section x-show="user && !session && !showDashboard && !loading" x-cloak>
+        <section x-show="user && !session && !showDashboard && !showDuk && !loading" x-cloak>
             <div class="mb-8 text-center max-w-2xl mx-auto">
                 <h3 class="text-2xl font-extrabold mb-3">Exam Configuration</h3>
                 <p class="text-slate-500 text-sm">Our <span class="text-[#17bcfe] font-bold">Market Intelligence Layer</span> is active <br> Scanning for Fortune 100 interview patterns for your selected role.</p>
@@ -575,6 +578,219 @@
 
         </section>
 
+        <!-- DO U KNOW? SCREEN -->
+        <section x-show="user && showDuk && !loading" x-cloak>
+            <div class="max-w-4xl mx-auto">
+                <div class="flex items-end justify-between mb-8 flex-wrap gap-4">
+                    <div>
+                        <h3 class="text-4xl font-extrabold">Do U Know?</h3>
+                        <p class="text-slate-500 mt-1">Turn unfamiliar features into confident interview answers.</p>
+                    </div>
+                    <!-- History toggle -->
+                    <template x-if="dukHistory.length > 0">
+                        <button @click="dukHistoryOpen = !dukHistoryOpen"
+                                class="flex items-center space-x-2 px-4 py-2 bg-white border border-slate-200 rounded-xl text-sm font-bold text-slate-600 hover:border-[#17bcfe] hover:text-[#17bcfe] transition">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span x-text="`History (${dukHistory.length})`"></span>
+                            <svg :class="dukHistoryOpen ? 'rotate-180' : ''" class="w-3 h-3 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                    </template>
+                </div>
+
+                <!-- History Panel -->
+                <div x-show="dukHistoryOpen && !dukLoading" class="mb-4">
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 max-h-60 overflow-y-auto space-y-1">
+                        <template x-for="(item, i) in dukHistory" :key="i">
+                            <div class="flex items-center group rounded-xl hover:bg-[#eaf9ff] transition">
+                                <button @click="loadDukFromHistory(item)"
+                                        class="flex-1 text-left px-4 py-3 flex items-center justify-between min-w-0">
+                                    <div class="flex items-center space-x-2 min-w-0">
+                                        <!-- Readiness dot -->
+                                        <span class="shrink-0 w-2 h-2 rounded-full"
+                                              :class="item.rating === 'ready' ? 'bg-green-500' : item.rating === 'review' ? 'bg-amber-500' : 'bg-slate-200'"></span>
+                                        <span class="text-xs font-black text-[#17bcfe] uppercase tracking-widest shrink-0" x-text="item.main_topic"></span>
+                                        <span class="text-xs text-slate-400">→</span>
+                                        <span class="text-sm font-bold text-slate-800 truncate" x-text="item.sub_topic"></span>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400 shrink-0 ml-2" x-text="new Date(item.timestamp).toLocaleDateString()"></span>
+                                </button>
+                                <button @click.stop="deleteDukHistory(i)"
+                                        class="shrink-0 px-3 py-3 text-slate-300 hover:text-red-400 transition opacity-0 group-hover:opacity-100">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                </button>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Input Card (hidden while loading) -->
+                <div x-show="!dukLoading" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Main Topic</label>
+                            <input type="text" x-model="dukForm.main_topic" placeholder="e.g. Databricks, Azure, EventHub" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#17bcfe] focus:bg-white outline-none transition text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Sub Topic / Feature</label>
+                            <input type="text" x-model="dukForm.sub_topic" placeholder="e.g. Volumes, Partition Key, DLT" class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#17bcfe] focus:bg-white outline-none transition text-sm">
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Your Experience with this Feature <span class="text-slate-300 normal-case font-normal">(optional — what you recall, used nearby, or vaguely know)</span></label>
+                        <textarea x-model="dukForm.user_context" rows="3"
+                                  placeholder="e.g. I built pipelines on ADLS Gen2 but never used Volumes directly. I know it relates to Unity Catalog and file-based storage..."
+                                  class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#17bcfe] focus:bg-white outline-none transition text-sm resize-y"></textarea>
+                    </div>
+
+                    <!-- Cache detection banner -->
+                    <template x-if="dukCacheFound">
+                        <div class="mb-4 flex items-center justify-between flex-wrap gap-3 px-5 py-4 bg-amber-50 border border-amber-200 rounded-2xl">
+                            <div>
+                                <p class="text-sm font-bold text-amber-800">You studied this on <span x-text="new Date(dukCacheFound.timestamp).toLocaleDateString()"></span>.</p>
+                                <p class="text-xs text-amber-600 mt-0.5">Load your saved result instantly, or regenerate fresh from AI.</p>
+                            </div>
+                            <div class="flex space-x-2">
+                                <button @click="loadDukFromHistory(dukCacheFound)"
+                                        class="px-4 py-2 bg-amber-500 text-white rounded-xl text-sm font-bold hover:bg-amber-600 transition">Load Saved</button>
+                                <button @click="generateDuk(true)"
+                                        class="px-4 py-2 bg-white border border-amber-300 text-amber-700 rounded-xl text-sm font-bold hover:bg-amber-50 transition">Regenerate</button>
+                            </div>
+                        </div>
+                    </template>
+
+                    <div class="flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Synthesis Model</label>
+                            <select x-model="dukForm.llm_provider" class="px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold outline-none focus:ring-2 focus:ring-[#17bcfe]">
+                                <option value="gemini">Gemini 2.0 Flash</option>
+                                <option value="claude">Claude Sonnet 4.6</option>
+                            </select>
+                        </div>
+                        <button @click="generateDuk()"
+                                :disabled="!dukForm.main_topic || !dukForm.sub_topic"
+                                class="px-10 py-3.5 bg-[#17bcfe] text-white rounded-2xl font-black hover:bg-[#0891b2] transition shadow-xl shadow-sky-100 disabled:opacity-40 disabled:cursor-not-allowed">
+                            Generate Brief
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Progress indicator (shown while loading) -->
+                <div x-show="dukLoading" class="bg-white rounded-3xl border border-slate-200 shadow-sm p-10 mb-6 text-center">
+                    <div class="w-14 h-14 bg-[#17bcfe] rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-sky-100">
+                        <svg class="w-7 h-7 text-white animate-spin" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        </svg>
+                    </div>
+                    <p class="text-slate-800 font-bold text-sm mb-1" x-text="dukStep"></p>
+                    <p class="text-slate-400 text-xs mb-5">Typically 20–30 seconds</p>
+                    <div class="flex justify-center space-x-2">
+                        <div class="w-2 h-2 rounded-full transition-colors duration-500" :class="dukStepIdx >= 0 ? 'bg-[#17bcfe]' : 'bg-slate-200'"></div>
+                        <div class="w-2 h-2 rounded-full transition-colors duration-500" :class="dukStepIdx >= 1 ? 'bg-[#17bcfe]' : 'bg-slate-200'"></div>
+                        <div class="w-2 h-2 rounded-full transition-colors duration-500" :class="dukStepIdx >= 2 ? 'bg-[#17bcfe]' : 'bg-slate-200'"></div>
+                    </div>
+                </div>
+
+                <!-- Result -->
+                <template x-if="dukResult">
+                    <div class="space-y-4">
+                        <!-- Action bar: New Topic + Rating + Export -->
+                        <div class="flex items-center justify-between flex-wrap gap-3">
+                            <div class="flex items-center space-x-2">
+                                <!-- Readiness rating -->
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest mr-1">Readiness:</span>
+                                <button @click="rateDuk('ready')"
+                                        :class="dukCurrentRating === 'ready' ? 'bg-green-500 text-white' : 'bg-white border border-slate-200 text-slate-500 hover:border-green-400 hover:text-green-600'"
+                                        class="px-3 py-1.5 rounded-lg text-xs font-bold transition">Ready</button>
+                                <button @click="rateDuk('review')"
+                                        :class="dukCurrentRating === 'review' ? 'bg-amber-500 text-white' : 'bg-white border border-slate-200 text-slate-500 hover:border-amber-400 hover:text-amber-600'"
+                                        class="px-3 py-1.5 rounded-lg text-xs font-bold transition">Needs Review</button>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button @click="exportDuk()"
+                                        class="flex items-center space-x-1.5 px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:border-[#17bcfe] hover:text-[#17bcfe] transition">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    <span>Export .md</span>
+                                </button>
+                                <button @click="dukResult = null; dukCardSections = []; dukBriefSections = []; dukRecSections = []; dukCurrentRating = null; dukTab = 'card'; dukCacheFound = null;"
+                                        class="px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:border-slate-400 transition">
+                                    New Topic
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tab Toggle + Topic badges -->
+                        <div class="flex items-center justify-between flex-wrap gap-3">
+                            <div class="flex space-x-2 flex-wrap gap-2">
+                                <button @click="dukTab = 'card'"
+                                        :class="dukTab === 'card' ? 'bg-[#17bcfe] text-white shadow-lg shadow-sky-100' : 'bg-white text-slate-600 border border-slate-200'"
+                                        class="px-5 py-2 rounded-xl text-sm font-bold transition">Interview Card</button>
+                                <button @click="dukTab = 'brief'"
+                                        :class="dukTab === 'brief' ? 'bg-[#17bcfe] text-white shadow-lg shadow-sky-100' : 'bg-white text-slate-600 border border-slate-200'"
+                                        class="px-5 py-2 rounded-xl text-sm font-bold transition">Technical Brief</button>
+                                <button @click="dukTab = 'rec'"
+                                        :class="dukTab === 'rec' ? 'bg-amber-500 text-white shadow-lg shadow-amber-100' : 'bg-white text-slate-600 border border-slate-200'"
+                                        class="px-5 py-2 rounded-xl text-sm font-bold transition flex items-center space-x-1.5">
+                                    <svg class="w-3 h-3" :class="dukTab === 'rec' ? 'text-white' : 'text-amber-500'" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"></path></svg>
+                                    <span>What's New</span>
+                                </button>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="px-3 py-1 bg-[#eaf9ff] text-[#17bcfe] text-xs font-black rounded-lg uppercase tracking-widest" x-text="dukResult.main_topic"></span>
+                                <span class="text-slate-300 text-xs">→</span>
+                                <span class="px-3 py-1 bg-slate-100 text-slate-600 text-xs font-black rounded-lg uppercase tracking-widest" x-text="dukResult.sub_topic"></span>
+                            </div>
+                        </div>
+
+                        <!-- Interview Card — section cards -->
+                        <div x-show="dukTab === 'card'" class="space-y-3 max-h-[68vh] overflow-y-auto pr-1">
+                            <template x-for="(sec, i) in dukCardSections" :key="i">
+                                <div :class="dukSectionStyle(i).wrap" class="rounded-2xl border p-6">
+                                    <span :class="dukSectionStyle(i).badge" class="inline-block text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest mb-3" x-text="sec.title"></span>
+                                    <div :class="dukSectionStyle(i).prose" class="text-sm leading-relaxed" x-html="renderSectionContent(sec)"></div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- Technical Brief — section cards -->
+                        <div x-show="dukTab === 'brief'" class="space-y-3 max-h-[68vh] overflow-y-auto pr-1">
+                            <template x-for="(sec, i) in dukBriefSections" :key="i">
+                                <div class="bg-white rounded-2xl border border-slate-200 p-6">
+                                    <span class="inline-block text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest bg-slate-900 text-white mb-3" x-text="sec.title"></span>
+                                    <div class="text-sm leading-relaxed prose prose-sm max-w-none" x-html="marked.parse(sec.content)"></div>
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- What's New — live search section cards -->
+                        <div x-show="dukTab === 'rec'" class="space-y-3 max-h-[68vh] overflow-y-auto pr-1">
+                            <!-- Live search provenance banner -->
+                            <template x-if="dukResult && dukResult.searched_at">
+                                <div class="flex items-center space-x-2 px-4 py-2.5 bg-green-50 border border-green-200 rounded-xl">
+                                    <svg class="w-3.5 h-3.5 text-green-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"></path></svg>
+                                    <span class="text-xs font-bold text-green-700">Live Google Search</span>
+                                    <span class="text-xs text-green-500">— retrieved</span>
+                                    <span class="text-xs font-bold text-green-600" x-text="dukResult.searched_at"></span>
+                                </div>
+                            </template>
+                            <template x-if="dukRecSections.length === 0">
+                                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-8 text-center text-sm text-amber-700 font-medium">
+                                    No search results loaded — regenerate to fetch live What's New data.
+                                </div>
+                            </template>
+                            <template x-for="(sec, i) in dukRecSections" :key="i">
+                                <div :class="dukRecStyle(i).wrap" class="rounded-2xl border p-6">
+                                    <span :class="dukRecStyle(i).badge" class="inline-block text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest mb-3" x-text="sec.title"></span>
+                                    <div class="text-sm leading-relaxed prose prose-sm max-w-none" x-html="marked.parse(sec.content)"></div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </section>
+
     </main>
 
     <script>
@@ -614,6 +830,26 @@
                 sessionAnswers: [],
                 bookmarkedIds: [],
                 showReview: false,
+                showDuk: false,
+                dukTab: 'card',
+                dukLoading: false,
+                dukStep: '',
+                dukStepIdx: 0,
+                _dukInterval: null,
+                dukResult: null,
+                dukCacheFound: null,
+                dukCurrentRating: null,
+                dukHistory: [],
+                dukHistoryOpen: false,
+                dukForm: {
+                    main_topic: '',
+                    sub_topic: '',
+                    user_context: '',
+                    llm_provider: 'gemini'
+                },
+                dukCardSections: [],
+                dukBriefSections: [],
+                dukRecSections: [],
 
                 async init() {
                     try {
@@ -623,6 +859,10 @@
                     } catch (e) {
                         console.error('Failed to load config:', e);
                     }
+                    try {
+                        const saved = localStorage.getItem('dukHistory');
+                        if (saved) this.dukHistory = JSON.parse(saved);
+                    } catch (e) { /* ignore */ }
                 },
 
                 async login() {
@@ -687,7 +927,10 @@
                     this.user = null;
                     this.session = null;
                     this.showDashboard = false;
+                    this.showDuk = false;
                     this.results = null;
+                    this.dukResult = null;
+                    this.dukCacheFound = null;
                 },
 
                 get filteredCategories() {
@@ -1026,6 +1269,214 @@
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
+                },
+
+                parseSections(markdown) {
+                    if (!markdown) return [];
+                    const sections = [];
+                    const parts = markdown.split(/\n(?=## )/);
+                    for (const part of parts) {
+                        const trimmed = part.trim();
+                        if (!trimmed) continue;
+                        const firstNewline = trimmed.indexOf('\n');
+                        if (firstNewline === -1) continue;
+                        const titleRaw = trimmed.slice(0, firstNewline).replace(/^##\s*/, '').trim();
+                        const content = trimmed.slice(firstNewline + 1).trim();
+                        if (titleRaw && content) sections.push({ title: titleRaw, content });
+                    }
+                    return sections;
+                },
+
+                renderQASection(raw) {
+                    // Tokenise Q/A markers regardless of bold formatting or quotes
+                    const content = raw
+                        .replace(/\*\*Q:\*\*\s*/g, '[[Q]]')
+                        .replace(/\*\*A:\*\*\s*/g, '[[A]]')
+                        .replace(/\bQ:\s*"?/g,     '[[Q]]')
+                        .replace(/\bA:\s*"?/g,      '[[A]]');
+
+                    const pairs = [];
+                    const qBlocks = content.split('[[Q]]').filter(s => s.trim());
+                    for (const block of qBlocks) {
+                        const aParts = block.split('[[A]]');
+                        if (aParts.length >= 2) {
+                            const q = aParts[0].replace(/^["']|["']$/g, '').trim();
+                            const a = aParts.slice(1).join('').replace(/^["']|["']$/g, '').trim();
+                            if (q && a) pairs.push({ q, a });
+                        }
+                    }
+                    if (pairs.length === 0) return marked.parse(raw);
+
+                    return pairs.map((p, i) => `
+                        <div class="py-4 ${i > 0 ? 'border-t border-slate-100' : ''}">
+                            <div class="flex items-start gap-3 mb-2">
+                                <span class="shrink-0 text-[10px] font-black px-2 py-0.5 rounded-md bg-[#17bcfe] text-white mt-0.5">Q</span>
+                                <p class="font-semibold text-slate-800 text-sm leading-snug">${p.q.replace(/"/g, '')}</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <span class="shrink-0 text-[10px] font-black px-2 py-0.5 rounded-md bg-slate-700 text-white mt-0.5">A</span>
+                                <p class="text-slate-600 text-sm leading-relaxed">${p.a.replace(/"/g, '')}</p>
+                            </div>
+                        </div>`).join('');
+                },
+
+                renderSectionContent(sec) {
+                    if (sec.title.toLowerCase().includes('dig deeper')) {
+                        return this.renderQASection(sec.content);
+                    }
+                    return marked.parse(sec.content);
+                },
+
+                dukRecStyle(i) {
+                    const styles = [
+                        { wrap: 'bg-amber-50 border-amber-200',   badge: 'bg-amber-500 text-white'  },
+                        { wrap: 'bg-orange-50 border-orange-200', badge: 'bg-orange-500 text-white' },
+                        { wrap: 'bg-yellow-50 border-yellow-200', badge: 'bg-yellow-600 text-white' },
+                    ];
+                    return styles[i % styles.length];
+                },
+
+                loadDukFromHistory(item) {
+                    this.dukResult = item;
+                    this.dukCardSections  = this.parseSections(item.card);
+                    this.dukBriefSections = this.parseSections(item.brief);
+                    this.dukRecSections   = this.parseSections(item.recommendations || '');
+                    this.dukCurrentRating = item.rating || null;
+                    this.dukCacheFound    = null;
+                    this.dukTab = 'card';
+                    this.dukHistoryOpen = false;
+                },
+
+                deleteDukHistory(idx) {
+                    this.dukHistory.splice(idx, 1);
+                    localStorage.setItem('dukHistory', JSON.stringify(this.dukHistory));
+                },
+
+                rateDuk(rating) {
+                    if (!this.dukResult) return;
+                    // Toggle off if same rating clicked again
+                    const newRating = this.dukCurrentRating === rating ? null : rating;
+                    this.dukCurrentRating = newRating;
+                    const match = this.dukHistory.find(
+                        h => h.main_topic === this.dukResult.main_topic &&
+                             h.sub_topic  === this.dukResult.sub_topic
+                    );
+                    if (match) {
+                        match.rating = newRating;
+                        localStorage.setItem('dukHistory', JSON.stringify(this.dukHistory));
+                    }
+                },
+
+                exportDuk() {
+                    if (!this.dukResult) return;
+                    const r = this.dukResult;
+                    const date = new Date().toISOString().slice(0, 10);
+                    const md = [
+                        `# Do U Know? — ${r.main_topic} → ${r.sub_topic}`,
+                        `*Generated: ${r.timestamp ? new Date(r.timestamp).toLocaleString() : date}*`,
+                        ``,
+                        `---`,
+                        ``,
+                        `## Interview Card`,
+                        ``,
+                        r.card || '',
+                        ``,
+                        `---`,
+                        ``,
+                        `## Technical Brief`,
+                        ``,
+                        r.brief || '',
+                        ``,
+                        `---`,
+                        ``,
+                        `## What's New`,
+                        `*Live search retrieved: ${r.searched_at || 'unknown'}*`,
+                        ``,
+                        r.recommendations || '',
+                    ].join('\n');
+
+                    const blob = new Blob([md], { type: 'text/markdown' });
+                    const url  = URL.createObjectURL(blob);
+                    const a    = document.createElement('a');
+                    a.href     = url;
+                    a.download = `duk-${r.main_topic.toLowerCase().replace(/\s+/g,'-')}-${r.sub_topic.toLowerCase().replace(/\s+/g,'-')}-${date}.md`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                },
+
+                dukSectionStyle(i) {
+                    const styles = [
+                        { wrap: 'bg-[#eaf9ff] border-[#17bcfe]/40', badge: 'bg-[#17bcfe] text-white',    prose: 'text-slate-700' },
+                        { wrap: 'bg-purple-50 border-purple-200',    badge: 'bg-purple-600 text-white',   prose: 'text-slate-700' },
+                        { wrap: 'bg-green-50 border-green-200',       badge: 'bg-green-600 text-white',    prose: 'text-slate-700' },
+                        { wrap: 'bg-amber-50 border-amber-200',       badge: 'bg-amber-500 text-white',    prose: 'text-slate-700' },
+                        { wrap: 'bg-rose-50 border-rose-200',         badge: 'bg-rose-500 text-white',     prose: 'text-slate-700' },
+                    ];
+                    return styles[i % styles.length];
+                },
+
+                async generateDuk(force = false) {
+                    if (!this.dukForm.main_topic || !this.dukForm.sub_topic) return;
+
+                    // Cache detection — offer load vs regenerate
+                    if (!force) {
+                        const cached = this.dukHistory.find(
+                            h => h.main_topic.toLowerCase() === this.dukForm.main_topic.toLowerCase() &&
+                                 h.sub_topic.toLowerCase()  === this.dukForm.sub_topic.toLowerCase()
+                        );
+                        if (cached) { this.dukCacheFound = cached; return; }
+                    }
+                    this.dukCacheFound = null;
+
+                    // Progress steps
+                    const steps = [
+                        'Researching topic with AI...',
+                        'Building your interview card...',
+                        'Fetching live updates from Google...',
+                    ];
+                    this.dukLoading  = true;
+                    this.dukStepIdx  = 0;
+                    this.dukStep     = steps[0];
+                    this.dukHistoryOpen = false;
+                    this.dukResult   = null;
+                    this.dukCardSections  = [];
+                    this.dukBriefSections = [];
+                    this.dukRecSections   = [];
+                    this._dukInterval = setInterval(() => {
+                        this.dukStepIdx = Math.min(this.dukStepIdx + 1, steps.length - 1);
+                        this.dukStep    = steps[this.dukStepIdx];
+                    }, 7000);
+
+                    try {
+                        const resp = await fetch(`${API_BASE}/api/duk/generate`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(this.dukForm)
+                        });
+                        if (!resp.ok) throw new Error('Generation failed');
+                        const data = await resp.json();
+                        data.timestamp = new Date().toISOString();
+                        this.dukResult        = data;
+                        this.dukCardSections  = this.parseSections(data.card);
+                        this.dukBriefSections = this.parseSections(data.brief);
+                        this.dukRecSections   = this.parseSections(data.recommendations || '');
+                        this.dukCurrentRating = null;
+                        this.dukTab = 'card';
+                        this.dukHistory = [data, ...this.dukHistory.filter(
+                            h => !(h.main_topic.toLowerCase() === data.main_topic.toLowerCase() &&
+                                   h.sub_topic.toLowerCase()  === data.sub_topic.toLowerCase())
+                        )].slice(0, 20);
+                        localStorage.setItem('dukHistory', JSON.stringify(this.dukHistory));
+                    } catch (e) {
+                        console.error('DUK generation failed:', e);
+                        alert('Generation failed: ' + e.message);
+                    } finally {
+                        clearInterval(this._dukInterval);
+                        this._dukInterval = null;
+                        this.dukLoading   = false;
+                    }
                 }
             }
         }

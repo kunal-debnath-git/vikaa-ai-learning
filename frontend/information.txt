@@ -1,0 +1,10 @@
+& E:\_VIKAA-AI-Learning\venv\Scripts\Activate.ps1
+
+& E:\_VIKAA-AI-Learning\venv\Scripts\DeActivate.ps1
+
+
+
+.\venv\Scripts\uvicorn.exe main:app --port 9000 --reload
+
+
+http://127.0.0.1:9000/

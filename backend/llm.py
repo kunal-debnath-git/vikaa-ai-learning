@@ -5,6 +5,28 @@ import anthropic
 from backend.config import settings
 
 
+async def call_llm_with_search(prompt: str, system_prompt: str = "") -> str:
+    """Gemini call with Google Search grounding — returns real-time, up-to-date results."""
+    provider_cfg = settings.LLM_PROVIDERS.get("gemini", {})
+    model = provider_cfg.get("model", "gemini-2.0-flash")
+    max_tokens = provider_cfg.get("max_tokens", 8000)
+    client = genai.Client(api_key=settings.GEMINI_API_KEY)
+
+    def _sync_call():
+        return client.models.generate_content(
+            model=model,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                system_instruction=system_prompt,
+                tools=[types.Tool(google_search=types.GoogleSearch())],
+                max_output_tokens=max_tokens,
+            ),
+        )
+
+    response = await asyncio.to_thread(_sync_call)
+    return response.text
+
+
 async def call_llm(provider: str, prompt: str, system_prompt: str = "") -> str:
     provider_cfg = settings.LLM_PROVIDERS.get(provider, {})
 
