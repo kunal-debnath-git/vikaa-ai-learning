@@ -32,8 +32,8 @@ Be sharp, practical, and opinionated — not a documentation page.
 
 ## User
 
-Main Topic: Claude
-Sub Topic: Claude CoWorker
-Candidate Context: No specific context provided — generate general interview prep.
+Main Topic: databricks
+Sub Topic: Lakebase
+Candidate Context: i am asking about databricks Lakebase (not lakehouse). provide me all relevant details
 
 Generate the structured technical brief for this topic.

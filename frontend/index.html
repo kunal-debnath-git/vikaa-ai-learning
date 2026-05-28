@@ -34,9 +34,11 @@
             <div class="flex items-center space-x-6">
                 <template x-if="user">
                     <div class="flex items-center space-x-6">
-                        <button @click="showDuk = !showDuk; showDashboard = false;" class="text-sm font-bold text-slate-600 hover:text-[#17bcfe] transition" x-text="showDuk ? '← Back to Prep' : 'Do U Know?'"></button>
+                        <button @click="showInterview = !showInterview; showDuk = false; showDashboard = false;" class="text-sm font-bold text-slate-600 hover:text-[#17bcfe] transition" x-text="showInterview ? '← Back to Prep' : 'Mock Interview'"></button>
                         <div class="h-4 w-[1px] bg-slate-200"></div>
-                        <button @click="showDashboard = !showDashboard; showDuk = false; if(showDashboard){ fetchPerformance(); fetchSessionHistory(); }" class="text-sm font-bold text-slate-600 hover:text-[#17bcfe] transition" x-text="showDashboard ? '← Back to Prep' : 'My Analytics'"></button>
+                        <button @click="showDuk = !showDuk; showDashboard = false; showInterview = false;" class="text-sm font-bold text-slate-600 hover:text-[#17bcfe] transition" x-text="showDuk ? '← Back to Prep' : 'Do U Know?'"></button>
+                        <div class="h-4 w-[1px] bg-slate-200"></div>
+                        <button @click="showDashboard = !showDashboard; showDuk = false; showInterview = false; if(showDashboard){ fetchPerformance(); fetchSessionHistory(); }" class="text-sm font-bold text-slate-600 hover:text-[#17bcfe] transition" x-text="showDashboard ? '← Back to Prep' : 'My Analytics'"></button>
                         <div class="h-4 w-[1px] bg-slate-200"></div>
                         <div class="flex items-center space-x-2">
                             <div class="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-600" x-text="user.name.charAt(0)"></div>
@@ -179,7 +181,7 @@
         </section>
 
         <!-- 3. CONFIGURATION -->
-        <section x-show="user && !session && !showDashboard && !showDuk && !loading" x-cloak>
+        <section x-show="user && !session && !showDashboard && !showDuk && !showInterview && !loading" x-cloak>
             <div class="mb-8 text-center max-w-2xl mx-auto">
                 <h3 class="text-2xl font-extrabold mb-3">Exam Configuration</h3>
                 <p class="text-slate-500 text-sm">Our <span class="text-[#17bcfe] font-bold">Market Intelligence Layer</span> is active <br> Scanning for Fortune 100 interview patterns for your selected role.</p>
@@ -578,6 +580,326 @@
 
         </section>
 
+        <!-- MOCK INTERVIEW SCREEN -->
+        <section x-show="user && showInterview && !loading" x-cloak>
+            <div class="max-w-4xl mx-auto">
+
+                <!-- CONFIG PHASE -->
+                <div x-show="interviewPhase === 'config'">
+                    <div class="mb-8 text-center max-w-2xl mx-auto">
+                        <h3 class="text-4xl font-extrabold mb-3">Mock Interview</h3>
+                        <p class="text-slate-500 text-sm">A real-time AI interviewer asks questions one at a time, probes your answers, and gives you a full debrief at the end.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <!-- Left: Role + Focus -->
+                        <div class="lg:col-span-8 space-y-6">
+                            <div class="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm">
+                                <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-5">Target Role</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <template x-for="(roleInfo, key) in config.roles" :key="key">
+                                        <label :class="interviewForm.role === key ? 'border-[#17bcfe] bg-[#eaf9ff] ring-2 ring-[#17bcfe]/10' : 'border-slate-100 hover:border-[#b3ecff] hover:bg-slate-50'" class="block p-4 border-2 rounded-2xl cursor-pointer transition-all duration-300">
+                                            <input type="radio" :value="key" x-model="interviewForm.role" class="hidden">
+                                            <div class="flex justify-between items-start">
+                                                <div>
+                                                    <div class="font-bold text-sm text-slate-900 mb-1" x-text="roleInfo.label"></div>
+                                                    <div class="text-[10px] text-slate-500 leading-relaxed pr-4" x-text="roleInfo.description"></div>
+                                                </div>
+                                                <div x-show="interviewForm.role === key" class="text-[#17bcfe] shrink-0">
+                                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm">
+                                <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-2">Focus Area <span class="text-slate-300 normal-case font-normal ml-1">(optional)</span></h3>
+                                <input type="text" x-model="interviewForm.focus_area"
+                                    placeholder="e.g. Databricks, Azure Synapse, streaming architectures, Delta Lake..."
+                                    class="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-[#17bcfe] focus:bg-white outline-none transition text-sm">
+                                <p class="text-[10px] text-slate-400 mt-2">Leave blank for broad role-based questions.</p>
+                            </div>
+                        </div>
+
+                        <!-- Right: Settings + Launch -->
+                        <div class="lg:col-span-4 space-y-5">
+                            <div class="bg-white p-6 rounded-[2rem] border border-slate-200 shadow-sm">
+                                <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] mb-5">Interview Settings</h3>
+                                <div class="space-y-5">
+                                    <div>
+                                        <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Difficulty</label>
+                                        <select x-model="interviewForm.difficulty" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-xs outline-none focus:ring-2 focus:ring-[#17bcfe]">
+                                            <template x-for="level in config.difficulty_levels" :key="level">
+                                                <option :value="level" x-text="level"></option>
+                                            </template>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Interview Style</label>
+                                        <select x-model="interviewForm.interview_style" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-xs outline-none focus:ring-2 focus:ring-[#17bcfe]">
+                                            <option value="mixed">Mixed (Balanced)</option>
+                                            <option value="behavioral">Behavioral — STAR Format</option>
+                                            <option value="system_design">System Design</option>
+                                            <option value="technical">Technical Deep-Dive</option>
+                                            <option value="leadership">Leadership &amp; Culture</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Questions</label>
+                                        <div class="grid grid-cols-4 gap-2">
+                                            <template x-for="n in [5, 10, 15, 20]" :key="n">
+                                                <button type="button" @click="interviewForm.num_questions = n"
+                                                        :class="interviewForm.num_questions === n ? 'bg-[#17bcfe] text-white border-[#17bcfe]' : 'bg-white text-slate-600 border-slate-200 hover:border-[#17bcfe]'"
+                                                        class="py-2.5 rounded-xl border-2 text-sm font-black transition"
+                                                        x-text="n"></button>
+                                            </template>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">AI Model</label>
+                                        <select x-model="interviewForm.llm_provider" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-bold text-xs outline-none focus:ring-2 focus:ring-[#17bcfe]">
+                                            <option value="gemini">Gemini 2.0 Flash</option>
+                                            <option value="claude">Claude Sonnet 4.6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button @click="startInterview()" :disabled="interviewTyping"
+                                    class="w-full py-6 bg-[#17bcfe] text-white rounded-[2rem] font-extrabold text-lg hover:bg-[#0891b2] transition transform active:scale-[0.98] shadow-2xl shadow-sky-200 disabled:opacity-50">
+                                <span x-show="!interviewTyping">Start Interview</span>
+                                <span x-show="interviewTyping">Connecting...</span>
+                            </button>
+                            <p class="text-[10px] text-center text-slate-400 font-medium px-4">The AI introduces itself and asks questions one at a time.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACTIVE PHASE -->
+                <div x-show="interviewPhase === 'active'" class="max-w-3xl mx-auto">
+                    <!-- Status bar -->
+                    <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
+                        <div>
+                            <div class="flex items-center space-x-2 mb-1 flex-wrap gap-y-1">
+                                <span class="px-2 py-1 bg-[#caf4ff] text-[#0077a3] rounded text-[10px] font-black uppercase tracking-widest" x-text="config.roles[interviewForm.role]?.label || interviewForm.role"></span>
+                                <span class="text-slate-400 text-[10px] font-bold">•</span>
+                                <span class="text-slate-400 text-[10px] font-bold" x-text="interviewForm.difficulty"></span>
+                                <span class="text-slate-400 text-[10px] font-bold">•</span>
+                                <span class="px-2 py-1 bg-slate-100 text-slate-500 rounded text-[10px] font-black uppercase tracking-widest"
+                                      x-text="{'mixed':'Mixed','behavioral':'STAR','system_design':'Sys Design','technical':'Technical','leadership':'Leadership'}[interviewForm.interview_style] || interviewForm.interview_style"></span>
+                                <template x-if="interviewComplete">
+                                    <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-[10px] font-black uppercase tracking-widest">✓ Complete</span>
+                                </template>
+                            </div>
+                            <p class="text-xs text-slate-500 font-bold"
+                               x-text="`${interviewMainQuestions} of ${interviewForm.num_questions} questions asked`"></p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <!-- Speaking indicator -->
+                            <span x-show="voiceSpeaking"
+                                  class="flex items-center space-x-1 px-2 py-1 bg-[#eaf9ff] border border-[#17bcfe]/30 rounded-lg text-[10px] font-black text-[#17bcfe] uppercase tracking-widest">
+                                <svg class="w-3 h-3 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+                                <span>Speaking</span>
+                            </span>
+                            <!-- Voice TTS toggle -->
+                            <button @click="voiceEnabled = !voiceEnabled; if(!voiceEnabled) stopSpeaking()"
+                                    :class="voiceEnabled ? 'text-[#17bcfe] bg-[#eaf9ff] border-[#17bcfe]/40' : 'text-slate-300 bg-white border-slate-200'"
+                                    class="w-9 h-9 rounded-xl border-2 flex items-center justify-center transition-all"
+                                    title="Toggle AI voice (Text-to-Speech)">
+                                <svg x-show="voiceEnabled"  class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                                <svg x-show="!voiceEnabled" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                            </button>
+                            <!-- Always available: end early or at completion -->
+                            <button @click="getInterviewDebrief()" :disabled="interviewTyping"
+                                    :class="interviewComplete
+                                        ? 'bg-[#17bcfe] hover:bg-[#0891b2] shadow-lg shadow-sky-100'
+                                        : 'bg-amber-500 hover:bg-amber-600 shadow-lg shadow-amber-100'"
+                                    class="px-5 py-2.5 text-white rounded-xl font-black text-sm transition disabled:opacity-50">
+                                <span x-show="!interviewTyping">
+                                    <span x-show="interviewComplete">Get My Debrief →</span>
+                                    <span x-show="!interviewComplete">End &amp; Get Debrief</span>
+                                </span>
+                                <span x-show="interviewTyping">Generating...</span>
+                            </button>
+                            <!-- Exit without debrief — always available, visually de-emphasised -->
+                            <button @click="exitInterview()" type="button"
+                                    class="px-3 py-2.5 bg-white border border-slate-200 text-slate-400 rounded-xl text-xs font-bold hover:border-red-300 hover:text-red-400 transition"
+                                    title="Exit without saving">
+                                Discard
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Chat window -->
+                    <div id="interviewChat" class="bg-white border border-slate-200 rounded-[2rem] p-6 h-[54vh] overflow-y-auto space-y-4 mb-4 scroll-smooth">
+                        <template x-for="(msg, i) in interviewMessages" :key="i">
+                            <div :class="msg.role === 'ai' ? 'flex' : 'flex justify-end'">
+                                <template x-if="msg.role === 'ai'">
+                                    <div class="flex items-start space-x-3 max-w-[82%]">
+                                        <div class="w-8 h-8 rounded-xl bg-[#17bcfe] flex items-center justify-center text-white font-black text-[10px] shrink-0 mt-0.5 transition-all"
+                                             :class="voiceSpeaking && i === interviewMessages.length - 1 ? 'ring-2 ring-[#17bcfe]/40 ring-offset-1 animate-pulse' : ''">AI</div>
+                                        <div class="bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-sm px-5 py-4 text-sm text-slate-800 font-medium leading-relaxed" x-text="msg.content"></div>
+                                    </div>
+                                </template>
+                                <template x-if="msg.role === 'user'">
+                                    <div class="max-w-[82%] bg-[#17bcfe] rounded-2xl rounded-tr-sm px-5 py-4 text-sm text-white font-medium leading-relaxed" x-text="msg.content"></div>
+                                </template>
+                            </div>
+                        </template>
+
+                        <!-- Typing indicator -->
+                        <div x-show="interviewTyping" class="flex">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-8 h-8 rounded-xl bg-[#17bcfe] flex items-center justify-center text-white font-black text-[10px] shrink-0">AI</div>
+                                <div class="bg-slate-50 border border-slate-100 rounded-2xl rounded-tl-sm px-5 py-4">
+                                    <div class="flex space-x-1.5 items-center h-4">
+                                        <div class="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style="animation-delay:0ms"></div>
+                                        <div class="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style="animation-delay:150ms"></div>
+                                        <div class="w-2 h-2 bg-slate-300 rounded-full animate-bounce" style="animation-delay:300ms"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Input area -->
+                    <div class="relative" :class="interviewComplete ? 'opacity-40 pointer-events-none' : ''">
+
+                        <!-- Listening banner -->
+                        <div x-show="voiceListening"
+                             x-transition
+                             class="flex items-center space-x-2 mb-2 px-4 py-2 bg-red-50 border border-red-200 rounded-2xl">
+                            <span class="relative flex h-3 w-3">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                            </span>
+                            <span class="text-xs font-semibold text-red-600">Listening… speak your answer</span>
+                        </div>
+
+                        <!-- Auto-send pending banner -->
+                        <div x-show="voiceAutoSendPending"
+                             x-transition
+                             class="flex items-center justify-between mb-2 px-4 py-2 bg-amber-50 border border-amber-200 rounded-2xl">
+                            <span class="text-xs font-semibold text-amber-700">Sending in 1.5s…</span>
+                            <button @click="cancelAutoSend()"
+                                    class="text-xs font-bold text-amber-700 hover:text-red-600 underline transition">
+                                Cancel
+                            </button>
+                        </div>
+
+                        <!-- Input row -->
+                        <div class="bg-white border border-slate-200 rounded-[2rem] p-4 flex items-end space-x-3">
+                            <textarea
+                                x-model="interviewInput"
+                                :disabled="interviewTyping || interviewComplete || voiceListening"
+                                @keydown.enter="if(!$event.shiftKey){ $event.preventDefault(); if(interviewInput.trim() && !interviewTyping && !interviewComplete) sendInterviewMessage(); }"
+                                :placeholder="voiceListening ? 'Listening…' : 'Type your answer… (Enter to send, Shift+Enter for new line)'"
+                                rows="2"
+                                class="flex-1 resize-none bg-transparent outline-none text-sm text-slate-800 font-medium placeholder:text-slate-300 disabled:cursor-not-allowed"></textarea>
+
+                            <!-- Mic button -->
+                            <button @click="toggleListening()"
+                                    :disabled="interviewTyping || interviewComplete || voiceSpeaking"
+                                    :title="voiceListening ? 'Stop listening' : 'Speak your answer'"
+                                    :class="voiceListening
+                                        ? 'bg-red-500 hover:bg-red-600 animate-pulse ring-2 ring-red-300'
+                                        : 'bg-[#17bcfe]/10 hover:bg-[#17bcfe]/20 text-[#17bcfe]'"
+                                    class="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition disabled:opacity-30 disabled:cursor-not-allowed">
+                                <!-- Mic on -->
+                                <svg x-show="!voiceListening" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                                </svg>
+                                <!-- Mic off / stop -->
+                                <svg x-show="voiceListening" class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <rect x="6" y="6" width="12" height="12" rx="2"></rect>
+                                </svg>
+                            </button>
+
+                            <!-- Send button -->
+                            <button @click="sendInterviewMessage()"
+                                    :disabled="!interviewInput.trim() || interviewTyping || interviewComplete"
+                                    class="shrink-0 w-10 h-10 rounded-xl bg-[#17bcfe] text-white flex items-center justify-center hover:bg-[#0891b2] transition disabled:opacity-30 disabled:cursor-not-allowed">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-center text-xs font-medium mt-3"
+                       :class="interviewComplete ? 'text-[#17bcfe]' : 'text-slate-400'">
+                        <span x-show="interviewComplete">All questions answered — click <span class="font-black">Get My Debrief →</span> above.</span>
+                        <span x-show="!interviewComplete">You can end early at any time — your answers so far will be evaluated.</span>
+                    </p>
+                </div>
+
+                <!-- DEBRIEF PHASE -->
+                <div x-show="interviewPhase === 'debrief'" class="max-w-3xl mx-auto">
+                    <!-- Action bar -->
+                    <div class="flex items-center justify-between mb-8 flex-wrap gap-4">
+                        <div>
+                            <h3 class="text-4xl font-extrabold">Interview Debrief</h3>
+                            <p class="text-slate-500 text-sm mt-1"
+                               x-text="`${interviewDebrief?.role || ''} · ${interviewDebrief?.difficulty || ''} · ${interviewDebrief?.num_questions || ''} questions`"></p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button @click="exportInterview()"
+                                    class="flex items-center space-x-1.5 px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:border-[#17bcfe] hover:text-[#17bcfe] transition">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                <span>Export .md</span>
+                            </button>
+                            <button @click="exitInterview()"
+                                    class="px-5 py-2 bg-[#17bcfe] text-white rounded-xl text-sm font-bold hover:bg-[#0891b2] transition">
+                                New Interview
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Debrief section cards -->
+                    <div class="space-y-4 mb-8">
+                        <template x-for="(sec, i) in interviewDebriefSections" :key="i">
+                            <div :class="interviewDebriefStyle(sec.title).wrap" class="rounded-2xl border p-6">
+                                <span :class="interviewDebriefStyle(sec.title).badge"
+                                      class="inline-block text-[10px] font-black px-2.5 py-1 rounded-lg uppercase tracking-widest mb-3"
+                                      x-text="sec.title"></span>
+                                <div :class="interviewDebriefStyle(sec.title).prose"
+                                     class="text-sm leading-relaxed prose prose-sm max-w-none"
+                                     x-html="marked.parse(sec.content)"></div>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Full transcript toggle -->
+                    <div class="border border-slate-200 rounded-3xl overflow-hidden">
+                        <button @click="interviewShowTranscript = !interviewShowTranscript"
+                                class="w-full flex items-center justify-between px-8 py-5 bg-slate-50 hover:bg-slate-100 transition-colors text-left">
+                            <div class="flex items-center space-x-3">
+                                <span class="font-extrabold text-slate-800">Full Transcript</span>
+                                <span class="text-xs font-bold text-slate-400" x-text="`${interviewMessages.length} messages`"></span>
+                            </div>
+                            <svg :class="interviewShowTranscript ? 'rotate-180' : ''" class="w-5 h-5 text-slate-400 transition-transform duration-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div x-show="interviewShowTranscript" class="p-6 space-y-4">
+                            <template x-for="(msg, i) in interviewMessages" :key="i">
+                                <div :class="msg.role === 'ai' ? 'flex' : 'flex justify-end'" class="pt-2">
+                                    <template x-if="msg.role === 'ai'">
+                                        <div class="flex items-start space-x-3 max-w-[85%]">
+                                            <div class="w-7 h-7 rounded-lg bg-slate-200 flex items-center justify-center text-slate-600 font-black text-[10px] shrink-0 mt-0.5">AI</div>
+                                            <p class="text-sm text-slate-700 leading-relaxed" x-text="msg.content"></p>
+                                        </div>
+                                    </template>
+                                    <template x-if="msg.role === 'user'">
+                                        <p class="max-w-[85%] text-sm text-slate-700 leading-relaxed bg-slate-50 border border-slate-100 px-4 py-3 rounded-xl" x-text="msg.content"></p>
+                                    </template>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <!-- DO U KNOW? SCREEN -->
         <section x-show="user && showDuk && !loading" x-cloak>
             <div class="max-w-4xl mx-auto">
@@ -851,6 +1173,25 @@
                 dukBriefSections: [],
                 dukRecSections: [],
 
+                // Mock Interview
+                showInterview: false,
+                interviewPhase: 'config',
+                interviewForm: { role: 'architect', difficulty: 'Medium', llm_provider: 'gemini', num_questions: 5, focus_area: '', interview_style: 'mixed' },
+                interviewSession: null,
+                interviewMessages: [],
+                interviewInput: '',
+                interviewTyping: false,
+                interviewComplete: false,
+                interviewMainQuestions: 0,
+                interviewDebrief: null,
+                interviewDebriefSections: [],
+                interviewShowTranscript: false,
+                // Voice
+                voiceEnabled: true,
+                voiceListening: false,
+                voiceSpeaking: false,
+                voiceAutoSendPending: false,
+
                 async init() {
                     try {
                         const resp = await fetch(`${API_BASE}/api/config`);
@@ -928,9 +1269,15 @@
                     this.session = null;
                     this.showDashboard = false;
                     this.showDuk = false;
+                    this.showInterview = false;
                     this.results = null;
                     this.dukResult = null;
                     this.dukCacheFound = null;
+                    this.interviewPhase = 'config';
+                    this.interviewSession = null;
+                    this.interviewMessages = [];
+                    this.interviewDebrief = null;
+                    this.interviewDebriefSections = [];
                 },
 
                 get filteredCategories() {
@@ -1477,6 +1824,234 @@
                         this._dukInterval = null;
                         this.dukLoading   = false;
                     }
+                },
+
+                // ── MOCK INTERVIEW ───────────────────────────────────────────
+
+                async startInterview() {
+                    this.interviewTyping = true;
+                    try {
+                        const resp = await fetch(`${API_BASE}/api/interview/start`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                user_id: this.user.id,
+                                role: this.interviewForm.role,
+                                difficulty: this.interviewForm.difficulty,
+                                llm_provider: this.interviewForm.llm_provider,
+                                num_questions: this.interviewForm.num_questions,
+                                focus_area: this.interviewForm.focus_area,
+                                interview_style: this.interviewForm.interview_style,
+                            })
+                        });
+                        if (!resp.ok) throw new Error('Failed to start interview');
+                        const data = await resp.json();
+                        this.interviewSession = { id: data.session_id };
+                        this.interviewMessages = [{ role: 'ai', content: data.opening }];
+                        this.interviewComplete = false;
+                        this.interviewMainQuestions = data.main_question_count || 1;
+                        this.interviewPhase = 'active';
+                        this.scrollChatToBottom();
+                        this.speakText(data.opening);
+                    } catch (e) {
+                        alert('Failed to start interview: ' + e.message);
+                    } finally {
+                        this.interviewTyping = false;
+                    }
+                },
+
+                async sendInterviewMessage() {
+                    const msg = this.interviewInput.trim();
+                    if (!msg || this.interviewTyping || this.interviewComplete) return;
+                    this.interviewInput = '';
+                    this.interviewMessages.push({ role: 'user', content: msg });
+                    this.scrollChatToBottom();
+                    this.interviewTyping = true;
+                    try {
+                        const resp = await fetch(`${API_BASE}/api/interview/${this.interviewSession.id}/chat`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ message: msg })
+                        });
+                        if (!resp.ok) throw new Error('Chat failed');
+                        const data = await resp.json();
+                        this.interviewMessages.push({ role: 'ai', content: data.response });
+                        this.interviewComplete = data.is_complete;
+                        this.interviewMainQuestions = data.main_question_count || this.interviewMainQuestions;
+                        this.speakText(data.response);
+                    } catch (e) {
+                        this.interviewMessages.push({ role: 'ai', content: 'Something went wrong. Please try again.' });
+                    } finally {
+                        this.interviewTyping = false;
+                        this.scrollChatToBottom();
+                    }
+                },
+
+                async getInterviewDebrief() {
+                    this.stopSpeaking();
+                    this.cancelAutoSend();
+                    this._recognition?.stop();
+                    this.voiceListening = false;
+                    this.interviewTyping = true;
+                    try {
+                        const resp = await fetch(`${API_BASE}/api/interview/${this.interviewSession.id}/end`, {
+                            method: 'POST'
+                        });
+                        if (!resp.ok) throw new Error('Debrief failed');
+                        const data = await resp.json();
+                        this.interviewDebrief = data;
+                        this.interviewDebriefSections = this.parseSections(data.debrief);
+                        this.interviewPhase = 'debrief';
+                        this.interviewShowTranscript = false;
+                        window.scrollTo(0, 0);
+                    } catch (e) {
+                        alert('Failed to generate debrief: ' + e.message);
+                    } finally {
+                        this.interviewTyping = false;
+                    }
+                },
+
+                exitInterview() {
+                    this.stopSpeaking();
+                    this._recognition?.stop();
+                    this.cancelAutoSend();
+                    this.voiceListening = false;
+                    this.voiceAutoSendPending = false;
+                    this.interviewPhase = 'config';
+                    this.interviewSession = null;
+                    this.interviewMessages = [];
+                    this.interviewInput = '';
+                    this.interviewTyping = false;
+                    this.interviewComplete = false;
+                    this.interviewMainQuestions = 0;
+                    this.interviewDebrief = null;
+                    this.interviewDebriefSections = [];
+                    this.interviewShowTranscript = false;
+                },
+
+                exportInterview() {
+                    if (!this.interviewDebrief) return;
+                    const d = this.interviewDebrief;
+                    const date = new Date().toISOString().slice(0, 10);
+                    const transcript = this.interviewMessages.map(m =>
+                        `**${m.role === 'ai' ? 'Interviewer' : 'You'}:** ${m.content}`
+                    ).join('\n\n');
+                    const md = [
+                        `# VikaaAI Mock Interview Debrief`,
+                        `**Role:** ${d.role} | **Difficulty:** ${d.difficulty} | **Date:** ${date}`,
+                        '', '---', '',
+                        `## AI Evaluation`, '',
+                        d.debrief,
+                        '', '---', '',
+                        `## Full Transcript`, '',
+                        transcript,
+                    ].join('\n');
+                    const blob = new Blob([md], { type: 'text/markdown' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `interview-debrief-${date}.md`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                },
+
+                scrollChatToBottom() {
+                    this.$nextTick(() => {
+                        const el = document.getElementById('interviewChat');
+                        if (el) el.scrollTop = el.scrollHeight;
+                    });
+                },
+
+                // ── VOICE (TTS + STT) ─────────────────────────────────────
+
+                speakText(text) {
+                    if (!this.voiceEnabled || !window.speechSynthesis) return;
+                    window.speechSynthesis.cancel();
+                    const utter = new SpeechSynthesisUtterance(text);
+                    utter.rate = 0.95;
+                    const doSpeak = () => {
+                        const voices = window.speechSynthesis.getVoices();
+                        const voice = voices.find(v => v.lang.startsWith('en-US') && !v.localService)
+                                   || voices.find(v => v.lang.startsWith('en'))
+                                   || voices[0];
+                        if (voice) utter.voice = voice;
+                        utter.onstart = () => { this.voiceSpeaking = true; };
+                        utter.onend   = () => { this.voiceSpeaking = false; };
+                        utter.onerror = () => { this.voiceSpeaking = false; };
+                        window.speechSynthesis.speak(utter);
+                    };
+                    if (window.speechSynthesis.getVoices().length) {
+                        doSpeak();
+                    } else {
+                        window.speechSynthesis.onvoiceschanged = () => { doSpeak(); };
+                    }
+                },
+
+                stopSpeaking() {
+                    window.speechSynthesis?.cancel();
+                    this.voiceSpeaking = false;
+                },
+
+                toggleListening() {
+                    if (this.voiceListening) {
+                        this._recognition?.stop();
+                        return;
+                    }
+                    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+                    if (!SpeechRec) {
+                        alert('Speech recognition requires Chrome or Edge.');
+                        return;
+                    }
+                    this.stopSpeaking();
+                    this._recognition = new SpeechRec();
+                    this._recognition.continuous = false;
+                    this._recognition.interimResults = true;
+                    this._recognition.lang = 'en-US';
+
+                    this._recognition.onstart = () => {
+                        this.voiceListening = true;
+                        this.interviewInput = '';
+                        this.cancelAutoSend();
+                    };
+                    this._recognition.onresult = (e) => {
+                        this.interviewInput = Array.from(e.results)
+                            .map(r => r[0].transcript).join('');
+                    };
+                    this._recognition.onend = () => {
+                        this.voiceListening = false;
+                        if (this.interviewInput.trim()) {
+                            this.voiceAutoSendPending = true;
+                            this._autoSendTimer = setTimeout(() => {
+                                if (this.voiceAutoSendPending) {
+                                    this.voiceAutoSendPending = false;
+                                    this.sendInterviewMessage();
+                                }
+                            }, 1500);
+                        }
+                    };
+                    this._recognition.onerror = (e) => {
+                        this.voiceListening = false;
+                        if (e.error !== 'no-speech') console.error('STT error:', e.error);
+                    };
+                    this._recognition.start();
+                },
+
+                cancelAutoSend() {
+                    clearTimeout(this._autoSendTimer);
+                    this.voiceAutoSendPending = false;
+                },
+
+                interviewDebriefStyle(title) {
+                    const t = (title || '').toLowerCase();
+                    if (t.includes('overall'))   return { wrap: 'bg-[#eaf9ff] border-[#17bcfe]/40', badge: 'bg-[#17bcfe] text-white',    prose: 'text-slate-700' };
+                    if (t.includes('score'))     return { wrap: 'bg-slate-900 border-slate-700',    badge: 'bg-white text-slate-900',    prose: 'text-white' };
+                    if (t.includes('strength'))  return { wrap: 'bg-green-50 border-green-200',      badge: 'bg-green-600 text-white',    prose: 'text-slate-700' };
+                    if (t.includes('areas') || t.includes('improve')) return { wrap: 'bg-amber-50 border-amber-200', badge: 'bg-amber-500 text-white', prose: 'text-slate-700' };
+                    if (t.includes('question'))  return { wrap: 'bg-purple-50 border-purple-200',    badge: 'bg-purple-600 text-white',   prose: 'text-slate-700' };
+                    if (t.includes('next') || t.includes('recommend')) return { wrap: 'bg-rose-50 border-rose-200', badge: 'bg-rose-500 text-white', prose: 'text-slate-700' };
+                    return                               { wrap: 'bg-white border-slate-200',         badge: 'bg-slate-700 text-white',   prose: 'text-slate-700' };
                 }
             }
         }
