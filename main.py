@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pathlib import Path
 
-from backend.routers import sessions, questions, analytics, users, duk, interview
+from backend.routers import sessions, questions, analytics, users, duk, interview, databricks_mcq
 
 app = FastAPI(
     title="Advanced Interview Prep System",
@@ -31,6 +31,7 @@ app.include_router(questions.router, prefix="/api")
 app.include_router(analytics.router, prefix="/api")
 app.include_router(duk.router, prefix="/api")
 app.include_router(interview.router, prefix="/api")
+app.include_router(databricks_mcq.router, prefix="/api")
 
 # Static frontend
 frontend_path = Path(__file__).parent / "frontend"

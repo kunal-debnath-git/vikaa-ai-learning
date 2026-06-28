@@ -1,0 +1,63 @@
+Here are 10 lab‑style scenarios designed to progressively build your skills across the key stages of the Databricks Generative AI Engineer learning path. Each lab introduces a concrete task with an end‑to‑end workflow, and together they prepare you to build a full‑stack GenAI application on Databricks. You can treat them as hands‑on assignments or reference implementations:
+
+1. **Foundation Models Exploration**
+
+   * **Objective:** Explore and compare proprietary and open‑source LLMs (e.g. GPT‑3.5 vs. DBRX or Llama 2) using Databricks Model Serving.
+   * **Tasks:** Deploy two models via Databricks Model Serving, create a notebook to send a set of benchmark prompts, measure response quality and latency, and log results in MLflow.
+   * **Skills:** Model deployment, API calls, performance logging, interpreting benchmark results.
+
+2. **Prompt Engineering Playground**
+
+   * **Objective:** Learn how different prompts and parameters affect model responses.
+   * **Tasks:** Use the Databricks AI Playground to test various prompt styles (zero‑shot, few‑shot) across multiple models, document observed differences, then codify the winning prompt in a notebook script.
+   * **Skills:** Prompt design, parameter tuning, documenting best practices.
+
+3. **RAG Pipeline Construction**
+
+   * **Objective:** Build a retrieval‑augmented generation pipeline to answer domain‑specific queries.
+   * **Tasks:** Ingest a corpus (e.g. company FAQs or the product reviews dataset from the Big Book), cleanse and chunk the documents, create embeddings using a hosted model, store them in Databricks Vector Search, and integrate the retriever with an LLM via LangChain.
+   * **Skills:** Data cleansing, embedding creation, vector index setup, RAG chain assembly.
+
+4. **Structured Data Integration**
+
+   * **Objective:** Augment a RAG system with real‑time structured features.
+   * **Tasks:** Define features in Unity Catalog via FeatureFunction and FeatureLookup, deploy them using Databricks Feature & Function Serving, and modify the RAG pipeline to fetch these features when generating responses (e.g. product availability or user preferences).
+   * **Skills:** Feature engineering, real‑time serving endpoints, combining structured and unstructured data.
+
+5. **Fine‑Tuning with LoRA/QLoRA**
+
+   * **Objective:** Customize an open‑source model for a specific domain.
+   * **Tasks:** Select a compact model (e.g. MPT‑7B), prepare a domain dataset (transform into Alpaca format if needed), fine‑tune using LoRA or QLoRA with PEFT and TRL on Databricks, and evaluate the tuned model against the base model.
+   * **Skills:** Data formatting, LoRA/QLoRA configuration, GPU resource management, training monitoring.
+
+6. **Pretraining Mini‑Model (Optional Advanced)**
+
+   * **Objective:** Experience the workflow of pretraining from scratch on a small corpus.
+   * **Tasks:** Select a small text dataset relevant to your use case, set up a training script with Hugging Face Transformers and FSDP on Databricks, and train a simple language model. Compare costs and performance with fine‑tuning.
+   * **Skills:** Distributed training, handling failures (Node Doctor/Watchdog), understanding cost trade‑offs.
+
+7. **Stable Diffusion Fine‑Tuning**
+
+   * **Objective:** Extend generative capabilities to images.
+   * **Tasks:** Use a subset of LAION‑5B or your own images to train or fine‑tune a Stable Diffusion model on Databricks using MosaicML Composer, apply optimizations (xFormers, FSDP) and generate sample images.
+   * **Skills:** Multi‑modal model training, GPU optimization, cost management.
+
+8. **Evaluation and Continuous Monitoring**
+
+   * **Objective:** Implement best practices for offline evaluation and monitoring.
+   * **Tasks:** Use the Offline LLM Evaluation notebook to build an evaluation pipeline for your RAG or fine‑tuned model, create custom metrics (e.g. answer correctness, latency), set up dashboards in Databricks SQL, and experiment with LLM‑as‑a‑judge for scoring.
+   * **Skills:** Metrics design, MLflow logging, dashboard creation, critical analysis of evaluation results.
+
+9. **Governance and Security Implementation**
+
+   * **Objective:** Apply data governance and access control to GenAI workloads.
+   * **Tasks:** Configure Unity Catalog permissions for your vector index and feature tables, create service accounts with limited scopes, and audit model usage via Databricks audit logs. Practice rotating API keys and secrets.
+   * **Skills:** Access management, governance policies, security best practices.
+
+10. **Full‑Stack GenAI Application**
+
+* **Objective:** Assemble the previous components into a cohesive app.
+* **Tasks:** Develop a Streamlit or Flask front‑end hosted on Databricks that lets users ask questions, calls your RAG pipeline with structured features, displays results and suggested follow‑ups, logs interactions for re‑evaluation, and provides an admin interface to monitor performance.
+* **Skills:** Front‑end integration, back‑end orchestration, user experience design, end‑to‑end deployment on Databricks.
+
+These labs are designed to build upon each other; by the end you’ll have a working full‑stack GenAI application using Databricks’ data engineering, model serving, and evaluation capabilities. If you’d like me to flesh out any lab in more detail (e.g. provide code snippets or datasets), just let me know!

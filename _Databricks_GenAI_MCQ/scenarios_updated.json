@@ -1,0 +1,1192 @@
+[
+  {
+    "page": "3",
+    "scenario": "A company is struggling to deploy customer-facing Generative AI applications due to concerns about accuracy, governance, and safety of the AI output.",
+    "question": "What foundational aspect of data management does the \"Big Book of Generative AI\" suggest must evolve to support production-quality GenAI applications and address these concerns?",
+    "answer": "The document suggests that the emergence of data lakehouses as the new \"modern data stack\" is central to reshaping foundational aspects of data management to support GenAI-powered applications effectively and securely, ensuring accurate, governed, and safe AI output.",
+    "refer_to": "Page 3, \"Achieving Production-Quality GenAI Requires New Tools and Skills\" and \"Data Infrastructure Must Evolve to Support GenAI-Powered Applications\" sections."
+  },
+  {
+    "page": "4",
+    "scenario": "A development team is planning to implement a GenAI solution and is evaluating different approaches. They want to understand the typical \"GenAI journey\" stages.",
+    "question": "According to the \"GenAI journey\" diagram, which of the following stages is considered to be the most \"Complexity/Compute-intensiveness\"?",
+    "answer": "d) Pre-training. The diagram illustrates that pre-training is at the highest end of the \"Complexity/Compute-intensiveness\" scale.",
+    "refer_to": "Page 4, \"GenAI journey\" diagram."
+  },
+  {
+    "page": "5",
+    "scenario": "A data scientist is considering using a large language model as a foundation for a new GenAI application and is weighing the pros and cons of proprietary versus open-source models.",
+    "question": "From the perspective of control, governance, and data privacy, what is a key advantage of open-source foundation models like DBRX compared to proprietary models?",
+    "answer": "Open-source models offer users full control over the model and the ability to run it on their own terms with their own governance and data privacy, unlike proprietary models where users send data to a third party and lack control over underlying model updates.",
+    "refer_to": "Page 5, \"Stage 0: Foundation Models\" section."
+  },
+  {
+    "page": "6",
+    "scenario": "A team is evaluating DBRX against other open LLMs for a project requiring strong language understanding, programming, and math capabilities. They are reviewing benchmark scores.",
+    "question": "Based on Figure 1, how does DBRX compare to LLaMA2-70B in terms of Language Understanding (MMLU) and Programming (HumanEval) scores?",
+    "answer": "DBRX significantly outperforms LLaMA2-70B in both categories, scoring 73.7% in Language Understanding (MMLU) compared to LLaMA2-70B's 69.8%, and 70.1% in Programming (HumanEval) compared to LLaMA2-70B's 32.2%.",
+    "refer_to": "Page 6, Figure 1: \"DBRX outperforms established open source models on language understanding (MMLU), Programming (HumanEval), and Math (GSM8K).\""
+  },
+  {
+    "page": "7",
+    "scenario": "A Databricks customer is interested in using DBRX for their GenAI applications and wants to understand its availability and architectural details.",
+    "question": "What type of architecture does DBRX use, and what is its total and active parameter count, as described in \"What Is DBRX?\" section?",
+    "answer": "DBRX is a transformer-based decoder-only large language model (LLM) that uses a fine-grained mixture-of-experts (MoE) architecture with 132B total parameters, of which 36B parameters are active on any given input.",
+    "refer_to": "Page 7, \"What Is DBRX?\" section."
+  },
+  {
+    "page": "8",
+    "scenario": "A data science lead is presenting the superior performance of DBRX to stakeholders, highlighting its effectiveness across various benchmarks.",
+    "question": "On which two composite benchmarks does DBRX Instruct score the highest among the evaluated models, as mentioned in the \"Quality on Benchmarks vs. Leading Open Models\" section?",
+    "answer": "DBRX Instruct scores the highest on the Hugging Face Open LLM Leaderboard (74.5%) and the Databricks Model Gauntlet (66.8%).",
+    "refer_to": "Page 8, \"Quality on Benchmarks vs. Leading Open Models\" section."
+  },
+  {
+    "page": "9",
+    "scenario": "A researcher is comparing the performance of DBRX Instruct with other open models across several NLP tasks, specifically looking at the data presented in Table 1.",
+    "question": "According to Table 1, what is DBRX Instruct's score for the MMLU 5-shot benchmark, and how does it compare to Mixtral Instruct?",
+    "answer": "DBRX Instruct scores 73.7% on the MMLU 5-shot benchmark, which is higher than Mixtral Instruct's score of 71.4%.",
+    "refer_to": "Page 9, Table 1: \"Quality of DBRX Instruct and leading open models.\""
+  },
+  {
+    "page": "10",
+    "scenario": "A project manager is making a case for using DBRX Instruct over proprietary models like GPT-3.5, emphasizing its competitive performance.",
+    "question": "According to Table 2, how does DBRX Instruct's performance on the HumanEval (Programming) benchmark compare to GPT-3.5?",
+    "answer": "DBRX Instruct scores 70.1% on HumanEval, significantly outperforming GPT-3.5 which scores 48.1%.",
+    "refer_to": "Page 11, Table 2: \"Quality of DBRX Instruct and leading closed models.\""
+  },
+  {
+    "page": "11",
+    "scenario": "An architect is designing a GenAI application and needs to select a model that performs well across various benchmarks against both open and closed models.",
+    "question": "Based on Table 2, which closed model does DBRX Instruct surpass on general knowledge (MMLU) and commonsense reasoning (HellaSwag and WinoGrande)?",
+    "answer": "DBRX Instruct surpasses GPT-3.5 on general knowledge as measured by MMLU (73.7% vs. 70.0%), and on commonsense reasoning as measured by HellaSwag (89.0% vs. 85.5%) and WinoGrande (81.8% vs. 81.6%).",
+    "refer_to": "Page 11, Table 2: \"Quality of DBRX Instruct and leading closed models.\""
+  },
+  {
+    "page": "12",
+    "scenario": "A developer is working on a RAG application that requires handling long contexts and is evaluating DBRX Instruct's performance in such scenarios.",
+    "question": "According to Table 3, how does DBRX Instruct's performance compare to GPT-3.5 Turbo for \"Answer in Last Third of Context\" for long-context tasks?",
+    "answer": "DBRX Instruct performs better, scoring 48.0% compared to GPT-3.5 Turbo's 37.0%*.",
+    "refer_to": "Page 12, Table 3: \"The average performance of models on the KV-Pairs and HotpotQAXL benchmarks.\""
+  },
+  {
+    "page": "13",
+    "scenario": "A team is building a RAG application and needs to choose an LLM that is competitive in RAG benchmarks.",
+    "question": "According to Table 4, how does DBRX Instruct's performance on the Natural Questions RAG benchmark compare to Mixtral Instruct and GPT-3.5 Turbo (API)?",
+    "answer": "DBRX Instruct is competitive, scoring 60.0% on Natural Questions, compared to Mixtral Instruct's 59.1% and GPT-3.5 Turbo (API)'s 57.7%.",
+    "refer_to": "Page 13, Table 4: \"The performance of the models measured when each model is given the top 10 passages retrieved from a Wikipedia corpus using bge-large-en-v1.5.\""
+  },
+  {
+    "page": "14",
+    "scenario": "A company is evaluating different LLMs for a code generation task and is comparing the efficiency of DBRX Instruct against other models.",
+    "question": "According to the \"Inference Efficiency\" section, how does the inference speed of DBRX Instruct compare to Mixtral 8x7B?",
+    "answer": "DBRX Instruct generates tokens up to 2x faster than Mixtral 8x7B.",
+    "refer_to": "Page 14, \"Inference Efficiency\" section and Figure 2."
+  },
+  {
+    "page": "15",
+    "scenario": "A team is analyzing the cost-effectiveness of deploying different LLMs for their applications, considering both training and inference costs.",
+    "question": "What is the primary reason DBRX is designed for cost-effective inference, as highlighted in \"Training and Inference Efficiency\" section?",
+    "answer": "DBRX's fine-grained MoE architecture means that it only activates 36B parameters on any given input, resulting in fewer active parameters and thus more cost-effective inference.",
+    "refer_to": "Page 15, \"Training and Inference Efficiency\" section."
+  },
+  {
+    "page": "16",
+    "scenario": "An organization is looking to fine-tune an LLM and is concerned about the computational resources required for training. They are considering DBRX.",
+    "question": "What type of hardware was used to train DBRX, and how many tokens was it trained on, according to the \"Training\" section?",
+    "answer": "DBRX was trained on 3072 NVIDIA H100 GPUs and trained on 12T tokens of text and code data.",
+    "refer_to": "Page 16, \"Training\" section."
+  },
+  {
+    "page": "17",
+    "scenario": "A developer is deploying DBRX and wants to ensure proper licensing compliance.",
+    "question": "Under what license is DBRX released, as stated in the \"Release Details\" section?",
+    "answer": "DBRX is released under the Databricks Open Model License.",
+    "refer_to": "Page 17, \"Release Details\" section."
+  },
+  {
+    "page": "18",
+    "scenario": "A data scientist is starting a new GenAI project and needs to determine the initial approach, specifically regarding the \"Prompt Engineering\" stage.",
+    "question": "What is the fundamental concept behind prompt engineering, as described in \"Stage 1: Prompt Engineering\" section?",
+    "answer": "Prompt engineering involves crafting effective prompts to guide a pre-trained LLM to perform specific tasks without needing to update the model weights. It leverages the existing knowledge within the LLM.",
+    "refer_to": "Page 18, \"Stage 1: Prompt Engineering\" section."
+  },
+  {
+    "page": "19",
+    "scenario": "A business analyst wants to quickly leverage LLMs for a basic text summarization task without extensive model training.",
+    "question": "In the context of the GenAI journey, why is prompt engineering considered the \"easiest\" and \"cheapest\" way to get started with LLMs?",
+    "answer": "Prompt engineering is easiest and cheapest because it does not require retraining or fine-tuning the model, or even changing the model parameters. It simply involves crafting the input query.",
+    "refer_to": "Page 19, \"Prompt Engineering\" section, implied from ease of use compared to other stages."
+  },
+  {
+    "page": "20",
+    "scenario": "A company wants to automate the analysis of customer product reviews using a large language model.",
+    "question": "What is the primary benefit of using an LLM for automated analysis of product reviews, as demonstrated in the \"Automated Analysis of Product Reviews Using Large Language Models\" use case?",
+    "answer": "LLMs can quickly process and analyze large volumes of unstructured text data, like product reviews, to extract sentiments, identify key themes, and summarize information efficiently, which would be time-consuming and labor-intensive for humans.",
+    "refer_to": "Page 20, \"Use Case: Automated Analysis of Product Reviews Using Large Language Models\" section."
+  },
+  {
+    "page": "21",
+    "scenario": "A data engineer is setting up the environment for a prompt engineering project on Databricks.",
+    "question": "Which Databricks construct is highlighted as being ideal for running LLMs due to its features that integrate with common LLM libraries and support GPU acceleration?",
+    "answer": "Databricks notebooks are ideal for running LLMs as they integrate with popular LLM libraries, include features like Databricks Runtime for Machine Learning, and support GPU acceleration.",
+    "refer_to": "Page 21, \"Automated Analysis of Product Reviews Using Large Language Models\" section, under \"Set Up the Environment\"."
+  },
+  {
+    "page": "22",
+    "scenario": "A developer is writing Python code on Databricks to interact with a pre-trained LLM.",
+    "question": "What is the general approach for making an LLM inference request in Python, as illustrated in the example code snippet?",
+    "answer": "The general approach involves initializing a client (e.g., `mlflow.pyfunc.PythonModel`), preparing the input (e.g., a DataFrame with prompts), and then calling the `predict` method of the client with the input.",
+    "refer_to": "Page 22, code snippet example for `llm_model.predict(input_df)`."
+  },
+  {
+    "page": "23",
+    "scenario": "A business analyst receives summarized insights from product reviews generated by an LLM and needs to understand how to interpret them.",
+    "question": "What kind of output is typically generated by the LLM for product review analysis, and how can it be used for decision-making, as implied by the use case?",
+    "answer": "The LLM generates structured insights such as sentiment (e.g., positive, negative, neutral) and extracted themes or keywords from the reviews. These insights can then be used to inform product development, marketing strategies, or customer service improvements.",
+    "refer_to": "Page 23, implied from the results and subsequent analysis of product reviews."
+  },
+  {
+    "page": "24",
+    "scenario": "A data scientist is moving beyond basic prompt engineering and considering ways to enhance the LLM's knowledge with external data.",
+    "question": "What is the \"Retrieval Augmented Generation (RAG)\" technique designed to address, according to \"Stage 2: Retrieval Augmented Generation\"?",
+    "answer": "RAG is designed to augment LLMs with external, up-to-date, or proprietary information, allowing the model to generate responses based on a broader and more current knowledge base than what it was originally trained on, thereby mitigating hallucinations and enhancing accuracy.",
+    "refer_to": "Page 24, \"Stage 2: Retrieval Augmented Generation\" section."
+  },
+  {
+    "page": "25",
+    "scenario": "A company wants to build a GenAI application that provides accurate answers based on its internal knowledge base, ensuring responses are grounded in facts and minimize fabricated information.",
+    "question": "What is the key advantage of using RAG over just prompt engineering or fine-tuning when the goal is to reduce \"hallucinations\" and provide factual answers from specific data sources?",
+    "answer": "RAG directly injects relevant, external knowledge into the LLM's context during inference, allowing it to generate responses that are grounded in factual, retrieved information, thus significantly reducing hallucinations compared to relying solely on the model's pre-trained knowledge or fine-tuning for specific tasks.",
+    "refer_to": "Page 25, \"Retrieval Augmented Generation\" section, which emphasizes reducing hallucinations and grounding responses in specific data."
+  },
+  {
+    "page": "26",
+    "scenario": "A team is designing a RAG system and needs to decide how to store and manage the data that will be used for retrieval.",
+    "question": "What is the role of a vector database or vector search in a RAG system, as depicted in the RAG architecture?",
+    "answer": "In a RAG system, a vector database or vector search is used to store and efficiently retrieve relevant data chunks (embeddings) based on the semantic similarity to the user's query. This retrieved data is then provided to the LLM to formulate an answer.",
+    "refer_to": "Page 26, diagram illustrating the RAG architecture."
+  },
+  {
+    "page": "27",
+    "scenario": "An organization aims to improve the quality of its RAG application responses by incorporating real-time structured data.",
+    "question": "What is the main challenge associated with using only unstructured data (like text documents) for RAG applications, as highlighted in the use case for improving RAG response quality?",
+    "answer": "The main challenge is that unstructured data often lacks the precision and queryability of structured data. Relying solely on unstructured data can lead to less precise answers and difficulties in filtering or combining information based on specific attributes, potentially limiting the quality and accuracy of RAG responses.",
+    "refer_to": "Page 27, \"Use Case: Improve Your RAG Application Response Quality With Real-Time Structured Data\" section."
+  },
+  {
+    "page": "28",
+    "scenario": "A data engineer is preparing data for a RAG application, and some of the data is in traditional relational tables. They want to ensure this data can be effectively used by the LLM.",
+    "question": "How can real-time structured data from traditional data sources (like relational databases) be leveraged to improve RAG application response quality on Databricks, according to the proposed solution?",
+    "answer": "Real-time structured data can be integrated into the RAG workflow by transforming it into a format that LLMs can consume, often by converting it into natural language descriptions or by enriching existing unstructured data with relevant structured attributes. This allows the LLM to access precise, factual information from operational data.",
+    "refer_to": "Page 28, \"Improve Your RAG Application Response Quality With Real-Time Structured Data\" section, particularly the diagram and accompanying text."
+  },
+  {
+    "page": "29",
+    "scenario": "A data scientist is designing a solution to combine structured and unstructured data for a RAG application on Databricks.",
+    "question": "What Databricks feature is recommended for creating a unified view of structured and unstructured data for RAG, ensuring real-time data availability?",
+    "answer": "The Databricks Lakehouse Platform is recommended, leveraging Delta Live Tables for ETL and streaming data, and Unity Catalog for governance, to create a unified and real-time data foundation that combines structured and unstructured data for RAG applications.",
+    "refer_to": "Page 29, sections discussing Unity Catalog and Delta Live Tables in the context of RAG data preparation."
+  },
+  {
+    "page": "30",
+    "scenario": "A team is developing a RAG application and needs to select an appropriate embedding model to convert text into vector representations.",
+    "question": "What is the purpose of an embedding model in a RAG system, and why is its selection important for retrieval accuracy?",
+    "answer": "An embedding model converts text (like user queries or document chunks) into numerical vector representations (embeddings). Its selection is crucial because the quality of these embeddings directly impacts how accurately relevant information is retrieved from the vector database. Better embeddings capture semantic meaning more effectively, leading to more precise retrievals.",
+    "refer_to": "Page 30, implied from the diagram and discussions around embedding models in the RAG pipeline."
+  },
+  {
+    "page": "31",
+    "scenario": "A data engineer is working with Databricks Feature Store to manage data for a RAG application.",
+    "question": "How can Databricks Feature Store be used to enhance RAG application accuracy by integrating real-time structured data?",
+    "answer": "Databricks Feature Store can be used to serve real-time structured data features alongside vector embeddings. This allows the RAG application to combine the semantic search capabilities of embeddings with precise, up-to-date structured information, improving the accuracy and relevance of the generated responses.",
+    "refer_to": "Page 31, discussion around Databricks Feature Store and its role in RAG."
+  },
+  {
+    "page": "32",
+    "scenario": "A company has implemented a RAG system and is now looking for ways to further enhance the quality and relevance of the LLM's responses.",
+    "question": "Beyond basic RAG, what advanced technique is suggested to improve LLM response quality by incorporating a deeper understanding of real-time data relationships?",
+    "answer": "The document suggests that leveraging knowledge graphs in conjunction with RAG can provide a deeper understanding of relationships within real-time structured data. This allows the LLM to perform more complex reasoning and generate highly relevant and accurate responses by traversing the graph for context.",
+    "refer_to": "Page 32, implied from discussions on advanced RAG techniques and structured data integration."
+  },
+  {
+    "page": "33",
+    "scenario": "A machine learning engineer wants to customize a pre-trained LLM for a specific domain-specific task, such as generating documentation in a particular style.",
+    "question": "What is the primary goal of \"Fine-Tuning a Foundation Model,\" and how does it differ from prompt engineering?",
+    "answer": "The primary goal of fine-tuning is to adapt a pre-trained foundation model to a specific task or domain by updating its weights using a smaller, task-specific dataset. This differs from prompt engineering, which only involves crafting inputs without changing the model's underlying parameters.",
+    "refer_to": "Page 33, \"Stage 3: Fine-Tuning a Foundation Model\" section."
+  },
+  {
+    "page": "34",
+    "scenario": "A technical writing team needs to generate documentation that strictly adheres to internal company guidelines and terminology, which is not typically covered by general-purpose LLMs.",
+    "question": "What is the main challenge faced when using off-the-shelf LLMs for generating highly specialized or bespoke content like company-specific documentation?",
+    "answer": "Off-the-shelf LLMs, while broad in knowledge, often lack the specific domain knowledge, terminology, and stylistic adherence required for highly specialized content like company documentation. They might hallucinate or use incorrect jargon, leading to inaccurate or non-compliant outputs.",
+    "refer_to": "Page 34, \"Use Case: Creating a Bespoke LLM for AI-Generated Documentation\" section."
+  },
+  {
+    "page": "35",
+    "scenario": "A development team is planning to fine-tune an LLM for generating legal documents. They need to ensure the fine-tuning process is efficient and cost-effective.",
+    "question": "What are the advantages of fine-tuning over pre-training a new LLM from scratch for a specific task or domain?",
+    "answer": "Fine-tuning is significantly more efficient and less computationally expensive than pre-training from scratch. It leverages the extensive knowledge already embedded in a foundation model and only requires a relatively small, task-specific dataset and fewer computational resources to adapt the model for a new task.",
+    "refer_to": "Page 35, implied from the context of fine-tuning as an alternative to pre-training."
+  },
+  {
+    "page": "36",
+    "scenario": "A data scientist is preparing a dataset for fine-tuning an LLM to generate code comments. The dataset consists of code snippets and desired comments.",
+    "question": "When fine-tuning an LLM for a specific task, what is the importance of having a high-quality, task-specific dataset?",
+    "answer": "A high-quality, task-specific dataset is crucial for effective fine-tuning because it directly guides the model to learn the nuances, patterns, and desired behaviors for the target task. The model will adapt its parameters to mimic the style and content present in the fine-tuning data, ensuring specialized and accurate output.",
+    "refer_to": "Page 36, implied from discussions on data preparation for fine-tuning."
+  },
+  {
+    "page": "37",
+    "scenario": "A machine learning engineer is using MLflow to manage experiments for fine-tuning an LLM on Databricks.",
+    "question": "How does MLflow facilitate the fine-tuning process of LLMs on Databricks, particularly in terms of experiment tracking and model management?",
+    "answer": "MLflow on Databricks allows for comprehensive experiment tracking, logging parameters, metrics, and versions of fine-tuned models. It also enables easy model management, allowing users to register, version, and deploy fine-tuned LLMs, ensuring reproducibility and collaboration.",
+    "refer_to": "Page 37, discussion around MLflow and Databricks' capabilities for fine-tuning."
+  },
+  {
+    "page": "38",
+    "scenario": "A developer is fine-tuning a model using Databricks and needs to monitor the training progress and resource utilization.",
+    "question": "What are the key benefits of using Databricks' unified platform for fine-tuning LLMs, particularly concerning data, compute, and MLOps?",
+    "answer": "Databricks provides a unified platform that integrates data (Lakehouse), compute (scalable clusters), and MLOps tools (MLflow), simplifying the entire fine-tuning workflow. This unification ensures seamless data access, efficient resource utilization, and streamlined experiment tracking and model deployment.",
+    "refer_to": "Page 38, implied from the holistic approach of Databricks for ML workflows."
+  },
+  {
+    "page": "39",
+    "scenario": "A company needs to fine-tune an LLM for generating highly confidential legal texts and is concerned about data privacy and security.",
+    "question": "What is a major advantage of fine-tuning an LLM on your own private data within a secure environment like Databricks, compared to using cloud-hosted proprietary models?",
+    "answer": "Fine-tuning on private data within a secure environment ensures complete control over data privacy and intellectual property. Unlike sending sensitive data to third-party proprietary models, fine-tuning locally prevents data leakage and maintains data residency and compliance.",
+    "refer_to": "Page 39, implied from discussions on data security and control in fine-tuning."
+  },
+  {
+    "page": "40",
+    "scenario": "A data scientist is comparing different fine-tuning approaches and wants to understand the trade-offs between full fine-tuning and more parameter-efficient methods.",
+    "question": "What is the trade-off between the performance gains and computational costs when choosing between full fine-tuning and parameter-efficient fine-tuning (e.g., LoRA)?",
+    "answer": "Full fine-tuning can potentially achieve maximum performance gains by updating all model parameters, but it is computationally expensive and requires significant resources. Parameter-efficient methods like LoRA reduce computational costs and memory footprint by only updating a small subset of parameters, often with comparable performance to full fine-tuning for many tasks, making them more practical for resource-constrained environments.",
+    "refer_to": "Page 40, implied from the introduction of efficient fine-tuning methods."
+  },
+  {
+    "page": "41",
+    "scenario": "A machine learning engineer is considering LoRA for fine-tuning a large LLM but is concerned about the quality of the fine-tuning results.",
+    "question": "Despite updating only a small fraction of parameters, why can LoRA (Low-Rank Adaptation) be effective for fine-tuning large language models?",
+    "answer": "LoRA is effective because it assumes that the intrinsic rank of the updated weight matrices during fine-tuning is low. By decomposing the weight updates into two smaller matrices, it significantly reduces the number of trainable parameters while still capturing the essential updates needed for task adaptation, leading to performance comparable to full fine-tuning.",
+    "refer_to": "Page 41, discussions around LoRA mechanics."
+  },
+  {
+    "page": "42",
+    "scenario": "A team is implementing LoRA for fine-tuning and needs to select the rank (r) parameter.",
+    "question": "In the context of LoRA, what is the 'rank' (r) parameter, and how does its value impact the fine-tuning process?",
+    "answer": "In LoRA, the 'rank' (r) parameter determines the dimensionality of the low-rank matrices used for weight updates. A higher rank allows for more expressiveness and potentially better performance but increases the number of trainable parameters and computational cost. A lower rank reduces parameters and cost but might limit the model's ability to learn complex task-specific patterns.",
+    "refer_to": "Page 42, implicit from the 'Efficient Fine-Tuning With LORA' section details."
+  },
+  {
+    "page": "43",
+    "scenario": "A data scientist needs to select optimal parameters for LoRA fine-tuning of a large language model to achieve the best performance without excessive computation.",
+    "question": "What is the primary objective when selecting optimal parameters for LoRA, as suggested by the guide?",
+    "answer": "The primary objective is to find a balance between model performance (accuracy on the specific task) and computational efficiency (training time and memory usage), ensuring the chosen parameters yield satisfactory results without excessive resource consumption.",
+    "refer_to": "Page 43, \"Use Case: Efficient Fine-Tuning With LORA: A Guide to Optimal Parameter Selection for Large Language Models\" section."
+  },
+  {
+    "page": "44",
+    "scenario": "A machine learning engineer is setting up the environment on Databricks for LoRA fine-tuning.",
+    "question": "What libraries or frameworks are typically used on Databricks for implementing LoRA fine-tuning for LLMs?",
+    "answer": "Typically, libraries like Hugging Face Transformers and PEFT (Parameter-Efficient Fine-tuning) are used on Databricks for implementing LoRA fine-tuning, leveraging the integrated environment for scalable compute and data management.",
+    "refer_to": "Page 44, implied from common practices and examples of LoRA implementation on Databricks."
+  },
+  {
+    "page": "45",
+    "scenario": "A developer is preparing a dataset for LoRA fine-tuning, which involves creating instruction-response pairs.",
+    "question": "When preparing data for instruction-tuned LoRA, why is it important to format the input and output correctly (e.g., using specific tokens for instruction and response)?",
+    "answer": "Correct formatting, including the use of specific tokens or delimiters for instructions and responses, is crucial because the model learns to associate these patterns with generating appropriate output. Inconsistent formatting can lead to the model failing to understand the task or producing incorrect responses.",
+    "refer_to": "Page 45, implied from data preparation steps for instruction-tuning with LoRA."
+  },
+  {
+    "page": "46",
+    "scenario": "A data scientist is monitoring the training loss during LoRA fine-tuning.",
+    "question": "What are some key metrics to monitor during LoRA fine-tuning to assess convergence and performance?",
+    "answer": "Key metrics to monitor include training loss (to observe convergence), validation loss (to check for overfitting), and task-specific evaluation metrics (e.g., accuracy, F1-score) on a held-out test set to assess the model's actual performance on the fine-tuning task.",
+    "refer_to": "Page 46, implied from standard practices of monitoring ML model training."
+  },
+  {
+    "page": "47",
+    "scenario": "A team has fine-tuned an LLM using LoRA and is now ready to use it for inference.",
+    "question": "After LoRA fine-tuning, how is the fine-tuned model typically loaded and used for inference, especially in the context of merging LoRA weights with the base model?",
+    "answer": "After LoRA fine-tuning, the LoRA adapter weights are typically merged with the base pre-trained model to create a single, deployable model. This merged model can then be loaded using standard Hugging Face (or similar) methods and used for inference, producing responses tailored to the fine-tuning task.",
+    "refer_to": "Page 47, discussions on deploying LoRA fine-tuned models."
+  },
+  {
+    "page": "48",
+    "scenario": "A business manager wants to understand the cost savings achieved by using LoRA for fine-tuning instead of full fine-tuning.",
+    "question": "What is the primary way LoRA contributes to cost efficiency in fine-tuning large language models?",
+    "answer": "LoRA contributes to cost efficiency by significantly reducing the number of trainable parameters during fine-tuning. This translates to lower GPU memory consumption, faster training times, and consequently, reduced computational costs compared to full fine-tuning which updates all parameters.",
+    "refer_to": "Page 48, implied from the benefits of parameter-efficient fine-tuning."
+  },
+  {
+    "page": "49",
+    "scenario": "An engineer is comparing different fine-tuning techniques for a large language model and wants to understand the memory footprint implications.",
+    "question": "How does LoRA specifically reduce the memory footprint during fine-tuning compared to traditional full fine-tuning?",
+    "answer": "LoRA reduces memory footprint by only creating and optimizing a small set of low-rank matrices (adapters) for each attention layer, rather than updating the entire original weight matrices of the large language model. This means that only the small adapter weights, not the full model weights, need to be loaded and gradient-computed during training, drastically cutting down memory requirements.",
+    "refer_to": "Page 49, discussions on memory efficiency of LoRA."
+  },
+  {
+    "page": "50",
+    "scenario": "A data scientist is performing hyperparameter tuning for LoRA fine-tuning. They are evaluating different 'r' values and alpha values.",
+    "question": "When performing hyperparameter tuning for LoRA, what is the relationship between the 'alpha' parameter and the 'rank' (r) parameter, and how does it influence the scaling of LoRA updates?",
+    "answer": "The 'alpha' parameter in LoRA determines the scaling factor for the LoRA updates. It is often set proportionally to the 'rank' (r), such that `alpha/r` is used as a scaling factor. This means that even with a low rank, a sufficiently high alpha can ensure that the LoRA updates have a meaningful impact on the model's weights, helping to balance expressiveness and parameter efficiency.",
+    "refer_to": "Page 50, details on LoRA parameters and their influence."
+  },
+  {
+    "page": "51",
+    "scenario": "A machine learning engineer is trying to achieve better performance with LoRA for a complex task.",
+    "question": "Beyond increasing the rank 'r', what other LoRA-specific hyperparameter can be adjusted to potentially improve model performance, and how does it affect the update?",
+    "answer": "The 'alpha' parameter can be adjusted. A higher 'alpha' value increases the scale of the LoRA updates, meaning the fine-tuning changes have a stronger impact on the model's behavior. This can lead to better performance for complex tasks where more aggressive adaptation is needed.",
+    "refer_to": "Page 51, further explanation of LoRA hyperparameters."
+  },
+  {
+    "page": "52",
+    "scenario": "A team is fine-tuning a model with LoRA and observing issues with convergence or performance.",
+    "question": "What common issues might arise during LoRA fine-tuning if the hyperparameters are not optimally chosen, and what are the potential consequences?",
+    "answer": "If hyperparameters are not optimal, issues such as underfitting (if rank or alpha are too low, preventing sufficient adaptation) or overfitting (if rank or alpha are too high, leading to the model memorizing the training data and performing poorly on unseen data) can occur. This results in suboptimal model performance and wasted computational resources.",
+    "refer_to": "Page 52, implied from discussions on fine-tuning optimization and troubleshooting."
+  },
+  {
+    "page": "53",
+    "scenario": "A data scientist wants to fine-tune a model and integrate it into Databricks' MLOps ecosystem.",
+    "question": "How does Databricks' MLOps capabilities, particularly MLflow, support the deployment and management of LoRA fine-tuned models?",
+    "answer": "Databricks' MLOps capabilities, powered by MLflow, allow for the logging, versioning, and registration of LoRA fine-tuned models. These models can then be easily deployed as scalable endpoints for inference, monitored for performance, and managed throughout their lifecycle within the unified Databricks environment.",
+    "refer_to": "Page 53, discussions on MLOps and Databricks for LLM deployment."
+  },
+  {
+    "page": "54",
+    "scenario": "A company is considering fine-tuning a large model and wants to understand the advantages of using Databricks for this process.",
+    "question": "What is a key benefit of performing LoRA fine-tuning on Databricks compared to a fragmented environment with separate tools for data, training, and deployment?",
+    "answer": "A key benefit is the unified Lakehouse Platform, which provides seamless integration of data preparation (on Delta Lake), scalable compute for training, and robust MLOps capabilities (with MLflow) for deployment and monitoring. This eliminates data silos and tool complexities, streamlining the entire fine-tuning and deployment workflow.",
+    "refer_to": "Page 54, implied from the benefits of the Databricks Lakehouse Platform for LLM workflows."
+  },
+  {
+    "page": "55",
+    "scenario": "A researcher is exploring different parameter-efficient fine-tuning techniques beyond LoRA.",
+    "question": "Besides LoRA, what are some other prominent parameter-efficient fine-tuning (PEFT) techniques, and what is their general principle?",
+    "answer": "Other PEFT techniques include Prefix-Tuning, Prompt-Tuning, and Adapter-based methods. Their general principle is to introduce a small number of new, trainable parameters while keeping the vast majority of the pre-trained model's parameters frozen, thus reducing computational cost and memory usage during fine-tuning.",
+    "refer_to": "Page 55, implied from broader discussions on PEFT techniques."
+  },
+  {
+    "page": "56",
+    "scenario": "A data scientist is evaluating whether to use full fine-tuning or a PEFT method like LoRA for a specific NLP task.",
+    "question": "Under what circumstances would full fine-tuning still be preferred over parameter-efficient fine-tuning methods like LoRA?",
+    "answer": "Full fine-tuning might be preferred when maximum performance is absolutely critical and computational resources are not a constraint. It can sometimes achieve marginal gains over PEFT methods, especially for highly complex or extremely specialized tasks where extensive modification of the model's weights is necessary.",
+    "refer_to": "Page 56, implied from the comparison of fine-tuning strategies."
+  },
+  {
+    "page": "57",
+    "scenario": "A team is developing a GenAI application for a domain with a limited amount of high-quality, task-specific data.",
+    "question": "How does the amount of available task-specific data influence the choice between prompt engineering, RAG, and fine-tuning?",
+    "answer": "With very limited data, prompt engineering is often the starting point. If external knowledge is needed, RAG can augment the LLM without training. For more specialized tasks where some high-quality data is available but not enough for pre-training, fine-tuning (especially with PEFT) becomes a viable option. Pre-training requires vast amounts of domain-specific data.",
+    "refer_to": "Page 57, implicit from the GenAI journey stages and their data requirements."
+  },
+  {
+    "page": "58",
+    "scenario": "A company wants to quickly test the feasibility of a GenAI idea before investing heavily in fine-tuning or RAG.",
+    "question": "Why is prompt engineering often the recommended first step in exploring GenAI solutions?",
+    "answer": "Prompt engineering is the recommended first step because it is the fastest, cheapest, and lowest-complexity way to assess the capabilities of an LLM for a given task. It allows for rapid experimentation and iteration without any model training or complex infrastructure setup.",
+    "refer_to": "Page 58, implied from the progression of the GenAI journey."
+  },
+  {
+    "page": "59",
+    "scenario": "A machine learning engineer needs to decide whether to fine-tune an existing foundation model or pre-train a new model from scratch for a highly novel task.",
+    "question": "What is the primary factor that would compel an organization to undertake the \"Pretraining\" stage of the GenAI journey instead of fine-tuning?",
+    "answer": "The primary factor is the need for a model to acquire entirely new knowledge, biases, or capabilities that are not present in any existing foundation model, or when the domain is extremely niche and requires a model to learn from a vast, domain-specific corpus from the ground up. This involves training a model from scratch.",
+    "refer_to": "Page 59, \"Stage 4: Pretraining\" introduction."
+  },
+  {
+    "page": "60",
+    "scenario": "A data science leader is considering pre-training a custom LLM for a highly specialized industry. They are concerned about the cost and complexity.",
+    "question": "What are the typical characteristics of the \"Pretraining\" stage in the GenAI journey regarding its resource requirements and complexity?",
+    "answer": "The pre-training stage is characterized by immense computational resource requirements (e.g., thousands of GPUs for extended periods), massive datasets (trillions of tokens), and significant expertise in distributed training, model architecture, and optimization. It is the most expensive and complex stage of the GenAI journey.",
+    "refer_to": "Page 60, \"Stage 4: Pretraining\" section."
+  },
+  {
+    "page": "61",
+    "scenario": "A startup is planning to train a custom image generation model and is on a tight budget.",
+    "question": "What innovation has made pre-training large models, such as Stable Diffusion, more accessible to a broader range of organizations, as highlighted in the use case?",
+    "answer": "Innovations in efficient training techniques, optimized model architectures, and advancements in distributed computing frameworks have significantly reduced the cost and time required for pre-training, making it more accessible. Specifically, MosaicML (now Databricks) has shown it's possible for under $50K.",
+    "refer_to": "Page 61, implied from the introduction of the Stable Diffusion training use case."
+  },
+  {
+    "page": "62",
+    "scenario": "An organization wants to train a custom Stable Diffusion model from scratch but is highly sensitive to training costs.",
+    "question": "According to the use case, what was the approximate total cost to train Stable Diffusion from scratch using MosaicML's approach?",
+    "answer": "The approximate total cost was less than $50,000.",
+    "refer_to": "Page 62, \"Use Case: Training Stable Diffusion From Scratch for <$50K With MosaicML\" title."
+  },
+  {
+    "page": "63",
+    "scenario": "A researcher is interested in replicating the low-cost Stable Diffusion training and wants to understand the key factors that contributed to its efficiency.",
+    "question": "What were the key strategies or technologies employed by MosaicML that enabled them to train Stable Diffusion for such a low cost?",
+    "answer": "Key strategies included using highly optimized training techniques, efficient scaling of compute, careful selection of cloud instances, and leveraging the Composer framework for performance optimization, all contributing to maximizing hardware utilization and minimizing training time and cost.",
+    "refer_to": "Page 63, implied from the methodology described for cost-effective training."
+  },
+  {
+    "page": "64",
+    "scenario": "A team is designing a distributed training pipeline for a large foundation model.",
+    "question": "What is the role of the Composer framework in optimizing the training of large models, as described in the context of Stable Diffusion training?",
+    "answer": "Composer is a PyTorch-native library developed by MosaicML that optimizes training performance by providing a collection of efficient training methods (e.g., microbatching, gradient accumulation, selective activation checkpointing). It helps improve throughput and reduce memory consumption, making large model training more efficient.",
+    "refer_to": "Page 64, discussions on the Composer framework."
+  },
+  {
+    "page": "65",
+    "scenario": "A data engineer is working on a large-scale training job and needs to manage dependencies and reproducibility.",
+    "question": "How does Databricks (and MosaicML's approach) facilitate reproducibility and experiment tracking for large-scale pre-training efforts?",
+    "answer": "Databricks' integrated platform, combined with tools like MLflow and version control, enables thorough experiment tracking, logging all training parameters, metrics, and model checkpoints. This ensures reproducibility of training runs and facilitates easy comparison and management of different experiments.",
+    "refer_to": "Page 65, implied from discussions on managing training workflows and experiment tracking."
+  },
+  {
+    "page": "66",
+    "scenario": "A deep learning engineer is optimizing the training loop for a large model and wants to improve GPU utilization.",
+    "question": "What is a common technique used in large model training, like the one for Stable Diffusion, to maximize GPU utilization and reduce idle time during distributed training?",
+    "answer": "Techniques such as gradient accumulation (processing multiple mini-batches before updating weights), mixed precision training (using lower precision formats like FP16), and careful data loading strategies are used to keep GPUs busy and maximize utilization, reducing idle time and speeding up training.",
+    "refer_to": "Page 66, implied from performance optimization techniques in large-scale training."
+  },
+  {
+    "page": "67",
+    "scenario": "An organization is considering training a custom foundation model and needs to understand the end-to-end process from data preparation to deployment.",
+    "question": "What is the overall advantage of using a unified platform like Databricks for the entire pre-training lifecycle, from data to deployment?",
+    "answer": "The overall advantage is a streamlined, integrated workflow that eliminates the complexities of managing disparate tools and infrastructure. It provides a single platform for data ingestion and preparation (Lakehouse), scalable and optimized training, and robust MLOps for model deployment and monitoring, accelerating the entire process.",
+    "refer_to": "Page 67, implied from the holistic benefits of Databricks for AI development."
+  },
+  {
+    "page": "68",
+    "scenario": "A data scientist wants to understand the technical details behind the cost-effective training of Stable Diffusion.",
+    "question": "According to the \"Deep Dive: How We Trained Stable Diffusion for Less Than $50K\" section, what was the primary architectural choice that enabled the training of Stable Diffusion economically?",
+    "answer": "The primary architectural choice was leveraging a 'U-Net' architecture with attention mechanisms, optimized for efficient training and inference, combined with effective distributed training strategies to make the process economical.",
+    "refer_to": "Page 68, \"Deep Dive: How We Trained Stable Diffusion for Less Than $50K\" introduction and implied architecture discussion."
+  },
+  {
+    "page": "69",
+    "scenario": "A deep learning engineer is optimizing the training performance of a large diffusion model.",
+    "question": "What specific technique related to data processing and batching was crucial for the efficient training of Stable Diffusion, as detailed in the deep dive?",
+    "answer": "The deep dive emphasizes efficient data loading and processing pipelines, including techniques like webdataset for fast data streaming and dynamic batching, to ensure that the GPUs are consistently fed with data and utilized effectively.",
+    "refer_to": "Page 69, details on data pipelines and batching strategies."
+  },
+  {
+    "page": "70",
+    "scenario": "A researcher is examining the training curves of a large model and trying to understand convergence.",
+    "question": "What are some common metrics or indicators used to assess the training progress and convergence of a diffusion model like Stable Diffusion?",
+    "answer": "Common metrics include the training loss (e.g., L1 or L2 loss between predicted noise and actual noise), FID (Fr\u00e9chet Inception Distance) score to evaluate generated image quality, and visual inspection of generated samples over training epochs to monitor the model's ability to produce coherent and high-quality images.",
+    "refer_to": "Page 70, implied from discussions on monitoring training and model quality."
+  },
+  {
+    "page": "71",
+    "scenario": "A development team is planning to train a custom image generation model and needs to select appropriate cloud infrastructure.",
+    "question": "What type of cloud instances and GPUs were primarily used for the cost-effective training of Stable Diffusion, and why were they chosen?",
+    "answer": "The training primarily leveraged cloud instances with NVIDIA A100 GPUs. These were chosen for their high computational power, memory bandwidth, and availability, which are essential for large-scale deep learning training, while also being cost-optimized for the scale of the project.",
+    "refer_to": "Page 71, details on compute infrastructure used for training."
+  },
+  {
+    "page": "72",
+    "scenario": "A data engineer is setting up a large-scale training job on a cloud provider and wants to optimize resource allocation.",
+    "question": "What is a key consideration for optimizing cloud resource allocation and cost during large-scale model training, as implied by the Stable Diffusion use case?",
+    "answer": "Key considerations include selecting the right instance types (e.g., spot instances for cost savings), optimizing cluster size and scaling, and carefully managing storage and networking to minimize idle time and maximize throughput, thereby reducing overall training costs.",
+    "refer_to": "Page 72, implied from discussions on efficient cloud resource utilization."
+  },
+  {
+    "page": "73",
+    "scenario": "A deep learning engineer is debugging a distributed training job for a large model.",
+    "question": "What are some common challenges encountered during the distributed pre-training of large models, and how can they be mitigated?",
+    "answer": "Common challenges include synchronization issues, communication bottlenecks between GPUs, memory limitations, and fault tolerance. These can be mitigated by using efficient distributed training frameworks (e.g., DeepSpeed, FSDP), optimized communication collectives, and robust checkpointing strategies.",
+    "refer_to": "Page 73, implied from the complexities of distributed training."
+  },
+  {
+    "page": "74",
+    "scenario": "A machine learning engineer wants to ensure the long-term maintainability and reproducibility of a pre-trained model.",
+    "question": "How is the trained Stable Diffusion model typically stored and made available for future use or deployment, particularly on Databricks?",
+    "answer": "The trained model, including its weights and configuration, is typically saved as an MLflow model, allowing for versioning, metadata tracking, and easy registration in the MLflow Model Registry. This enables seamless deployment and reproducibility across different environments.",
+    "refer_to": "Page 74, implied from MLflow's role in model management."
+  },
+  {
+    "page": "75",
+    "scenario": "A development team is working on a new GenAI application and needs to decide on the appropriate stage of the GenAI journey to begin with.",
+    "question": "Based on the overall flow of the GenAI journey, what is the relationship between the stages of Prompt Engineering, RAG, Fine-Tuning, and Pre-training in terms of increasing complexity and investment?",
+    "answer": "The stages represent an increasing continuum of complexity, data requirements, and computational investment. Prompt Engineering is the simplest, followed by RAG, then Fine-Tuning, and finally, Pre-training, which is the most resource-intensive and complex stage, undertaken only when existing models cannot meet specific, novel requirements.",
+    "refer_to": "Page 75, implied from the overall flow and description of the GenAI journey stages."
+  },
+  {
+    "page": "76",
+    "scenario": "A data scientist is deciding whether to use a pre-trained model as-is or to fine-tune it.",
+    "question": "What are the key factors to consider when deciding between using a foundation model directly (prompt engineering) versus fine-tuning it for a specific task?",
+    "answer": "Key factors include the specificity of the task (how well the base model performs out-of-the-box), the availability of high-quality task-specific data, computational resources, and the desired level of performance and customization. Fine-tuning offers more specialization but requires data and compute, while prompt engineering is quicker but less specialized.",
+    "refer_to": "Page 76, implied from the trade-offs between prompt engineering and fine-tuning."
+  },
+  {
+    "page": "77",
+    "scenario": "A project manager is overseeing the development of a GenAI application and needs to budget for the different stages.",
+    "question": "Which stage of the GenAI journey typically incurs the highest financial and computational costs, and why?",
+    "answer": "Pre-training typically incurs the highest financial and computational costs because it involves training a model from scratch on massive datasets, requiring thousands of GPUs and extensive engineering effort over long periods.",
+    "refer_to": "Page 77, implied from the cost and complexity hierarchy of the GenAI journey stages."
+  },
+  {
+    "page": "78",
+    "scenario": "A team is building a GenAI application and wants to ensure it is robust and performs as expected in real-world scenarios.",
+    "question": "What is the critical importance of \"LLM Evaluation\" in the GenAI development lifecycle?",
+    "answer": "LLM Evaluation is critical for assessing the performance, safety, fairness, and overall quality of LLM-powered applications. It helps identify issues like hallucinations, biases, and poor response quality, ensuring the application meets desired standards before and after deployment.",
+    "refer_to": "Page 78, \"Stage 5: LLM Evaluation\" section."
+  },
+  {
+    "page": "79",
+    "scenario": "A data scientist is selecting evaluation metrics for a GenAI application that summarizes legal documents.",
+    "question": "What are the two main categories of LLM evaluation methods, and what kind of metrics do they typically involve?",
+    "answer": "The two main categories are: 1) Automated (or \"proxy\") evaluations, which use metrics like ROUGE, BLEU, or BERTScore to compare generated text to reference text, and 2) Human evaluations, which involve human annotators assessing aspects like coherence, relevance, factual accuracy, and safety.",
+    "refer_to": "Page 79, implied from the types of LLM evaluation discussed."
+  },
+  {
+    "page": "80",
+    "scenario": "A team is evaluating a RAG application and observes that it sometimes generates irrelevant responses.",
+    "question": "What specific aspect of RAG applications does evaluation help to identify and improve, particularly regarding the retrieved information and the generated answer?",
+    "answer": "Evaluation helps identify issues with the retrieval component (e.g., retrieving irrelevant chunks) and the generation component (e.g., hallucinating or not effectively using the retrieved context). It ensures that the retrieved information is relevant and that the LLM correctly leverages it to produce accurate and grounded answers.",
+    "refer_to": "Page 80, implied from discussions on RAG evaluation challenges."
+  },
+  {
+    "page": "81",
+    "scenario": "A company is developing a RAG application for customer support and needs a robust evaluation strategy.",
+    "question": "According to the \"Best Practices for LLM Evaluation of RAG Application\" use case, what is the primary challenge in evaluating RAG applications compared to simpler LLM applications?",
+    "answer": "The primary challenge is that RAG applications have two main components to evaluate: the retrieval component (how accurately relevant documents are found) and the generation component (how well the LLM uses those documents to form an answer). This requires evaluating both the relevance of retrieved context and the quality of the generated response.",
+    "refer_to": "Page 81, \"Use Case: Best Practices for LLM Evaluation of RAG Application\" section."
+  },
+  {
+    "page": "82",
+    "scenario": "A data scientist is setting up an evaluation pipeline for a RAG application on Databricks.",
+    "question": "What role does Databricks Feature Store play in facilitating the evaluation of RAG applications, particularly for tracking and managing evaluation metrics?",
+    "answer": "Databricks Feature Store can be used to store and manage evaluation metrics and related metadata (e.g., prompts, retrieved documents, generated responses). This allows for consistent tracking of performance over time, enables A/B testing of different RAG configurations, and supports reproducibility of evaluation results.",
+    "refer_to": "Page 82, implied from discussions on MLOps and evaluation within Databricks."
+  },
+  {
+    "page": "83",
+    "scenario": "A team is performing offline evaluation of a RAG application using a curated dataset of questions and expected answers.",
+    "question": "What are the advantages of performing offline evaluation for RAG applications before deploying them to production?",
+    "answer": "Offline evaluation allows for controlled testing using a consistent dataset, enabling rapid iteration and comparison of different RAG configurations without impacting live users. It helps identify major flaws, optimize components (retrieval, prompt), and establish a baseline performance before costly online experimentation.",
+    "refer_to": "Page 83, implied from the benefits of offline evaluation."
+  },
+  {
+    "page": "84",
+    "scenario": "A machine learning engineer is setting up a ground truth dataset for RAG evaluation.",
+    "question": "When creating a ground truth dataset for RAG evaluation, what are the essential components that need to be included for each evaluation example?",
+    "answer": "Each example should include a query, the ground truth answer, and ideally, the relevant documents or passages from which the answer could be derived. This allows for assessment of both retrieval accuracy and answer generation quality.",
+    "refer_to": "Page 84, implied from the requirements for RAG evaluation datasets."
+  },
+  {
+    "page": "85",
+    "scenario": "A data scientist is using an LLM to automatically evaluate the output of another LLM in a RAG pipeline.",
+    "question": "What is the concept of 'LLM-as-a-judge' evaluation, and what are its potential benefits and drawbacks?",
+    "answer": "LLM-as-a-judge involves using a powerful LLM to evaluate the quality, relevance, or factual accuracy of responses generated by another LLM. Benefits include scalability and speed. Drawbacks include potential biases of the judging LLM, lack of true human-like reasoning, and the need to validate the judge's consistency with human judgment.",
+    "refer_to": "Page 85, implied from discussions on automated evaluation methods."
+  },
+  {
+    "page": "86",
+    "scenario": "A team is evaluating a RAG application for a high-stakes domain where factual accuracy is paramount.",
+    "question": "Why might human evaluation still be indispensable for RAG applications, even with advanced automated metrics and LLM-as-a-judge approaches?",
+    "answer": "Human evaluation is indispensable for nuanced judgments of factual accuracy, coherence, tone, and safety, especially in high-stakes domains. Humans can detect subtle errors, biases, or nonsensical outputs that automated metrics might miss, providing a more robust and trustworthy assessment.",
+    "refer_to": "Page 86, implied from the limitations of automated evaluation and the need for human oversight."
+  },
+  {
+    "page": "87",
+    "scenario": "A data engineer is collecting logs from a deployed RAG application for post-deployment analysis.",
+    "question": "What type of data should be collected from a live RAG application to facilitate continuous improvement and re-evaluation?",
+    "answer": "Data such as user queries, the retrieved documents, the LLM's generated responses, user feedback (e.g., thumbs up/down), and potentially implicit signals (e.g., session duration, follow-up queries) should be collected. This data is crucial for identifying areas for improvement, retraining, and fine-tuning.",
+    "refer_to": "Page 87, implied from discussions on production monitoring and continuous evaluation."
+  },
+  {
+    "page": "88",
+    "scenario": "A machine learning engineer is deploying a RAG application and wants to ensure proper monitoring and alerting.",
+    "question": "What are the key metrics to monitor in a production RAG application to ensure its health and performance?",
+    "answer": "Key metrics include response latency, throughput, error rates, and specific RAG quality metrics (if automated evaluation is integrated). Monitoring these helps detect performance degradation, service outages, or a decline in answer quality, allowing for proactive intervention.",
+    "refer_to": "Page 88, implied from production monitoring best practices for LLM applications."
+  },
+  {
+    "page": "89",
+    "scenario": "A data scientist is looking to optimize a RAG application by refining its retrieval component.",
+    "question": "What techniques can be used to improve the accuracy of the retrieval component in a RAG system?",
+    "answer": "Techniques include using more sophisticated embedding models, chunking strategies, adding metadata filtering, re-ranking retrieved documents, and incorporating knowledge graphs to improve the relevance and precision of retrieved information.",
+    "refer_to": "Page 89, implied from strategies to enhance RAG performance."
+  },
+  {
+    "page": "90",
+    "scenario": "A team is observing that their RAG application sometimes generates answers that are factually incorrect despite relevant documents being retrieved.",
+    "question": "What are some strategies to mitigate 'hallucinations' in the generation component of a RAG application, even when retrieval is accurate?",
+    "answer": "Strategies include using stronger LLMs, employing more restrictive decoding strategies (e.g., lower temperature), incorporating self-correction mechanisms, ensuring the prompt explicitly instructs the LLM to only use provided context, and potentially fine-tuning the LLM on factual consistency.",
+    "refer_to": "Page 90, implied from efforts to improve LLM generation quality in RAG."
+  },
+  {
+    "page": "91",
+    "scenario": "A data engineer is working on the data pipeline for a RAG application and needs to ensure the freshness of the retrieved information.",
+    "question": "Why is data freshness particularly important for RAG applications, and how can it be maintained?",
+    "answer": "Data freshness is crucial because RAG applications often rely on up-to-date information. Stale data can lead to outdated or incorrect answers. It can be maintained through continuous data ingestion pipelines (e.g., streaming ETL), frequent re-embedding of updated documents, and robust synchronization between the source data and the vector database.",
+    "refer_to": "Page 91, implied from the need for real-time data in RAG."
+  },
+  {
+    "page": "92",
+    "scenario": "A machine learning engineer is managing the versions of embedding models and LLMs in a RAG pipeline.",
+    "question": "How does versioning of models and data contribute to the reliability and reproducibility of RAG applications?",
+    "answer": "Versioning allows tracking specific versions of embedding models, LLMs, and the data used for indexing. This ensures that a RAG application can be reliably reproduced at a specific point in time, aids in debugging, and facilitates A/B testing of different model or data versions, crucial for continuous improvement and rollback capabilities.",
+    "refer_to": "Page 92, implied from MLOps best practices for LLM pipelines."
+  },
+  {
+    "page": "93",
+    "scenario": "A team is considering using Databricks for developing and deploying RAG applications.",
+    "question": "What are the key advantages of building and deploying RAG applications on the Databricks Lakehouse Platform?",
+    "answer": "The Databricks Lakehouse Platform offers a unified environment for data management (structured and unstructured), scalable compute for embedding generation and inference, integrated MLOps tools (MLflow) for tracking and deployment, and capabilities for real-time data processing, simplifying the entire RAG lifecycle.",
+    "refer_to": "Page 93, implied from the overall benefits of Databricks for GenAI."
+  },
+  {
+    "page": "94",
+    "scenario": "A data scientist is performing A/B testing on different RAG configurations to identify the best performing one.",
+    "question": "How can A/B testing be effectively utilized to optimize RAG application performance in a production environment?",
+    "answer": "A/B testing involves deploying multiple versions of the RAG application (e.g., with different chunking strategies, embedding models, or LLMs) to distinct user segments. By collecting metrics and user feedback from each version, teams can compare performance and identify which configuration yields the best results in a live setting.",
+    "refer_to": "Page 94, implied from online evaluation and A/B testing practices."
+  },
+  {
+    "page": "95",
+    "scenario": "A company is observing that their RAG application, while accurate, sometimes produces overly verbose or non-concise answers.",
+    "question": "What is a common technique to improve the conciseness and style of answers generated by an LLM in a RAG system without changing the retrieval component?",
+    "answer": "Prompt engineering can be used to refine the LLM's output. By including explicit instructions in the prompt (e.g., \"Be concise,\" \"Answer in bullet points,\" \"Summarize in one sentence\"), the LLM can be guided to produce more desired answer styles without altering the retrieved context.",
+    "refer_to": "Page 95, implied from prompt engineering's role in refining LLM output."
+  },
+  {
+    "page": "96",
+    "scenario": "A team is developing a RAG application and wants to ensure the long-term maintainability and scalability of the solution.",
+    "question": "What is the importance of modularity in the design of a RAG application, particularly regarding its different components (retrieval, generation, evaluation)?",
+    "answer": "Modularity allows for independent development, testing, and optimization of each component. This makes the system easier to debug, update, and scale. For example, a new embedding model can be swapped in without re-architecting the entire generation pipeline, fostering agility and maintainability.",
+    "refer_to": "Page 96, implied from software engineering best practices for complex systems."
+  },
+  {
+    "page": "97",
+    "scenario": "A data scientist is conducting an offline evaluation of a GenAI application and needs a repeatable process for assessment.",
+    "question": "What are the core steps involved in an offline LLM evaluation process on Databricks, as outlined in the use case?",
+    "answer": "The core steps typically involve: defining the evaluation dataset (queries, ground truth answers), running the LLM application to generate responses, computing metrics (automated and/or human-assisted), and analyzing the results. Databricks provides the platform for managing data, running models, and processing results.",
+    "refer_to": "Page 97, \"Use Case: Offline LLM Evaluation: Step-by-Step GenAI Application Assessment on Databricks\" section."
+  },
+  {
+    "page": "98",
+    "scenario": "A company wants to establish a systematic approach for evaluating their GenAI applications before deployment.",
+    "question": "What is the primary benefit of performing 'Offline LLM Evaluation' for GenAI applications on Databricks?",
+    "answer": "The primary benefit is the ability to systematically assess the application's performance in a controlled, reproducible environment before exposing it to live users. This allows for early identification and correction of issues, optimization of parameters, and comparison of different models or configurations without real-world risks or costs.",
+    "refer_to": "Page 98, \"Use Case: Offline LLM Evaluation: Step-by-Step GenAI Application Assessment on Databricks\" introduction."
+  },
+  {
+    "page": "99",
+    "scenario": "A data engineer is preparing the evaluation dataset for an offline LLM evaluation on Databricks.",
+    "question": "When preparing data for offline LLM evaluation, what metadata should ideally be associated with each prompt and generated response for comprehensive analysis?",
+    "answer": "Beyond the prompt and response, useful metadata includes the model version, temperature/top-p settings, timestamp, user ID (if applicable), and any other relevant configuration parameters. This metadata is crucial for debugging, segmenting analysis, and understanding performance under different conditions.",
+    "refer_to": "Page 99, implied from best practices for structured evaluation data."
+  },
+  {
+    "page": "100",
+    "scenario": "A machine learning engineer is implementing an automated evaluation metric for a conversational AI agent.",
+    "question": "What is an example of an automated evaluation metric that can be used for LLM evaluation, and what does it measure?",
+    "answer": "An example is ROUGE (Recall-Oriented Understudy for Gisting Evaluation), which measures the overlap of n-grams, word sequences, or word pairs between the generated summary/response and a set of reference summaries/responses. It is often used to assess content overlap and linguistic quality.",
+    "refer_to": "Page 100, implied from discussions on automated evaluation metrics like ROUGE, BLEU, etc."
+  },
+  {
+    "page": "5",
+    "scenario": "A team is deciding between proprietary and open source LLMs for an internal application and worries about sending data offsite.",
+    "question": "What advantage do open source foundation models like DBRX offer compared to proprietary models when it comes to data privacy and control?",
+    "answer": "Open source models such as DBRX can be hosted on your own infrastructure, giving you full control over the model and its updates. This eliminates the need to send sensitive data to a third party and allows you to implement your own governance and privacy controls, whereas proprietary models require trusting an external service with your data\u3010149639693312686\u2020L170-L175\u3011.",
+    "refer_to": "Page 5 \u2013 Stage\u00a00: Foundation Models"
+  },
+  {
+    "page": "6",
+    "scenario": "An engineer evaluates DBRX and learns it uses a mixture\u2011of\u2011experts architecture to improve efficiency.",
+    "question": "How does DBRX\u2019s mixture\u2011of\u2011experts design differ from dense models, and what efficiency benefit does it provide?",
+    "answer": "DBRX contains 132\u00a0billion parameters organised into 16 experts, but only four experts are active for any given token. This routing of tokens through a subset of experts means only 36\u00a0billion parameters are active during inference, making the model roughly twice as FLOP\u2011efficient as a dense model of similar quality\u3010149639693312686\u2020L248-L259\u3011\u3010149639693312686\u2020L209-L211\u3011.",
+    "refer_to": "Page 6 \u2013 DBRX: A New State\u2011of\u2011the\u2011Art Open LLM"
+  },
+  {
+    "page": "6",
+    "scenario": "A developer wants a model that excels at programming and math benchmarks for code generation.",
+    "question": "According to benchmark results in the Big\u00a0Book, how does DBRX\u00a0Instruct perform on programming and mathematics tasks compared to other models?",
+    "answer": "DBRX\u00a0Instruct leads open models on composite benchmarks; for example, it scores 70.1% on the HumanEval programming benchmark versus 67.8% for Mixtral\u00a0Instruct, and it scores 73.7% on MMLU and 66.9% on TruthfulQA, outperforming Mixtral\u00a0Instruct and Llama2 variants on these tasks\u3010149639693312686\u2020L309-L311\u3011\u3010149639693312686\u2020L353-L356\u3011.",
+    "refer_to": "Page 6 \u2013 Benchmark results for DBRX"
+  },
+  {
+    "page": "19",
+    "scenario": "A junior data scientist is learning about what tasks can be achieved through prompt engineering alone.",
+    "question": "Which tasks are commonly handled by prompt engineering when using off\u2011the\u2011shelf large language models?",
+    "answer": "Prompt engineering can enable tasks such as question answering, summarization, classification, search and creative generation. These tasks can be accomplished by crafting appropriate prompts without any model fine\u2011tuning\u3010149639693312686\u2020L871-L920\u3011.",
+    "refer_to": "Page 19 \u2013 Stage\u00a01: Prompt Engineering"
+  },
+  {
+    "page": "25",
+    "scenario": "A business is building a RAG chatbot and is concerned about data quality and security.",
+    "question": "Why does the Big\u00a0Book recommend cleansing and consolidating data and starting with non\u2011sensitive information when implementing retrieval\u2011augmented generation?",
+    "answer": "RAG systems retrieve company data to augment the model\u2019s responses, so it\u2019s crucial to start with a clean, consolidated corpus. Using non\u2011sensitive data first helps teams validate the pipeline and reduce hallucinations without risking exposure of mission\u2011critical information; once quality is verified, more sensitive data can be incorporated\u3010149639693312686\u2020L1088-L1105\u3011.",
+    "refer_to": "Page 25 \u2013 Stage\u00a02: Retrieval Augmented Generation"
+  },
+  {
+    "page": "34",
+    "scenario": "A team preparing to build a bespoke LLM wants to ensure proper governance and lineage of their data.",
+    "question": "How does Unity Catalog support governance and lineage when developing custom LLMs on Databricks?",
+    "answer": "Unity\u00a0Catalog centralises governance by tracking data and model lineage \u2013 it records where data and model artifacts originate, how they are transformed, and who accesses them. This visibility and fine\u2011grained access control enable teams to meet compliance requirements while developing custom LLMs\u3010149639693312686\u2020L1486-L1492\u3011.",
+    "refer_to": "Page 34 \u2013 Use\u00a0Case: Creating a Bespoke LLM for AI\u2011Generated Documentation"
+  },
+  {
+    "page": "43",
+    "scenario": "An engineer must choose between full fine\u2011tuning and LoRA for an enterprise model but has limited compute budget.",
+    "question": "What benefit does LoRA fine\u2011tuning offer over full fine\u2011tuning and why is it attractive when resources are constrained?",
+    "answer": "LoRA (Low\u2011Rank Adaptation) freezes the pretrained weights and trains only two small low\u2011rank matrices (adapters). This greatly reduces the number of trainable parameters and avoids catastrophic forgetting. As a result, LoRA can achieve comparable or even better performance than full fine\u2011tuning at a fraction of the computational cost\u3010149639693312686\u2020L1863-L1867\u3011\u3010149639693312686\u2020L1870-L1874\u3011.",
+    "refer_to": "Page 43 \u2013 Use\u00a0Case: Efficient Fine\u2011Tuning With LoRA"
+  },
+  {
+    "page": "44",
+    "scenario": "A developer is exploring QLoRA to further reduce memory usage during fine\u2011tuning.",
+    "question": "What is the key difference between QLoRA and standard LoRA, and how does it reduce memory requirements?",
+    "answer": "QLoRA builds on LoRA by loading the pretrained model\u2019s weights at 4\u2011bit precision using bitsandbytes while keeping the LoRA adapters in 16\u2011bit. Quantizing the base model to 4\u00a0bits dramatically lowers memory usage, enabling fine\u2011tuning on smaller GPUs\u3010149639693312686\u2020L1876-L1879\u3011.",
+    "refer_to": "Page 44 \u2013 Use\u00a0Case: Efficient Fine\u2011Tuning With LoRA"
+  },
+  {
+    "page": "44",
+    "scenario": "A data scientist is preparing a dataset for instruction\u2011following fine\u2011tuning.",
+    "question": "Into what format should the dataset be transformed before using the TRL trainer for supervised instruction\u2011fine\u2011tuning?",
+    "answer": "The dataset should be converted into the Alpaca instruction\u2011following format, where each example contains an instruction, an optional input and the expected output. This structured format makes it easier for the trainer to align model responses with the intended instructions\u3010149639693312686\u2020L1916-L1923\u3011.",
+    "refer_to": "Page 44 \u2013 Transforming the dataset into Alpaca format"
+  },
+  {
+    "page": "60",
+    "scenario": "An executive wonders when pretraining a model from scratch makes sense compared to fine\u2011tuning.",
+    "question": "Under what circumstances does the Big\u00a0Book suggest it might be worth pretraining a foundation model from scratch?",
+    "answer": "Pretraining from scratch is justified when you have access to a vast amount of unique, domain\u2011specific data that is not represented in existing pretrained models, and when you need to avoid biases or limitations inherent in third\u2011party models. However, it is extremely resource\u2011intensive and only warranted for specialized use cases\u3010149639693312686\u2020L2625-L2653\u3011.",
+    "refer_to": "Page 60 \u2013 Stage\u00a04: Pretraining"
+  },
+  {
+    "page": "62",
+    "scenario": "A project manager budgeting an image generation model asks about costs for training stable diffusion.",
+    "question": "What were the compute resources and approximate cost for training Stable Diffusion\u00a02 from scratch in the MosaicML case study?",
+    "answer": "The MosaicML team trained Stable\u00a0Diffusion\u00a02 on a cluster of 128\u00a0NVIDIA\u00a0A100 GPUs over 7.45\u00a0days, streaming hundreds of millions of images. This effort cost less than US\u00a0$50\u00a0000, demonstrating that state\u2011of\u2011the\u2011art diffusion models can be trained from scratch with a reasonable budget\u3010149639693312686\u2020L2793-L2796\u3011.",
+    "refer_to": "Page 62 \u2013 Use\u00a0Case: Training Stable Diffusion From Scratch"
+  },
+  {
+    "page": "68",
+    "scenario": "During long training runs on pre\u2011emptible hardware, the team wants to handle node failures automatically.",
+    "question": "What tools were used to detect failed nodes and resume jobs automatically during the Stable Diffusion training run?",
+    "answer": "MosaicML deployed **Node\u00a0Doctor** and **Watchdog**. These services monitor the cluster, detect hardware failures or pre\u2011empted nodes and automatically restart workers, ensuring that training resumes without manual intervention\u3010149639693312686\u2020L2833-L2840\u3011.",
+    "refer_to": "Page 68 \u2013 Use\u00a0Case: Deep Dive on Stable Diffusion Training"
+  },
+  {
+    "page": "68",
+    "scenario": "An engineer learns that only the final part of training used exponential moving average (EMA) updates.",
+    "question": "Why was EMA applied only during the last 50\u00a0000 steps of the Stable Diffusion training, and what was the effect?",
+    "answer": "Because the EMA decay rate (0.9999) causes older weights to contribute less than 1% after many updates, applying EMA only at the end reduces overhead while still reaping the benefits of smoother weights. The final 50\u00a0000 steps capture the model\u2019s most recent state without wasting computation on early iterations\u3010149639693312686\u2020L3063-L3079\u3011.",
+    "refer_to": "Page 68 \u2013 Exponential Moving Average Scheduling"
+  },
+  {
+    "page": "43",
+    "scenario": "A team has to select the LoRA rank (r) parameter for their fine\u2011tuning experiment.",
+    "question": "What trade\u2011offs exist when choosing the rank parameter in LoRA, and how should it be selected?",
+    "answer": "The rank (r) determines the size of the low\u2011rank matrices used to adapt the model. A higher rank allows more expressive updates but increases the number of trainable parameters and computational cost. A lower rank is more memory\u2011efficient but may limit how much the model can adapt. The choice should be guided by the complexity of the downstream task and available compute resources\u3010149639693312686\u2020L1863-L1867\u3011.",
+    "refer_to": "Page 43 \u2013 LoRA Rank Parameter Selection"
+  },
+  {
+    "page": "30",
+    "scenario": "A data engineer must pick chunk sizes and embedding models for a RAG system.",
+    "question": "How do chunk size and embedding model selection affect the retrieval accuracy in a RAG pipeline?",
+    "answer": "Smaller text chunks allow more precise retrieval but increase the number of embeddings and search overhead, whereas larger chunks may dilute relevant information. Choosing a high\u2011quality embedding model and an appropriate chunk size balances granularity and efficiency, directly impacting how well the system retrieves relevant passages for generation\u3010149639693312686\u2020L1088-L1138\u3011.",
+    "refer_to": "Page 30 \u2013 RAG Embedding and Indexing"
+  },
+  {
+    "page": "81",
+    "scenario": "A team is deploying an LLM to production and wants to understand why evaluation cannot be a one\u2011time event.",
+    "question": "Why does the Big\u00a0Book emphasise continuous monitoring and evaluation of LLMs, and what challenges does LLM evaluation present?",
+    "answer": "LLMs operate in dynamic environments where data distribution and user behavior change over time. Continuous monitoring is needed to detect performance drift, hallucinations or harmful outputs. Challenges include the lack of a single definitive metric, domain\u2011specific requirements, the cost of human judgement and the fact that automated metrics may not capture all aspects of quality\u3010149639693312686\u2020L3181-L3318\u3011.",
+    "refer_to": "Page 81 \u2013 Stage\u00a05: LLM Evaluation"
+  },
+  {
+    "page": "81",
+    "scenario": "A researcher explores using LLMs themselves as judges for evaluation.",
+    "question": "What does recent research on LLM\u2011as\u2011a\u2011judge indicate about the alignment between LLM evaluations and human judgements?",
+    "answer": "Studies (e.g., by lmsys) show that LLM judges agree with human evaluators more than 80% of the time, suggesting they can approximate human preferences for many tasks. However, there remain open questions about alignment, especially for long or complex responses, and human oversight is still recommended\u3010149639693312686\u2020L3290-L3293\u3011.",
+    "refer_to": "Page 81 \u2013 LLM\u2011as\u2011a\u2011Judge Research"
+  },
+  {
+    "page": "25",
+    "scenario": "A developer asks about the high\u2011level steps involved in building a retrieval\u2011augmented generation system.",
+    "question": "What are the key stages in constructing a RAG application as described in the Big\u00a0Book?",
+    "answer": "Building a RAG system involves cleansing and preparing your corpus, splitting documents into chunks, computing embeddings and indexing them in a vector store, retrieving relevant chunks for a user query and then generating a response with an LLM using the retrieved context. Evaluation and governance wrap around these steps\u3010149639693312686\u2020L1088-L1138\u3011.",
+    "refer_to": "Page 25 \u2013 Stage\u00a02: Retrieval Augmented Generation"
+  },
+  {
+    "page": "68",
+    "scenario": "A data engineer compares training durations and costs for different GPU counts in the Stable Diffusion case.",
+    "question": "How do training time and cost compare when training on 8\u00a0GPUs versus 128\u00a0GPUs for Stable\u00a0Diffusion\u00a02?",
+    "answer": "Training with 8\u00a0GPUs takes about 59.59\u00a0days and costs roughly US\u00a0$38\u00a0800, while using 128\u00a0GPUs reduces training time to about 6.79\u00a0days with a total cost of around US\u00a0$41\u00a0710. Increasing the GPU count mainly reduces time-to-train rather than overall cost\u3010149639693312686\u2020L3134-L3162\u3011.",
+    "refer_to": "Page 68 \u2013 Table\u00a01: Training Cost and Time"
+  },
+  {
+    "page": "68",
+    "scenario": "An engineer wants to maximise GPU utilisation during large\u2011scale training.",
+    "question": "Why is streaming the training dataset important in the Stable Diffusion case study, and what throughput did it achieve?",
+    "answer": "Streaming the dataset ensures that GPUs are constantly fed with data and do not idle waiting for I/O. MosaicML streamed hundreds of millions of images from the LAION\u20115B dataset, achieving a throughput of about 11\u00a0600 images per second on 128\u00a0GPUs\u3010149639693312686\u2020L2845-L2850\u3011\u3010149639693312686\u2020L3152-L3159\u3011.",
+    "refer_to": "Page 68 \u2013 Streaming Dataset and Throughput"
+  },
+  {
+    "page": "68",
+    "scenario": "A team considers using Fully\u00a0Sharded Data Parallel (FSDP) to scale their model training.",
+    "question": "What is FSDP and how does it help achieve linear scaling during training?",
+    "answer": "Fully\u00a0Sharded Data Parallel divides a model\u2019s parameters and gradient computations across many GPUs. Each device only holds and updates a shard of the weights and gradients, reducing memory overhead and computation per GPU. This leads to near\u2011linear scaling as more GPUs are added\u3010149639693312686\u2020L3045-L3053\u3011.",
+    "refer_to": "Page 68 \u2013 FSDP Explanation"
+  },
+  {
+    "page": "5",
+    "scenario": "An organisation\u2019s security team worries about data exposure when using SaaS LLMs.",
+    "question": "What risk is associated with proprietary foundation models and how does using an open source model mitigate it?",
+    "answer": "With proprietary models, data must be sent to a third\u2011party service for processing, which can expose sensitive information and limit control. Open source models can be hosted internally, allowing the company to enforce its own governance and privacy policies and avoid sending data offsite\u3010149639693312686\u2020L170-L175\u3011.",
+    "refer_to": "Page 5 \u2013 Proprietary vs Open Source Models"
+  },
+  {
+    "page": "27",
+    "scenario": "A retail company wants to implement a generative AI system that suggests products to customers based on their previous purchases, searches and location.",
+    "question": "According to the Big Book of Generative AI, what data sources should be combined to power product recommendations in retail?",
+    "answer": "Product recommendations in retail should leverage user preferences, search history and location data so the generative model can rank products relevant to each customer\u2019s context.",
+    "refer_to": "Page 27, cross\u2011industry use case table for Retail (Product Recommendations / Search Ranking)\u3010149639693312686\u2020L1192-L1203\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A retail chatbot needs to find products using images and descriptions provided by users.",
+    "question": "What capability does the Big Book suggest using to enable product search based on both images and metadata?",
+    "answer": "The book notes that image and metadata\u2013based product search uses generative AI to combine visual similarity with textual metadata so customers can locate products using photos and descriptions.",
+    "refer_to": "Page 27, Retail use cases (Image and metadata based product search)\u3010149639693312686\u2020L1196-L1203\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A supply chain analyst in a retail organization wants to forecast inventory levels using generative AI.",
+    "question": "What types of data should be integrated to support inventory management and forecasting?",
+    "answer": "Inventory management and forecasting should incorporate sales data, seasonal trends and market or competitive analysis to enable accurate predictions of stock requirements.",
+    "refer_to": "Page 27, Retail use cases (Inventory management and forecasting)\u3010149639693312686\u2020L1203-L1206\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "An educational technology start\u2011up aims to use generative AI to personalize learning plans for students.",
+    "question": "What inputs does the Big Book recommend using to generate personalized learning plans?",
+    "answer": "Personalized learning plans should be based on past mistakes, historical performance trends and cohort data so the system can tailor content to each student\u2019s needs.",
+    "refer_to": "Page 27, Education use cases (Personalized learning plans based on past mistakes, historical trends and cohorts)\u3010149639693312686\u2020L1207-L1212\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A university wants to automate grading and provide feedback using generative AI.",
+    "question": "According to the Big Book, which tasks can generative AI automate within the education domain?",
+    "answer": "Generative AI can automate grading, deliver feedback, schedule follow\u2011ups and produce progress reports, streamlining the evaluation process for educators.",
+    "refer_to": "Page 27, Education use cases (Automated grading, feedback, follow\u2011ups and progress reporting)\u3010149639693312686\u2020L1212-L1214\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A school district issues tablets to students and wants to ensure safe content access.",
+    "question": "What generative AI application does the Big Book mention for managing content on issued devices?",
+    "answer": "The book suggests using content filtering powered by generative AI to monitor and control the material accessible on school\u2011issued devices, promoting a safe learning environment.",
+    "refer_to": "Page 27, Education use cases (Content filtering for issued devices)\u3010149639693312686\u2020L1214-L1216\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "Financial analysts want to use generative AI to interpret earning calls and correlate them with market intelligence.",
+    "question": "What natural language application does the Big Book highlight for financial services analysts and investors?",
+    "answer": "The book highlights natural language applications that allow analysts and investors to correlate earning calls and reports with market intelligence and historical trends, enhancing investment insights.",
+    "refer_to": "Page 27, Financial Services use cases (Natural language apps for analysts and investors)\u3010149639693312686\u2020L1218-L1224\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A bank\u2019s risk management team is building a generative AI system to detect anomalies and fraud.",
+    "question": "What finance\u2011related capability does the Big Book list that aligns with fraud and risk analysis?",
+    "answer": "For financial services, the book lists fraud and risk analysis as a key generative AI use case, leveraging both text and structured data to identify suspicious activity.",
+    "refer_to": "Page 27, Financial Services use cases (Fraud and risk analysis)\u3010149639693312686\u2020L1224-L1225\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A wealth management firm wants to provide personalized retirement plans and next\u2011best action recommendations.",
+    "question": "Which financial services use case described in the Big Book matches this objective?",
+    "answer": "The Big Book describes personalized wealth management, retirement planning, what\u2011if analysis and next\u2011best actions as key generative AI use cases in financial services, enabling tailored guidance for clients.",
+    "refer_to": "Page 27, Financial Services use cases (Personalized wealth management)\u3010149639693312686\u2020L1225-L1228\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A travel company wants to deploy a chatbot that offers personalized travel recommendations.",
+    "question": "How does the Big Book define chatbots in the travel and hospitality context?",
+    "answer": "In travel and hospitality, chatbots are used for personalized customer interactions and tailored travel recommendations, combining generative AI with domain\u2011specific data to enhance user experiences.",
+    "refer_to": "Page 27, Travel & Hospitality use cases (Chatbots for personalized customer interactions and tailored travel recommendations)\u3010149639693312686\u2020L1230-L1234\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A logistics team needs to optimize delivery routes using generative AI.",
+    "question": "Which data sources does the Big Book recommend for dynamic route planning?",
+    "answer": "Dynamic route planning should integrate weather forecasts, live traffic patterns and historical data to calculate optimal routes in real time.",
+    "refer_to": "Page 27, Travel & Hospitality use cases (Dynamic route planning using weather, live traffic patterns and historical data)\u3010149639693312686\u2020L1234-L1238\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A hotel chain wants to adjust room prices based on demand and competitor pricing.",
+    "question": "What generative AI capability does the Big Book note for price optimization in travel and hospitality?",
+    "answer": "The book lists dynamic price optimization, which uses competitive analysis and demand\u2011based pricing to adjust prices in real time, as a key use case in travel and hospitality.",
+    "refer_to": "Page 27, Travel & Hospitality use cases (Dynamic price optimization using competitive analysis and demand\u2011based pricing)\u3010149639693312686\u2020L1240-L1241\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A healthcare provider wants to enhance patient engagement with personalized health summaries.",
+    "question": "According to the Big Book, what is one healthcare use case for generative AI?",
+    "answer": "The Big Book lists patient or member engagement and personalized health summaries as a healthcare and life sciences use case, enabling tailored communication and insights for patients.",
+    "refer_to": "Page 27, Healthcare & Life Sciences use cases (Patient/member engagement and health summaries)\u3010149639693312686\u2020L1243-L1246\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A digital health start\u2011up is building decision support tools for clinicians using generative AI.",
+    "question": "What support does the Big Book suggest generative AI can provide in clinical settings?",
+    "answer": "The book suggests generative AI can support personalized care, clinical decision\u2011making and care coordination, offering clinicians relevant insights and recommendations.",
+    "refer_to": "Page 27, Healthcare & Life Sciences use cases (Support apps for personalized care, clinical decisions and care coordination)\u3010149639693312686\u2020L1246-L1249\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "Researchers want to use generative AI to summarize clinical trial reports and identify drug repurposing opportunities.",
+    "question": "Which R&D\u2013focused application does the Big Book highlight in the healthcare domain?",
+    "answer": "In healthcare and life sciences, the book highlights R&D report summarization, clinical trial analysis and drug repurposing as key generative AI applications, allowing researchers to glean insights from complex documents.",
+    "refer_to": "Page 27, Healthcare & Life Sciences use cases (R&D report summarization, clinical trial analysis, drug repurposing)\u3010149639693312686\u2020L1249-L1251\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "An insurance underwriter needs to assess risk for mortgage applicants using textual reports and structured property data.",
+    "question": "What generative AI use case does the Big Book describe for risk assessment in insurance?",
+    "answer": "The book notes risk assessment for mortgage underwriting using both text and structured data about properties and neighborhoods, enabling a comprehensive view of risk factors.",
+    "refer_to": "Page 27, Insurance use cases (Risk assessment for mortgage underwriting)\u3010149639693312686\u2020L1253-L1256\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "An insurance customer support team wants a chatbot to answer policy questions and perform risk analysis.",
+    "question": "Which insurance use case in the Big Book aligns with building a user chatbot for insurance queries?",
+    "answer": "The Big Book lists user chatbots for questions about policies, risk and what\u2011if analysis as a core generative AI use case in insurance, enabling customers to get immediate answers.",
+    "refer_to": "Page 27, Insurance use cases (User chatbots for questions about policies, risk and what\u2011if analysis)\u3010149639693312686\u2020L1256-L1260\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "An insurance company wants to streamline claim handling using generative AI.",
+    "question": "What automation capability does the Big Book mention for insurance claims?",
+    "answer": "The book lists claim processing automation as a generative AI use case in insurance, helping to speed up claim adjudication and improve customer satisfaction.",
+    "refer_to": "Page 27, Insurance use cases (Claim processing automation)\u3010149639693312686\u2020L1260-L1263\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A manufacturing company wants to reduce downtime by predicting equipment failures.",
+    "question": "What generative AI application does the Big Book describe that could help with equipment diagnostics?",
+    "answer": "In technology and manufacturing, the book lists prescriptive maintenance and diagnostics for equipment using guided instruction, enabling organizations to predict and mitigate failures.",
+    "refer_to": "Page 27, Technology & Manufacturing use cases (Prescriptive maintenance and diagnostics for equipment)\u3010149639693312686\u2020L1264-L1268\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A factory wants to detect anomalies in real time by comparing sensor data with historical statistics.",
+    "question": "Which generative AI use case does the Big Book highlight for anomaly detection?",
+    "answer": "The book notes that anomaly detection on live data streams against historical statistics is a key use case in technology and manufacturing, helping identify irregularities in production processes.",
+    "refer_to": "Page 27, Technology & Manufacturing use cases (Anomaly detection on live data stream against historical statistics)\u3010149639693312686\u2020L1268-L1271\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "Plant managers want to plan future production based on automated analysis of daily operations.",
+    "question": "What production analysis capability does the Big Book suggest for manufacturing?",
+    "answer": "The book suggests automated analysis for daily production or shift analysis and future planning, enabling manufacturing teams to forecast and optimize operations.",
+    "refer_to": "Page 27, Technology & Manufacturing use cases (Automated analysis for daily production / shift analysis and future planning)\u3010149639693312686\u2020L1271-L1273\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A streaming service wants to help users discover shows and tailor marketing messages.",
+    "question": "What media and entertainment use case does the Big Book provide to support content discovery?",
+    "answer": "In media and entertainment, the book lists in\u2011app content discovery and recommendations along with personalized email and digital marketing as key generative AI use cases.",
+    "refer_to": "Page 27, Media & Entertainment use cases (In-app content discovery and recommendations, personalized email and digital marketing)\u3010149639693312686\u2020L1274-L1279\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A media company wants to make its videos accessible in multiple languages using generative AI.",
+    "question": "What specific capability does the Big Book highlight for content localization?",
+    "answer": "The Big Book identifies content localization as a media and entertainment use case, enabling translation and adaptation of content for different languages and regions.",
+    "refer_to": "Page 27, Media & Entertainment use cases (Content localization)\u3010149639693312686\u2020L1277-L1282\u3011"
+  },
+  {
+    "page": "27",
+    "scenario": "A gaming platform wants to personalize players\u2019 experiences and produce AI\u2011generated game reviews.",
+    "question": "Which media and entertainment use case in the Big Book matches personalized gaming and review generation?",
+    "answer": "The book lists personalized gaming experiences and AI\u2011generated game reviews as key use cases for generative AI in media and entertainment.",
+    "refer_to": "Page 27, Media & Entertainment use cases (Personalized gaming experiences and game review)\u3010149639693312686\u2020L1282-L1285\u3011"
+  },
+  {
+    "page": "28",
+    "scenario": "A travel planning chatbot not only retrieves unstructured hotel descriptions but also needs to combine user preferences like \u201cocean view\u201d and \u201cfamily friendly\u201d with up\u2011to\u2011date pricing.",
+    "question": "According to the Big Book, which Databricks services should be used to integrate structured and unstructured data for this application?",
+    "answer": "The Big Book explains that Databricks Vector Search should be used to handle unstructured text data, while Databricks Feature & Function Serving provides low\u2011latency access to structured data such as user preferences and price calculations, enabling the chatbot to deliver personalized recommendations within budget.",
+    "refer_to": "Page 28, Structured Data RAG use case (travel planning chatbot example)\u3010149639693312686\u2020L1160-L1176\u3011"
+  },
+  {
+    "page": "30",
+    "scenario": "An engineer wants to provide a real\u2011time endpoint that computes a distance feature between a restaurant and user location as part of a restaurant recommendation service.",
+    "question": "How does the Big Book recommend constructing this feature using the feature engineering API?",
+    "answer": "The book demonstrates using a FeatureLookup to fetch latitude and longitude for restaurants from a table and a FeatureFunction to compute the distance using a Python function bound to inputs such as user and restaurant coordinates. These features are registered via FeatureEngineeringClient and served through a feature spec endpoint.",
+    "refer_to": "Page 30, Feature engineering example (restaurant distance feature)\u3010149639693312686\u2020L1353-L1381\u3011"
+  },
+  {
+    "page": "98",
+    "scenario": "An AI team is evaluating a QA chatbot built with RAG and wants to systematically assess its components.",
+    "question": "Which three core components of a GenAI application does the Big Book recommend evaluating?",
+    "answer": "The evaluation process should focus on prompts, retrieval systems and foundation LLMs to ensure each component contributes effectively to the overall application performance.",
+    "refer_to": "Page 98, Offline LLM Evaluation (enhancing and evaluating prompts, retrieval systems and foundation LLM)\u3010149639693312686\u2020L3748-L3753\u3011"
+  },
+  {
+    "page": "103",
+    "scenario": "A developer uses the Databricks AI Playground to compare different prompts and models.",
+    "question": "What advantages does the AI Playground provide for prompt engineering according to the Big Book?",
+    "answer": "The AI Playground enables quick testing of deployed models, easy comparison of multiple prompts and parameters, and helps identify the best combination of model and prompt before incorporating it into an application.",
+    "refer_to": "Pages 102\u2013103, AI Playground section (Quick testing and easy comparison of prompts and models)\u3010149639693312686\u2020L3852-L3878\u3011"
+  },
+  {
+    "page": "100",
+    "scenario": "A machine learning engineer is setting up external models through Databricks Model Serving and wants to understand the benefits.",
+    "question": "According to the Big Book, what is one major advantage of using Databricks Model Serving for external models?",
+    "answer": "A major advantage is central key management, which securely stores API keys and reduces exposure in code, thus simplifying the management of multiple external models.",
+    "refer_to": "Page 100, Model Serving advantages (Central key management)\u3010149639693312686\u2020L3780-L3788\u3011"
+  },
+  {
+    "page": "25",
+    "scenario": "A company is starting its RAG journey and is unsure what type of data to begin with.",
+    "question": "What does the Big Book advise regarding the data you upload when first experimenting with RAG?",
+    "answer": "The book advises starting with nonsensitive data such as employee handbooks or instruction manuals instead of mission\u2011critical data, ensuring that confidential information remains protected during early experimentation.",
+    "refer_to": "Page 25, Stage 2 RAG overview (use nonsensitive data such as employee handbooks; avoid mission\u2011critical data)\u3010149639693312686\u2020L1094-L1105\u3011"
+  },
+  {
+    "page": "25",
+    "scenario": "A data engineer is preparing content for a vector database and wants to know how to process it.",
+    "question": "What steps does the Big Book outline for preparing data before ingesting it into a vector database for RAG?",
+    "answer": "Data should be consolidated and cleansed, then stored in appropriate sizes for downstream models. This often requires splicing documents into smaller segments so they fit within the model\u2019s context window.",
+    "refer_to": "Page 25, Stage 2 RAG overview (consolidate, cleanse and splice data into smaller segments)\u3010149639693312686\u2020L1106-L1110\u3011"
+  },
+  {
+    "page": "25",
+    "scenario": "A security lead is concerned about data access in a RAG application.",
+    "question": "How do Databricks Vector Search and Unity Catalog together address governance and access control?",
+    "answer": "The Big Book explains that Databricks Vector Search allows rapid vector database setup while Unity Catalog enforces granular controls to ensure users only access datasets they\u2019re authorized for, enhancing governance and security.",
+    "refer_to": "Page 25, Stage 2 RAG overview (Databricks Vector Search governed by Unity Catalog provides granular controls)\u3010149639693312686\u2020L1111-L1115\u3011"
+  },
+  {
+    "page": "25",
+    "scenario": "An LLM engineer is considering whether to continue with RAG or move on to more advanced techniques.",
+    "question": "What does the Big Book suggest doing when RAG isn\u2019t meeting performance expectations?",
+    "answer": "If RAG\u2011assisted models cannot deliver the desired results, the book recommends moving to more complex customization (such as fine\u2011tuning) that requires additional data and investment, ensuring resources are focused on impactful improvements.",
+    "refer_to": "Page 25, Stage 2 RAG overview (When RAG fails, move to heavier weight solutions requiring more customization)\u3010149639693312686\u2020L1127-L1133\u3011"
+  },
+  {
+    "page": "98",
+    "scenario": "An AI team is using LLM\u2011as\u2011a\u2011judge research for evaluation and wants to understand how well automated judges align with human judges.",
+    "question": "What finding does the Big Book mention about the alignment of LLM judges with human grading?",
+    "answer": "The Big Book cites research showing that LLM judges align with human judges in more than 80% of cases, though there remain open questions about alignment and scaling.",
+    "refer_to": "Page 98, LLM\u2011as\u2011a\u2011judge discussion (LLM judges align with human grading >80% with open questions)\u3010149639693312686\u2020L3730-L3733\u3011"
+  },
+  {
+    "page": "62-64",
+    "scenario": "A training engineer is concerned about hardware failures during a large\u2011scale generative model training run.",
+    "question": "Which tools from the MosaicML stable diffusion use case does the Big Book recommend for handling GPU failures?",
+    "answer": "The MosaicML stable diffusion case study highlights Node Doctor and Watchdog, which monitor nodes and recover from GPU failures, ensuring training continues smoothly despite hardware issues.",
+    "refer_to": "Pages 62\u201364, MosaicML stable diffusion case study (Node Doctor and Watchdog monitor and recover from GPU failures)\u3010149639693312686\u2020L2725-L2860\u3011"
+  },
+  {
+    "page": "62-64",
+    "scenario": "A research team needs to estimate the compute resources required to pretrain a diffusion model similar to stable diffusion.",
+    "question": "What dataset and compute setup does the Big Book describe for training stable diffusion for less than $50K?",
+    "answer": "The stable diffusion case used a subset of the LAION\u20115B dataset comprising images with an aesthetic score above 4.5 and trained on 128 A100 GPUs, demonstrating how to pretrain a model cost\u2011effectively.",
+    "refer_to": "Pages 62\u201364, MosaicML case study (LAION\u20115B subset with aesthetic score >4.5, 128 A100 GPUs)\u3010149639693312686\u2020L2725-L2860\u3011"
+  },
+  {
+    "page": "60",
+    "scenario": "An enterprise is evaluating whether to pretrain a foundation model from scratch or continue fine\u2011tuning existing models.",
+    "question": "Under what circumstances does the Big Book recommend pretraining your own model?",
+    "answer": "Pretraining from scratch is advised when your data is unique or highly domain\u2011specific and cannot be effectively captured through fine\u2011tuning or RAG, though it requires substantial resources and robust data pipelines.",
+    "refer_to": "Page 60, Stage 4 pretraining overview (Pretraining is appropriate when data is unique or domain\u2011specific)\u3010149639693312686\u2020L2625-L2653\u3011"
+  },
+  {
+    "page": "43",
+    "scenario": "A data scientist is adjusting the LoRA rank while fine\u2011tuning a model and wants to understand the trade\u2011off involved.",
+    "question": "What trade\u2011off does the Big Book describe regarding the LoRA rank parameter?",
+    "answer": "Increasing the LoRA rank improves the model\u2019s expressivity but may reduce generalization and increase memory usage, so the rank should be chosen based on dataset size and domain complexity.",
+    "refer_to": "Page 43, LoRA guide (Trade\u2011off between expressivity and generalizability when setting the LoRA rank)\u3010149639693312686\u2020L1863-L1891\u3011"
+  },
+  {
+    "page": "43",
+    "scenario": "An engineer is deciding between LoRA and QLoRA for fine\u2011tuning.",
+    "question": "What advantage does the Big Book attribute to QLoRA over standard LoRA?",
+    "answer": "QLoRA uses quantized weights, typically at 4\u2011bit precision, enabling faster training and inference with lower memory requirements while still preserving performance benefits from LoRA.",
+    "refer_to": "Page 43, LoRA guide (QLoRA uses quantized weights for more efficient fine\u2011tuning)\u3010149639693312686\u2020L1863-L1891\u3011"
+  },
+  {
+    "page": "26",
+    "scenario": "A developer wants to choose the optimal chunk size for splitting documents in a RAG pipeline.",
+    "question": "What guidance does the Big Book offer about choosing document chunk sizes?",
+    "answer": "Document chunks should be sized to fit within the downstream model\u2019s context window, ensuring that each retrieved chunk provides coherent information without overwhelming the model\u2019s input length.",
+    "refer_to": "Page 25\u201326, Stage 2 RAG overview (Store data in sizes appropriate for downstream models; splice into smaller segments)\u3010149639693312686\u2020L1106-L1110\u3011"
+  },
+  {
+    "page": "28",
+    "scenario": "A RAG application needs to combine real\u2011time features with vector retrieval to answer queries involving user preferences and pricing.",
+    "question": "Which Databricks service allows real\u2011time computation of features using Python functions as shown in the Big Book?",
+    "answer": "Databricks Feature & Function Serving allows Python functions to compute features on demand and serve them as REST endpoints, providing low\u2011latency access to structured data alongside vector retrieval.",
+    "refer_to": "Page 28, Structured Data RAG example (Feature & Function Serving for real\u2011time computation)\u3010149639693312686\u2020L1171-L1178\u3011"
+  },
+  {
+    "page": "25",
+    "scenario": "A data governance team wants to ensure that only authorized users can access certain chunks of data within a RAG system.",
+    "question": "How does the Big Book explain Unity Catalog\u2019s role in RAG governance?",
+    "answer": "Unity Catalog provides fine\u2011grained access control over datasets used for RAG, ensuring that employees can only access the data for which they have credentials, thus enforcing governance within the generative AI pipeline.",
+    "refer_to": "Page 25, Stage 2 RAG overview (Unity Catalog enforces granular controls over vector search datasets)\u3010149639693312686\u2020L1111-L1115\u3011"
+  },
+  {
+    "page": "5",
+    "scenario": "A GenAI strategist wants to identify the stages in the GenAI development journey described by Databricks.",
+    "question": "What are the sequential stages the Big Book outlines on the path to deploying production\u2011quality GenAI applications?",
+    "answer": "The path comprises Stage\u00a00: Foundation Models, Stage\u00a01: Prompt Engineering, Stage\u00a02: Retrieval\u2011Augmented Generation, Stage\u00a03: Fine\u2011Tuning, Stage\u00a04: Pretraining and Stage\u00a05: LLM Evaluation, guiding teams from basic to advanced GenAI techniques.",
+    "refer_to": "Pages 3\u20134, Contents and overview (Stages 0\u20135 descriptions)\u3010149639693312686\u2020L154-L164\u3011"
+  },
+  {
+    "page": "5",
+    "scenario": "A leader wants to understand the difference between proprietary and open\u2011source foundation models when choosing a model for their GenAI solution.",
+    "question": "How does the Big Book differentiate proprietary models like GPT\u20113.5 from open\u2011source models like Llama\u00a02 or DBRX?",
+    "answer": "Proprietary models often offer higher performance but require sending data to a third party and provide limited control over updates, whereas open\u2011source models grant users full control, the ability to run models locally with their own governance and data privacy policies, and often incur lower costs.",
+    "refer_to": "Page 5, Stage\u00a00 overview (Differences between proprietary and open source foundation models)\u3010149639693312686\u2020L170-L179\u3011"
+  },
+  {
+    "page": "5",
+    "scenario": "A data architect is evaluating DBRX for an enterprise GenAI project and wants to know its design.",
+    "question": "What architectural details about DBRX does the Big Book provide that highlight its efficiency?",
+    "answer": "DBRX uses a mixture\u2011of\u2011experts (MoE) architecture with 132\u00a0billion total parameters but activates only 36\u00a0billion per token, utilizes 16 experts (4 active at a time), incorporates GLU and GQA improvements, employs a 32\u00a0k token context length and uses the GPT\u20114 tokenizer, enabling efficient, high\u2011quality performance.",
+    "refer_to": "Page 5, DBRX introduction (MoE architecture, parameter counts, experts, GLU/GQA and context length)\u3010149639693312686\u2020L248-L259\u3011"
+  },
+  {
+    "page": "5",
+    "scenario": "An analyst is comparing DBRX\u2019s performance with other models on benchmarks.",
+    "question": "On which benchmarks does the Big Book report that DBRX outperforms Llama\u20112 70B and MPT\u201130B?",
+    "answer": "The Big Book notes that DBRX surpasses open models like Llama\u20112\u00a070B, Mixtral\u20118x7B, MPT\u201130B and Swan\u00a0L2\u201170B on tasks such as MMLU, HumanEval and GSM8K, approaching proprietary models like GPT\u20113.5 on language and reasoning benchmarks.",
+    "refer_to": "Page 5, DBRX performance (Outperforms MPT\u201130B and Llama\u00a02\u00a070B on MMLU, HumanEval, GSM8K)\u3010149639693312686\u2020L295-L304\u3011"
+  },
+  {
+    "page": "81-83",
+    "scenario": "A reliability engineer wants to understand why continuous monitoring is necessary for deployed LLMs.",
+    "question": "What challenges does the Big Book cite as reasons for ongoing evaluation of generative models?",
+    "answer": "The book explains that deployed LLMs must be constantly monitored because their performance can vary with input distribution changes, there may be no single ground truth for responses, evaluation is domain\u2011specific and subjective, and model behavior can degrade over time, requiring regular assessment and alignment with evolving standards.",
+    "refer_to": "Pages 81\u201383, Stage\u00a05 evaluation overview (Challenges in LLM evaluation and need for continuous monitoring)\u3010149639693312686\u2020L3181-L3318\u3011"
+  },
+  {
+    "page": "81-83",
+    "scenario": "A developer is reading about research into using LLMs as evaluators for other LLMs.",
+    "question": "What does the Big Book say about the prospects and limitations of LLM\u2011as\u2011a\u2011judge systems?",
+    "answer": "The book discusses that LLM\u2011as\u2011a\u2011judge systems show promising alignment with human grading in more than 80% of cases, but questions remain about how to ensure fairness, avoid bias and scale evaluation methods, meaning human oversight and domain expertise are still essential.",
+    "refer_to": "Pages 81\u201383, Stage\u00a05 evaluation overview (LLM\u2011as\u2011a\u2011judge alignment and open questions)\u3010149639693312686\u2020L3181-L3318\u3011"
+  },
+  {
+    "page": "68-69",
+    "scenario": "During training of a stable diffusion model, the team wants to speed up training and reduce compute costs.",
+    "question": "Which optimization strategies from the MosaicML case study does the Big Book highlight for efficient training?",
+    "answer": "The case study describes techniques such as using xFormers memory\u2011efficient attention, low precision GroupNorm/LayerNorm, fully sharded data parallelism (FSDP) with CPU offload, dynamic loss scaling and scheduled exponential moving average to accelerate training and reduce costs.",
+    "refer_to": "Pages 68\u201369, Deep dive on training stable diffusion (Optimization strategies like xFormers, FSDP, EMA scheduling)\u3010149639693312686\u2020L3045-L3170\u3011"
+  },
+  {
+    "page": "68-69",
+    "scenario": "A training lead is evaluating hardware configurations for stable diffusion pretraining.",
+    "question": "What does the Big Book\u2019s cost table indicate about scaling efficiency across different GPU counts?",
+    "answer": "The cost table in the deep dive shows that training time and cost scale nearly linearly from 8 to 128 A100 GPUs when using fully sharded data parallelism and optimization techniques, enabling teams to estimate costs for various hardware budgets.",
+    "refer_to": "Pages 68\u201369, Deep dive on training stable diffusion (Cost and time scaling table)\u3010149639693312686\u2020L3045-L3170\u3011"
+  }
+]

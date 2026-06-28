@@ -1,0 +1,2378 @@
+[
+  {
+    "number": 1,
+    "question": "According to the MIT Tech Review report referenced in the Big Book of Generative AI, what percentage of CIOs surveyed planned to build their own custom large language models or other GenAI models?",
+    "options": [
+      "60%",
+      "71%",
+      "40%",
+      "90%"
+    ],
+    "correct_answer": "B",
+    "explanation": "The Big Book cites a MIT Tech Review survey where 71% of CIOs planned to build their own custom large language models or other generative AI models\u3010149639693312686\u2020L84-L87\u3011."
+  },
+  {
+    "number": 2,
+    "question": "Why must AI output be accurate, governed and safe for production-quality GenAI applications?",
+    "options": [
+      "Because customers require reliability",
+      "Because of regulatory compliance",
+      "Because inaccurate AI is always acceptable",
+      "Because open source models are limited"
+    ],
+    "correct_answer": "A",
+    "explanation": "To meet the standard of quality required for customer\u2011facing applications, AI output must be accurate, governed and safe\u3010149639693312686\u2020L90-L92\u3011."
+  },
+  {
+    "number": 3,
+    "question": "What is central to supporting GenAI\u2011powered applications according to the Big Book?",
+    "options": [
+      "Data lakehouses",
+      "Data warehouses",
+      "Only GPUs",
+      "Chatbots"
+    ],
+    "correct_answer": "A",
+    "explanation": "The text states that data lakehouses are the new modern data stack and are essential for harnessing the full potential of GenAI\u3010149639693312686\u2020L94-L100\u3011."
+  },
+  {
+    "number": 4,
+    "question": "Foundation models generally fall under which two categories?",
+    "options": [
+      "Proprietary and open source",
+      "Supervised and unsupervised",
+      "Local and cloud",
+      "Generative and discriminative"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book explains that foundation models fall into two categories: proprietary models (e.g., GPT\u20113.5, Gemini) and open source models (e.g., Llama2\u201170B, DBRX)\u3010149639693312686\u2020L165-L170\u3011."
+  },
+  {
+    "number": 5,
+    "question": "What is the main difference between proprietary models and open source models?",
+    "options": [
+      "Proprietary models always have fewer parameters",
+      "Open models historically have better performance",
+      "Users must send their data to a third party and have limited control over proprietary models",
+      "Open models require less data"
+    ],
+    "correct_answer": "C",
+    "explanation": "Proprietary models historically have an edge on outright performance, but users have to send their data to a third party and do not control the underlying model, whereas open models give users full control and governance\u3010149639693312686\u2020L170-L179\u3011."
+  },
+  {
+    "number": 6,
+    "question": "Which open source foundation model introduced by Databricks sets a new state\u2011of\u2011the\u2011art among open LLMs?",
+    "options": [
+      "GPT\u20113.5",
+      "Gemini\u00a01.0\u00a0Pro",
+      "DBRX",
+      "Llama2\u201170B"
+    ],
+    "correct_answer": "C",
+    "explanation": "Databricks introduced DBRX, an open, general\u2011purpose LLM that sets a new state\u2011of\u2011the\u2011art for established open models\u3010149639693312686\u2020L186-L193\u3011."
+  },
+  {
+    "number": 7,
+    "question": "DBRX uses which architecture for efficiency?",
+    "options": [
+      "Convolutional",
+      "Mixture\u2011of\u2011experts (MoE)",
+      "Recurrent",
+      "Graph networks"
+    ],
+    "correct_answer": "B",
+    "explanation": "DBRX employs a fine\u2011grained mixture\u2011of\u2011experts (MoE) architecture, advancing the state\u2011of\u2011the\u2011art in efficiency among open models\u3010149639693312686\u2020L203-L205\u3011."
+  },
+  {
+    "number": 8,
+    "question": "DBRX outperforms other open source models using what benchmarks?",
+    "options": [
+      "Language understanding (MMLU), programming (HumanEval) and math (GSM8K)",
+      "Only translation tasks",
+      "Only summarization tasks",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book notes that DBRX outperforms established open models on language understanding (MMLU), programming (HumanEval) and math (GSM8K) benchmarks\u3010149639693312686\u2020L216-L218\u3011."
+  },
+  {
+    "number": 9,
+    "question": "Why do open source models provide more control than proprietary models?",
+    "options": [
+      "They are smaller",
+      "They allow users to run models on their own terms with governance and data privacy",
+      "They cost more",
+      "They use different hardware"
+    ],
+    "correct_answer": "B",
+    "explanation": "Open source models allow users full control, running models on their own terms with their own governance and data privacy\u3010149639693312686\u2020L177-L179\u3011."
+  },
+  {
+    "number": 10,
+    "question": "According to the Big Book, what is a key requirement for businesses to achieve production quality with GenAI applications?",
+    "options": [
+      "Rich tools for understanding data quality and model outputs",
+      "More GPUs",
+      "Lower latency",
+      "Proprietary models"
+    ],
+    "correct_answer": "A",
+    "explanation": "Businesses need rich tools for understanding the quality of their data and model outputs to achieve production\u2011quality GenAI applications\u3010149639693312686\u2020L109-L117\u3011."
+  },
+  {
+    "number": 11,
+    "question": "In Stage\u00a01: Prompt Engineering, what is suggested as a good starting point for businesses with no clear AI strategy?",
+    "options": [
+      "Build a custom LLM from scratch",
+      "Use an off\u2011the\u2011shelf LLM",
+      "Buy more hardware",
+      "Hire more people"
+    ],
+    "correct_answer": "B",
+    "explanation": "The book advises that companies without a clear AI strategy should start with an off\u2011the\u2011shelf LLM to experiment and plan their next steps\u3010149639693312686\u2020L871-L880\u3011."
+  },
+  {
+    "number": 12,
+    "question": "What tool can employees use to craft specialized prompts and workflows when experimenting with off\u2011the\u2011shelf LLMs?",
+    "options": [
+      "Databricks\u00a0AI\u00a0Playground",
+      "Ignoring prompts",
+      "Training from scratch",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Employees can use the Databricks\u00a0AI\u00a0Playground to craft specialized prompts and workflows and learn the strengths and weaknesses of off\u2011the\u2011shelf LLMs\u3010149639693312686\u2020L881-L887\u3011."
+  },
+  {
+    "number": 13,
+    "question": "According to the Big Book, what tasks beyond conversational interactions can LLMs perform?",
+    "options": [
+      "Query response, summarization, classification and search",
+      "Only translation",
+      "Only gaming",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book states that LLM capabilities extend beyond conversational interactions to tasks such as query response, summarization, classification and search\u3010149639693312686\u2020L909-L913\u3011."
+  },
+  {
+    "number": 14,
+    "question": "Studies show that generative AI technologies could address tasks occupying what percentage of employees\u2019 time?",
+    "options": [
+      "10\u201320%",
+      "20\u201330%",
+      "60\u201370%",
+      "90\u2013100%"
+    ],
+    "correct_answer": "C",
+    "explanation": "One estimate cited in the book suggests that LLMs and other generative AI technologies could address tasks that occupy 60\u201370% of employees\u2019 time\u3010149639693312686\u2020L916-L920\u3011."
+  },
+  {
+    "number": 15,
+    "question": "What is a major challenge with product review summarization as described in the Big Book?",
+    "options": [
+      "The work is interesting",
+      "Enough staff are available",
+      "A large volume of reviews leads to monotony and missed insights",
+      "Too many GPUs"
+    ],
+    "correct_answer": "C",
+    "explanation": "The book explains that product review summarization is monotonous work, causing boredom and fatigue and leading to missed insights\u3010149639693312686\u2020L952-L970\u3011."
+  },
+  {
+    "number": 16,
+    "question": "Which of the following is NOT one of the questions suggested for an LLM analyzing product reviews?",
+    "options": [
+      "What are the top three points of negative feedback?",
+      "What features do customers like best?",
+      "Do customers feel they receive sufficient value?",
+      "What is the weather?"
+    ],
+    "correct_answer": "D",
+    "explanation": "Example questions posed to an LLM include asking about negative feedback, liked features and value received; asking about the weather is unrelated\u3010149639693312686\u2020L976-L986\u3011."
+  },
+  {
+    "number": 17,
+    "question": "In the prompt\u2011engineering use case, what dataset is used in the solution accelerator for summarizing product reviews?",
+    "options": [
+      "Amazon Product Reviews dataset",
+      "ImageNet",
+      "Twitter dataset",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The accelerator uses the Amazon\u00a0Product\u00a0Reviews dataset, which contains millions of user\u2011generated reviews\u3010149639693312686\u2020L1015-L1020\u3011."
+  },
+  {
+    "number": 18,
+    "question": "Why was Databricks used to process product reviews instead of a third\u2011party service?",
+    "options": [
+      "Because of data sensitivity",
+      "Because volume and cost benefits tipped the scales toward using Databricks",
+      "Because third\u2011party services are more secure",
+      "Because there were no other options"
+    ],
+    "correct_answer": "B",
+    "explanation": "The book notes that the volume of reviews and cost considerations made it more cost\u2011effective to process reviews in Databricks rather than using a third\u2011party service\u3010149639693312686\u2020L1034-L1065\u3011."
+  },
+  {
+    "number": 19,
+    "question": "Beyond the LLM, what is necessary to implement a full product review summarization solution?",
+    "options": [
+      "A data processing workflow to prepare reviews and capture outputs",
+      "Only the model",
+      "GPU clusters",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "A complete solution requires a data processing workflow to receive incoming reviews, prepare them for submission to the model and capture model output for further analysis\u3010149639693312686\u2020L1072-L1084\u3011."
+  },
+  {
+    "number": 20,
+    "question": "When using retrieval augmented generation (RAG), should businesses upload their mission\u2011critical data?",
+    "options": [
+      "Yes, always",
+      "Only after cleansing",
+      "Usually not initially",
+      "It depends on file size"
+    ],
+    "correct_answer": "C",
+    "explanation": "The RAG section advises that businesses should not upload mission\u2011critical data at first; RAG usually uses smaller amounts of nonsensitive information\u3010149639693312686\u2020L1088-L1105\u3011."
+  },
+  {
+    "number": 21,
+    "question": "What is the first step before plugging a vector database into an LLM in RAG?",
+    "options": [
+      "Consolidate and cleanse the data",
+      "Fine\u2011tune the model",
+      "Evaluate",
+      "Deploy"
+    ],
+    "correct_answer": "A",
+    "explanation": "Before applying RAG, the book recommends first consolidating and cleansing the data to be used\u3010149639693312686\u2020L1106-L1110\u3011."
+  },
+  {
+    "number": 22,
+    "question": "Which Databricks service helps set up a vector database for RAG?",
+    "options": [
+      "Databricks Vector Search",
+      "Amazon S3",
+      "Gmail",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book states that Databricks Vector\u00a0Search enables users to quickly set up their own vector database\u3010149639693312686\u2020L1111-L1114\u3011."
+  },
+  {
+    "number": 23,
+    "question": "What benefit does RAG provide?",
+    "options": [
+      "Reduced hallucinations and more accurate responses",
+      "More hallucinations",
+      "Slower responses",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Among the benefits of RAG are reduced hallucinations, more up\u2011to\u2011date and accurate responses and better domain\u2011specific intelligence\u3010149639693312686\u2020L1121-L1125\u3011."
+  },
+  {
+    "number": 24,
+    "question": "What is one example of using real\u2011time structured data to improve RAG applications?",
+    "options": [
+      "Querying a retail order\u2019s shipment status",
+      "Counting tokens",
+      "None",
+      "Summarizing code"
+    ],
+    "correct_answer": "A",
+    "explanation": "The RAG use case includes an example where a GenAI tool on a retail website uses real\u2011time shipment information to answer a question about a recent order\u3010149639693312686\u2020L1163-L1167\u3011."
+  },
+  {
+    "number": 25,
+    "question": "Which service provides low\u2011latency real\u2011time serving of structured data for GenAI applications in Databricks?",
+    "options": [
+      "Feature\u00a0&\u00a0Function\u00a0Serving",
+      "Google BigQuery",
+      "ChatGPT",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Databricks Feature\u00a0&\u00a0Function\u00a0Serving is a low\u2011latency real\u2011time service designed to serve structured data to GenAI applications\u3010149639693312686\u2020L1170-L1178\u3011."
+  },
+  {
+    "number": 26,
+    "question": "Which industries can benefit from RAG with structured data?",
+    "options": [
+      "Retail and education",
+      "Only retail",
+      "None",
+      "Only healthcare"
+    ],
+    "correct_answer": "A",
+    "explanation": "The use\u2011case table lists multiple industries\u2014including retail and education\u2014as examples where structured data combined with RAG can provide value\u3010149639693312686\u2020L1192-L1273\u3011."
+  },
+  {
+    "number": 27,
+    "question": "In the travel and hospitality example for RAG, what is used to ensure recommendations fit within the user\u2019s budget?",
+    "options": [
+      "A price calculator integrated into the GenAI application",
+      "Manual calculation",
+      "Random guess",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The travel planning example pairs user preferences with unstructured information and uses a price calculator built into the GenAI application to ensure recommendations are within budget\u3010149639693312686\u2020L1290-L1299\u3011."
+  },
+  {
+    "number": 28,
+    "question": "Which of the following is NOT a benefit of RAG mentioned in the book?",
+    "options": [
+      "Reduced hallucinations",
+      "Up\u2011to\u2011date responses",
+      "Better domain\u2011specific intelligence",
+      "Guarantee of perfect accuracy"
+    ],
+    "correct_answer": "D",
+    "explanation": "The text cites reduced hallucinations, up\u2011to\u2011date accurate responses and better domain\u2011specific intelligence as benefits; a guarantee of perfect accuracy is not promised\u3010149639693312686\u2020L1121-L1126\u3011."
+  },
+  {
+    "number": 29,
+    "question": "Why should organizations first build a core understanding of how to use LLMs before moving beyond RAG?",
+    "options": [
+      "To hone in on resource allocation",
+      "Because it\u2019s required by law",
+      "Because RAG is always best",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book argues that reaching the performance limitations of off\u2011the\u2011shelf models before moving on helps organizations hone in on where to allocate resources\u3010149639693312686\u2020L1133-L1138\u3011."
+  },
+  {
+    "number": 30,
+    "question": "Which Databricks service ensures granular control over data in vector search for RAG?",
+    "options": [
+      "Unity Catalog",
+      "S3",
+      "GitHub",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Unity Catalog governs the vector search, providing granular controls so employees only access datasets for which they have credentials\u3010149639693312686\u2020L1113-L1115\u3011."
+  },
+  {
+    "number": 31,
+    "question": "What does RAG typically not change?",
+    "options": [
+      "Underlying model behavior",
+      "Response quality",
+      "Domain\u2011specific intelligence",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The RAG process brings supplemental knowledge to off\u2011the\u2011shelf models but does not change the underlying model behavior\u3010149639693312686\u2020L1089-L1093\u3011."
+  },
+  {
+    "number": 32,
+    "question": "When should a business consider moving beyond RAG\u2011supported models?",
+    "options": [
+      "When results are insufficient",
+      "Immediately after starting",
+      "When they have too many GPUs",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book notes that if your business is unable to get the results it wants, it is time to move beyond RAG\u2011supported models, which require deeper customization\u3010149639693312686\u2020L1127-L1133\u3011."
+  },
+  {
+    "number": 33,
+    "question": "Which process involves splicing data into smaller segments suitable for downstream models?",
+    "options": [
+      "Data preparation for RAG",
+      "Training",
+      "Evaluation",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "For RAG, users are advised to splice data into smaller segments appropriate for downstream models during data preparation\u3010149639693312686\u2020L1106-L1109\u3011."
+  },
+  {
+    "number": 34,
+    "question": "Why is RAG considered cost\u2011effective?",
+    "options": [
+      "It can make off\u2011the\u2011shelf models smarter without full fine\u2011tuning",
+      "It uses smaller tokens",
+      "It avoids GPUs",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "RAG provides a cost\u2011effective approach because it augments off\u2011the\u2011shelf models with external knowledge instead of requiring full fine\u2011tuning\u3010149639693312686\u2020L1123-L1126\u3011."
+  },
+  {
+    "number": 35,
+    "question": "According to the use\u2011case, what types of datasets may be used to augment unstructured text?",
+    "options": [
+      "Structured data like user preferences, search history and location",
+      "Only image data",
+      "Only audio data",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The table lists use cases such as product recommendations and search ranking that use structured data like user preferences, search history and location alongside unstructured data\u3010149639693312686\u2020L1194-L1201\u3011."
+  },
+  {
+    "number": 36,
+    "question": "In which industry is personalized learning plans based on past mistakes and historical trends a use case for RAG with structured data?",
+    "options": [
+      "Education",
+      "Retail",
+      "Healthcare",
+      "Travel"
+    ],
+    "correct_answer": "A",
+    "explanation": "The education section lists personalized learning plans based on past mistakes, historical trends and cohorts as a use case\u3010149639693312686\u2020L1192-L1210\u3011."
+  },
+  {
+    "number": 37,
+    "question": "What is one insurance use case for RAG with structured data?",
+    "options": [
+      "Risk assessment for mortgage underwriting",
+      "Personalized gaming experiences",
+      "Product search",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The insurance section describes risk assessment for mortgage underwriting using text and structured data about properties and neighborhoods as a use case\u3010149639693312686\u2020L1253-L1256\u3011."
+  },
+  {
+    "number": 38,
+    "question": "What does the table of industries and use cases illustrate?",
+    "options": [
+      "That RAG with structured data has cross\u2011industry applications",
+      "That only retail uses GenAI",
+      "That AI is not useful",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The table demonstrates that many industries \u2013 from retail to healthcare \u2013 can leverage structured data with RAG, highlighting cross\u2011industry applications\u3010149639693312686\u2020L1192-L1273\u3011."
+  },
+  {
+    "number": 39,
+    "question": "What does moving beyond RAG to model fine\u2011tuning allow businesses to do?",
+    "options": [
+      "Build models deeply personalized to the business",
+      "Increase latency",
+      "Decrease performance",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Fine\u2011tuning enables businesses to train general\u2011purpose models on their specific data, making the resulting model more deeply personalized to the organization\u3010149639693312686\u2020L1461-L1474\u3011."
+  },
+  {
+    "number": 40,
+    "question": "Before fine\u2011tuning, what is typically understood at the executive level?",
+    "options": [
+      "The value of generative AI and the limitations of publicly available LLMs",
+      "That AI should be banned",
+      "That GPUs are unnecessary",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book notes that at this stage, executives understand both the value of generative AI and the limitations of publicly available LLMs\u3010149639693312686\u2020L1464-L1470\u3011."
+  },
+  {
+    "number": 41,
+    "question": "Why is an underlying architecture needed when fine\u2011tuning an AI system?",
+    "options": [
+      "To ensure data supporting the models is secure and accurate",
+      "To slow down training",
+      "To make prompts shorter",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Fine\u2011tuning requires an underlying architecture to ensure that the proprietary data used to train the model is secure and accurate\u3010149639693312686\u2020L1479-L1483\u3011."
+  },
+  {
+    "number": 42,
+    "question": "What Databricks feature provides data lineage capabilities to track data and model usage?",
+    "options": [
+      "Unity\u00a0Catalog",
+      "GitHub",
+      "Slack",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Unity\u00a0Catalog\u2019s data lineage capabilities allow businesses to know where data is moving and who is accessing it, which is critical when fine\u2011tuning models\u3010149639693312686\u2020L1486-L1491\u3011."
+  },
+  {
+    "number": 43,
+    "question": "In the AI\u2011generated documentation use case, how many engineers, months and approximate cost were needed to build the custom model?",
+    "options": [
+      "2\u00a0engineers, 1\u00a0month and less than\u00a0$1,000",
+      "10\u00a0engineers, 6\u00a0months and $10,000",
+      "5\u00a0engineers, 2\u00a0weeks and $5,000",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The bespoke model for AI\u2011generated documentation was built by two engineers in one month at a cost of less than $1,000\u3010149639693312686\u2020L1498-L1508\u3011."
+  },
+  {
+    "number": 44,
+    "question": "What was the central challenge addressed by building a bespoke model?",
+    "options": [
+      "Quality, performance and cost",
+      "Only accuracy",
+      "Only marketing",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book lists quality, performance and cost as the primary challenges addressed by building a bespoke model\u3010149639693312686\u2020L1541-L1563\u3011."
+  },
+  {
+    "number": 45,
+    "question": "Why might SaaS LLMs present performance issues for specific tasks according to the Big Book?",
+    "options": [
+      "They are general models with very large parameter counts",
+      "They are always slower",
+      "They never update",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Because SaaS LLMs are general and have extremely large numbers of parameters, their inference throughput is limited and updates may affect specific tasks\u3010149639693312686\u2020L1569-L1578\u3011."
+  },
+  {
+    "number": 46,
+    "question": "In the bespoke model project, what was used to synthesize CREATE\u00a0TABLE statements for training data?",
+    "options": [
+      "Synthetic use\u2011case data built from NAICS codes and internal taxonomy",
+      "Customer data",
+      "Real\u2011time streaming data",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The training data was bootstrapped using NAICS codes and Databricks internal use\u2011case taxonomy, from which synthetic CREATE\u00a0TABLE statements were generated\u3010149639693312686\u2020L1624-L1637\u3011."
+  },
+  {
+    "number": 47,
+    "question": "Approximately how many training examples were generated for the bespoke model?",
+    "options": [
+      "~3600",
+      "100",
+      "10000",
+      "500"
+    ],
+    "correct_answer": "A",
+    "explanation": "The team synthesized around 3,600 training examples for the bespoke model\u3010149639693312686\u2020L1636-L1639\u3011."
+  },
+  {
+    "number": 48,
+    "question": "Which datasets were used to create the initial training data for fine\u2011tuning?",
+    "options": [
+      "NAICS codes and Databricks\u2019 internal use\u2011case taxonomy",
+      "Only the Amazon dataset",
+      "Only LAION",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The initial dataset combined North American Industry Classification System (NAICS) codes and Databricks internal use\u2011case taxonomy datasets\u3010149639693312686\u2020L1626-L1634\u3011."
+  },
+  {
+    "number": 49,
+    "question": "Why was evaluation necessary before production in the bespoke model example?",
+    "options": [
+      "To measure model quality against a SaaS LLM",
+      "To reduce GPU usage",
+      "To confuse",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The team used a double\u2011blind evaluation framework to measure the quality of the bespoke model against the SaaS LLM before rolling it out to production\u3010149639693312686\u2020L1642-L1657\u3011."
+  },
+  {
+    "number": 50,
+    "question": "How many employees participated in the double\u2011blind evaluation?",
+    "options": [
+      "4\u00a0employees",
+      "10\u00a0employees",
+      "1\u00a0employee",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Four employees rated the outputs in the double\u2011blind evaluation framework\u3010149639693312686\u2020L1648-L1653\u3011."
+  },
+  {
+    "number": 51,
+    "question": "How many unseen tables were used for evaluation in the bespoke model case?",
+    "options": [
+      "62",
+      "500",
+      "10",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The evaluation used 62 unseen tables to compare outputs from the two models\u3010149639693312686\u2020L1651-L1655\u3011."
+  },
+  {
+    "number": 52,
+    "question": "Why can smaller models like MPT\u20117B and Llama\u20112\u20117B be advantageous for fine\u2011tuning tasks?",
+    "options": [
+      "They provide comparable quality with lower latency and cost",
+      "They always outperform large models",
+      "They are harder to serve",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The text notes that smaller 7B models provided comparable quality, better latency and lower serving cost compared to larger models\u3010149639693312686\u2020L1674-L1695\u3011."
+  },
+  {
+    "number": 53,
+    "question": "How long did it take to fine\u2011tune the MPT\u20117B model on ~3600 examples?",
+    "options": [
+      "15\u00a0minutes",
+      "1\u00a0hour",
+      "24\u00a0hours",
+      "15\u00a0days"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book reports that fine\u2011tuning on about 3,600 examples took only around 15\u00a0minutes\u3010149639693312686\u2020L1696-L1701\u3011."
+  },
+  {
+    "number": 54,
+    "question": "Which combination of factors made smaller models viable for serving?",
+    "options": [
+      "They fit into A10 GPUs and provide higher inference throughput",
+      "They require FPGAs",
+      "They need manual scaling",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Smaller models were chosen because they could fit in A10 GPUs and provide higher inference throughput, enabling a snappier product experience\u3010149639693312686\u2020L1696-L1699\u3011."
+  },
+  {
+    "number": 55,
+    "question": "What is one reason fine\u2011tuned models can reduce input tokens compared to SaaS LLMs?",
+    "options": [
+      "They bake instructions and expected structure into the model",
+      "They remove the prompt entirely",
+      "They use more tokens",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Fine\u2011tuned models can encode instructions and the expected structure into the model parameters, reducing the prompt length and the number of input tokens\u3010149639693312686\u2020L1754-L1760\u3011."
+  },
+  {
+    "number": 56,
+    "question": "Why are inference costs lower for fine\u2011tuned models compared to SaaS LLMs?",
+    "options": [
+      "They use smaller models on cheaper GPUs and require fewer input/output tokens",
+      "They are slower",
+      "They rely on manual input",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Costs are reduced because smaller, fine\u2011tuned models can be run on cheaper GPUs and need shorter prompts and fewer tokens\u3010149639693312686\u2020L1753-L1774\u3011."
+  },
+  {
+    "number": 57,
+    "question": "What program is used to register models and track their lineage on Databricks?",
+    "options": [
+      "Unity\u00a0Catalog",
+      "Pandas",
+      "Excel",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Unity\u00a0Catalog registers models and provides end\u2011to\u2011end lineage, giving traceability from models back to the datasets they were trained on\u3010149639693312686\u2020L1715-L1726\u3011."
+  },
+  {
+    "number": 58,
+    "question": "Which service is used to distribute the model across production regions?",
+    "options": [
+      "Delta\u00a0Sharing",
+      "GitHub",
+      "Google\u00a0Drive",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Delta\u00a0Sharing was used to distribute the fine\u2011tuned model to all production regions for faster serving\u3010149639693312686\u2020L1728-L1730\u3011."
+  },
+  {
+    "number": 59,
+    "question": "What is a key benefit of Databricks optimized LLM serving?",
+    "options": [
+      "Significant improvement in throughput and latency",
+      "Increase in cost",
+      "Reduced model quality",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Databricks optimized LLM serving provides significant improvements in throughput and latency compared to traditional serving\u3010149639693312686\u2020L1732-L1736\u3011."
+  },
+  {
+    "number": 60,
+    "question": "How many evaluation examples were used in the initial evaluation for the bespoke model?",
+    "options": [
+      "Tens to hundreds",
+      "1",
+      "1000",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The authors note that having a few dozen to hundreds of data points is sufficient as an initial evaluation dataset\u3010149639693312686\u2020L1659-L1661\u3011."
+  },
+  {
+    "number": 61,
+    "question": "In LoRA fine\u2011tuning, what two smaller matrices approximate?",
+    "options": [
+      "The larger weight matrix",
+      "The input data",
+      "The output tokens",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "LoRA fine\u2011tunes two smaller matrices (the LoRA adapter) that approximate the larger weight matrix of the pretrained model\u3010149639693312686\u2020L1869-L1874\u3011."
+  },
+  {
+    "number": 62,
+    "question": "What does QLoRA do to further reduce memory usage?",
+    "options": [
+      "Quantizes the pretrained model weights to 4\u2011bit",
+      "Doubles the model size",
+      "Increases parameter count",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "QLoRA is a more memory\u2011efficient version of LoRA that loads the pretrained model with quantized 4\u2011bit weights\u3010149639693312686\u2020L1876-L1879\u3011."
+  },
+  {
+    "number": 63,
+    "question": "Why might LoRA outperform full fine\u2011tuning in some cases?",
+    "options": [
+      "It avoids catastrophic forgetting",
+      "It uses fewer GPUs",
+      "It has no effect",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Low Rank Adaptation (LoRA) can outperform full fine\u2011tuning because it avoids catastrophic forgetting by fine\u2011tuning only adapter matrices\u3010149639693312686\u2020L1863-L1867\u3011."
+  },
+  {
+    "number": 64,
+    "question": "Which library implements LoRA in the HuggingFace ecosystem?",
+    "options": [
+      "Parameter\u00a0Efficient\u00a0Fine\u2011Tuning (PEFT) library",
+      "TensorFlow",
+      "Scikit\u2011learn",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "LoRA is implemented in the HuggingFace Parameter\u2011Efficient Fine\u2011Tuning (PEFT) library\u3010149639693312686\u2020L1885-L1888\u3011."
+  },
+  {
+    "number": 65,
+    "question": "What is the primary difference between fine\u2011tuning and training from scratch?",
+    "options": [
+      "Fine\u2011tuning uses pretrained weights and optimizes some parameters",
+      "Pretraining always uses new data",
+      "Fine\u2011tuning randomly initializes weights",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Fine\u2011tuning adapts a pretrained model by updating selected weights, whereas training from scratch begins with randomly initialized weights\u3010149639693312686\u2020L1846-L1851\u3011."
+  },
+  {
+    "number": 66,
+    "question": "What format did the dataset transformation adopt for supervised fine\u2011tuning?",
+    "options": [
+      "Alpaca format",
+      "JSON lines",
+      "CSV",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The data is transformed into the \u2018Alpaca format\u2019, where prompt and response pairs are concatenated in a consistent template\u3010149639693312686\u2020L1916-L1923\u3011."
+  },
+  {
+    "number": 67,
+    "question": "In the dataset transformation example, what fields were combined to form the instruction?",
+    "options": [
+      "Product name and category",
+      "Price and rating",
+      "Image and caption",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The code example combines the product name and category into an instruction string for supervised fine\u2011tuning\u3010149639693312686\u2020L1914-L1919\u3011."
+  },
+  {
+    "number": 68,
+    "question": "What license does OpenLLaMA\u20113b\u2011v2 have according to the Big Book?",
+    "options": [
+      "Apache\u00a02.0",
+      "MIT",
+      "Proprietary",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The chosen model for the LoRA demonstration, OpenLLaMA\u20113b\u2011v2, has a permissive Apache\u00a02.0 license\u3010149639693312686\u2020L1834-L1835\u3011."
+  },
+  {
+    "number": 69,
+    "question": "Parameter\u2011efficient fine\u2011tuning methods like LoRA focus on optimizing which part of a neural network?",
+    "options": [
+      "Additional adapter matrices",
+      "All layers",
+      "Input embeddings",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "LoRA optimizes two smaller adapter matrices instead of updating the entire weight matrix\u3010149639693312686\u2020L1869-L1874\u3011."
+  },
+  {
+    "number": 70,
+    "question": "What is the aim of the QLoRA hyperparameter exploration described in the book?",
+    "options": [
+      "To find optimal performance with the quickest training time",
+      "To increase dataset size",
+      "To reduce the cost of GPUs",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book describes exploring QLoRA hyperparameters to achieve optimal performance with the quickest training time\u3010149639693312686\u2020L1880-L1884\u3011."
+  },
+  {
+    "number": 71,
+    "question": "What does pretraining a model from scratch involve?",
+    "options": [
+      "Training on a large corpus without using prior weights",
+      "Fine\u2011tuning on a small dataset",
+      "Simply using open models",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Pretraining from scratch means training a language model on a large corpus without using any prior knowledge or weights from existing models\u3010149639693312686\u2020L2625-L2633\u3011."
+  },
+  {
+    "number": 72,
+    "question": "When might it make sense to pretrain a model from scratch?",
+    "options": [
+      "Unique data sources, domain specificity, control over training data and avoiding third\u2011party biases",
+      "Always",
+      "Never",
+      "Only for chatbots"
+    ],
+    "correct_answer": "A",
+    "explanation": "Pretraining is worthwhile when you have unique data sources, need domain\u2011specific knowledge, want full control over training data and wish to avoid third\u2011party biases\u3010149639693312686\u2020L2634-L2653\u3011."
+  },
+  {
+    "number": 73,
+    "question": "Why is full control over training data important in pretraining?",
+    "options": [
+      "It ensures data security, privacy and custom tailoring of the model",
+      "Because of marketing",
+      "Because of small dataset",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Full control over the training data allows organizations to tailor the model to their domain and ensures security and privacy\u3010149639693312686\u2020L2644-L2650\u3011."
+  },
+  {
+    "number": 74,
+    "question": "What is one challenge associated with pretraining?",
+    "options": [
+      "Resource\u2011intensive nature requiring careful planning and distributed tooling",
+      "It is free",
+      "It is always quick",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book highlights that pretraining is resource\u2011intensive, requiring careful planning and sophisticated distributed tooling\u3010149639693312686\u2020L2657-L2663\u3011."
+  },
+  {
+    "number": 75,
+    "question": "Why is robust data preprocessing important before pretraining?",
+    "options": [
+      "The model is only as good as the data",
+      "It doesn't matter",
+      "It's optional",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The quality of a pretrained model depends heavily on the data it is trained on, so robust data preprocessing is essential\u3010149639693312686\u2020L2667-L2670\u3011."
+  },
+  {
+    "number": 76,
+    "question": "Which distributed framework is typically used for large\u2011scale data preprocessing before pretraining?",
+    "options": [
+      "Apache\u00a0Spark",
+      "TensorFlow",
+      "Postman",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Given the scale of data involved, preprocessing typically requires distributed frameworks such as Apache\u00a0Spark\u3010149639693312686\u2020L2671-L2673\u3011."
+  },
+  {
+    "number": 77,
+    "question": "What is vital when selecting hyperparameters for pretraining?",
+    "options": [
+      "Making informed decisions based on smaller\u2011scale searches",
+      "Random guess",
+      "None",
+      "Overfitting intentionally"
+    ],
+    "correct_answer": "A",
+    "explanation": "Because of the high computational cost, hyperparameter selection for pretraining relies on informed decisions based on smaller\u2011scale searches or prior research\u3010149639693312686\u2020L2678-L2685\u3011."
+  },
+  {
+    "number": 78,
+    "question": "Why is maximizing resource utilization important during pretraining?",
+    "options": [
+      "To reduce cost associated with long\u2011running GPU jobs",
+      "To slow training",
+      "To increase cost",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Maximizing resource utilization during long\u2011running distributed GPU training jobs reduces the overall cost\u3010149639693312686\u2020L2690-L2696\u3011."
+  },
+  {
+    "number": 79,
+    "question": "What is an example of a library used to maximize Model\u00a0FLOPs utilization and hardware efficiency?",
+    "options": [
+      "MosaicML\u2019s Composer",
+      "Scikit\u2011learn",
+      "Matplotlib",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The MosaicML Composer library is cited as a tool that maximizes Model\u00a0FLOPs Utilization and Hardware\u00a0FLOPs Utilization during training\u3010149639693312686\u2020L2692-L2696\u3011."
+  },
+  {
+    "number": 80,
+    "question": "How can GPU failures during long training runs be handled?",
+    "options": [
+      "Have mechanisms to handle failures gracefully",
+      "Ignore them",
+      "Cancel training",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book stresses that hardware failures can occur during long\u2011running jobs and recommends having mechanisms in place to handle failures gracefully\u3010149639693312686\u2020L2698-L2703\u3011."
+  },
+  {
+    "number": 81,
+    "question": "Why is monitoring and evaluation essential during pretraining?",
+    "options": [
+      "To track performance and convergence trends",
+      "It's not needed",
+      "Only for fun",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Monitoring and evaluation provide insights into model performance and convergence and act as safeguards by saving checkpoints\u3010149639693312686\u2020L2704-L2709\u3011."
+  },
+  {
+    "number": 82,
+    "question": "What platform does Mosaic\u00a0AI provide for training large models from scratch?",
+    "options": [
+      "Mosaic\u00a0AI\u00a0Training",
+      "Google\u00a0Cloud",
+      "AWS",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Mosaic\u00a0AI Training is the platform that enables customers to train multibillion\u2011parameter models from scratch\u3010149639693312686\u2020L2710-L2716\u3011."
+  },
+  {
+    "number": 83,
+    "question": "In the pretraining use case, how much did training Stable\u00a0Diffusion\u00a02 cost using the MosaicML platform?",
+    "options": [
+      "Under\u00a0$50K",
+      "Over\u00a0$100K",
+      "Under\u00a0$10K",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The Big\u00a0Book reports that Stable\u00a0Diffusion\u00a02 was trained from scratch in 7.45\u00a0days for under\u00a0$50K on the MosaicML platform\u3010149639693312686\u2020L2734-L2745\u3011."
+  },
+  {
+    "number": 84,
+    "question": "How long did it take to train Stable\u00a0Diffusion\u00a02 base from scratch using the MosaicML platform?",
+    "options": [
+      "7.45\u00a0days",
+      "1\u00a0day",
+      "30\u00a0days",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The training run took about 7.45\u00a0days\u3010149639693312686\u2020L2734-L2745\u3011."
+  },
+  {
+    "number": 85,
+    "question": "What benefits come from training your own diffusion models?",
+    "options": [
+      "Using proprietary data, tuning styles and avoiding IP issues",
+      "None",
+      "Only to increase hallucinations",
+      "It's impossible"
+    ],
+    "correct_answer": "A",
+    "explanation": "Training your own diffusion models lets you use proprietary data, tune art or photography styles and avoid intellectual\u2011property issues so your models can be used commercially\u3010149639693312686\u2020L2753-L2762\u3011."
+  },
+  {
+    "number": 86,
+    "question": "Which dataset subset was used for training the diffusion model with an aesthetic score of\u00a04.5+?",
+    "options": [
+      "LAION\u20115B subset",
+      "COCO",
+      "ImageNet",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The training data consisted of a subset of LAION\u20115B with English\u2011only captions and an aesthetic score of 4.5+\u3010149639693312686\u2020L2784-L2792\u3011."
+  },
+  {
+    "number": 87,
+    "question": "How many image\u2011caption samples were used in the first phase of training the diffusion model?",
+    "options": [
+      "790\u00a0million",
+      "300\u00a0million",
+      "10\u00a0million",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The first phase used 790\u00a0million image\u2011caption samples with resolution\u00a0\u2265256\u00d7256\u3010149639693312686\u2020L2788-L2792\u3011."
+  },
+  {
+    "number": 88,
+    "question": "What resolution threshold was used for the first phase of diffusion model training?",
+    "options": [
+      "\u2265256\u00d7256",
+      "\u2265128\u00d7128",
+      "\u2265512\u00d7512",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "During the first phase, images of resolution at least 256\u00d7256 were used\u3010149639693312686\u2020L2788-L2792\u3011."
+  },
+  {
+    "number": 89,
+    "question": "How many image\u2011caption samples were used in the second phase of diffusion model training?",
+    "options": [
+      "300\u00a0million",
+      "790\u00a0million",
+      "50\u00a0million",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The second phase used about 300\u00a0million image\u2011caption samples with a resolution of at least 512\u00d7512\u3010149639693312686\u2020L2789-L2792\u3011."
+  },
+  {
+    "number": 90,
+    "question": "What resolution threshold was used for the second phase of diffusion model training?",
+    "options": [
+      "\u2265512\u00d7512",
+      "\u2265256\u00d7256",
+      "\u22651024\u00d71024",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The second phase used images with resolution \u2265512\u00d7512\u3010149639693312686\u2020L2790-L2792\u3011."
+  },
+  {
+    "number": 91,
+    "question": "How many A100 GPU hours were used in total for training and pre\u2011computing latents?",
+    "options": [
+      "23,835\u00a0A100\u00a0hours",
+      "1,000\u00a0hours",
+      "50,000\u00a0hours",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The total compute amounted to 23,835\u00a0A100\u00a0hours for training and precomputing latents\u3010149639693312686\u2020L2793-L2803\u3011."
+  },
+  {
+    "number": 92,
+    "question": "What was the assumed cost per A100 hour in the diffusion model training example?",
+    "options": [
+      "$2",
+      "$5",
+      "$10",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The cost calculation assumed $2 per A100 hour\u3010149639693312686\u2020L2801-L2803\u3011."
+  },
+  {
+    "number": 93,
+    "question": "Which training framework was used for the diffusion model?",
+    "options": [
+      "Composer",
+      "TensorFlow",
+      "PyTorch Lightning",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The diffusion model was trained using the Composer training framework\u3010149639693312686\u2020L2804-L2806\u3011."
+  },
+  {
+    "number": 94,
+    "question": "Which dataset streaming tool was used to load the 100\u00a0TB of data?",
+    "options": [
+      "StreamingDataset",
+      "DataLoader",
+      "Python lists",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The StreamingDataset utility was used to stream the 100\u00a0TB dataset during training\u3010149639693312686\u2020L2804-L2806\u3011."
+  },
+  {
+    "number": 95,
+    "question": "How does the MosaicML platform handle hardware failures during training?",
+    "options": [
+      "Node\u00a0Doctor and Watchdog features automatically detect failed nodes and resume jobs",
+      "It doesn't",
+      "It stops training",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Node\u00a0Doctor and Watchdog automatically detect failed nodes and resume training jobs, avoiding downtime\u3010149639693312686\u2020L2833-L2840\u3011."
+  },
+  {
+    "number": 96,
+    "question": "What algorithm did the MosaicML training run use to start EMA near the end of training?",
+    "options": [
+      "Composer's native Exponential Moving Average algorithm",
+      "Adam",
+      "RMSprop",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The training leveraged Composer\u2019s native Exponential Moving Average (EMA) algorithm to start EMA near the end of training\u3010149639693312686\u2020L2849-L2855\u3011."
+  },
+  {
+    "number": 97,
+    "question": "What is one challenge of large\u2011scale training addressed by the MosaicML platform?",
+    "options": [
+      "Infrastructure, efficient software and managing large datasets",
+      "Only computing",
+      "Only evaluation",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The platform addresses infrastructure challenges, efficient software configuration and management of large datasets\u3010149639693312686\u2020L2815-L2860\u3011."
+  },
+  {
+    "number": 98,
+    "question": "Which of these is not part of the model architecture used in the diffusion model?",
+    "options": [
+      "Variational Autoencoder (VAE)",
+      "CLIP model",
+      "RNN",
+      "U\u2011Net"
+    ],
+    "correct_answer": "C",
+    "explanation": "The diffusion model architecture includes a VAE, a CLIP model and a U\u2011Net; an RNN is not part of this architecture\u3010149639693312686\u2020L2771-L2777\u3011."
+  },
+  {
+    "number": 99,
+    "question": "What is the advantage of precomputing the VAE and CLIP latents?",
+    "options": [
+      "It reduces training time and cost when making multiple passes",
+      "It increases memory usage",
+      "It slows training",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Pre\u2011computing latents for the VAE and CLIP reduces training time and cost when making multiple passes over the dataset\u3010149639693312686\u2020L2797-L2799\u3011."
+  },
+  {
+    "number": 100,
+    "question": "How does the MosaicML platform scale evaluation runs?",
+    "options": [
+      "By automatically running evaluation on separate clusters with varying numbers of GPUs",
+      "Only using a single GPU",
+      "Not performing evaluation",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The platform runs evaluation on separate clusters that can scale up or down depending on availability, preventing evaluation from slowing training\u3010149639693312686\u2020L2827-L2831\u3011."
+  },
+  {
+    "number": 101,
+    "question": "Why is constant evaluation and monitoring of deployed LLMs crucial?",
+    "options": [
+      "Because they interact with dynamic data and environments that can shift performance, accuracy or biases",
+      "Because they never change",
+      "Because they always degrade",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "LLM performance can change as data and environments evolve, so continuous monitoring is necessary to detect and correct deviations\u3010149639693312686\u2020L3181-L3191\u3011."
+  },
+  {
+    "number": 102,
+    "question": "What can continuous monitoring of AI applications mitigate?",
+    "options": [
+      "Ethical concerns and regulatory compliance issues",
+      "Data size",
+      "GPU heat",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Monitoring helps mitigate risks such as ethical concerns and regulatory compliance issues\u3010149639693312686\u2020L3192-L3199\u3011."
+  },
+  {
+    "number": 103,
+    "question": "Why is establishing comprehensive evaluation standards challenging for LLMs?",
+    "options": [
+      "LLMs show uneven capabilities across tasks and are sensitive to prompt variations",
+      "They are too simple",
+      "They only handle one task",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book notes that LLMs demonstrate uneven capabilities across tasks and small changes in prompts can drastically affect performance, complicating evaluation\u3010149639693312686\u2020L3198-L3205\u3011."
+  },
+  {
+    "number": 104,
+    "question": "Why is lack of ground truth problematic for LLM evaluation?",
+    "options": [
+      "Because natural language outputs are difficult to evaluate via traditional NLP metrics",
+      "Because ground truth is always available",
+      "Because LLMs always produce identical answers",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Since LLM outputs are natural language, two good summaries may use different words and orders; this makes traditional metrics like BLEU and ROUGE less useful\u3010149639693312686\u2020L3217-L3224\u3011."
+  },
+  {
+    "number": 105,
+    "question": "How might domain\u2011specific LLMs challenge traditional evaluation benchmarks?",
+    "options": [
+      "Generic benchmarks may not capture nuanced capabilities",
+      "They always perform better",
+      "They need no evaluation",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "For domain\u2011specific fine\u2011tuned LLMs, generic benchmarks may not reflect their specialized capabilities, so tailored benchmarks are needed\u3010149639693312686\u2020L3226-L3232\u3011."
+  },
+  {
+    "number": 106,
+    "question": "What factor often makes LLM evaluation costly and time\u2011consuming?",
+    "options": [
+      "Reliance on human judgment and subject\u2011matter experts",
+      "Use of GPUs",
+      "Use of open source data",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "LLM evaluation often requires human judgment or expert feedback, which is expensive and time\u2011consuming\u3010149639693312686\u2020L3235-L3239\u3011."
+  },
+  {
+    "number": 107,
+    "question": "According to research, LLM\u2011as\u2011a\u2011judge matches human grading within how much of judgments?",
+    "options": [
+      "Over\u00a080%",
+      "50%",
+      "10%",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The case study notes that LLM\u2011as\u2011a\u2011judge agreed with human grading on over 80% of judgments\u3010149639693312686\u2020L3313-L3318\u3011."
+  },
+  {
+    "number": 108,
+    "question": "What are two examples of questions about applying LLM\u2011as\u2011a\u2011judge?",
+    "options": [
+      "Alignment with human grading and appropriate grading scales",
+      "How to buy GPUs",
+      "When to pretrain",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Open questions include how well LLM judges align with human grading and what grading scale to use\u3010149639693312686\u2020L3284-L3298\u3011."
+  },
+  {
+    "number": 109,
+    "question": "In the auto\u2011evaluation context, why might evaluation metrics need to be reused across different use cases?",
+    "options": [
+      "To see if the same metric applies to chat, summarization and RAG",
+      "Because there is only one metric",
+      "Because of cost",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book suggests exploring whether a given evaluation metric can be reused across different tasks (chatbots, summarization, RAG)\u3010149639693312686\u2020L3290-L3304\u3011."
+  },
+  {
+    "number": 110,
+    "question": "In the \"Best\u00a0Practices for LLM Evaluation of RAG Applications\" case study, what architecture is widely adopted for chatbots?",
+    "options": [
+      "Retrieval\u00a0augmented\u00a0generation (RAG)",
+      "Sequence\u2011to\u2011sequence",
+      "Reinforcement learning",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The case study notes that the RAG architecture has become the industry standard for developing chatbots because it reduces hallucinations and keeps information up\u2011to\u2011date\u3010149639693312686\u2020L3249-L3254\u3011."
+  },
+  {
+    "number": 111,
+    "question": "Why is evaluation of chatbot responses unsolved today?",
+    "options": [
+      "Lack of industry standards",
+      "It's done",
+      "There are too many metrics",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book notes that evaluating chatbot responses remains an unsolved problem because no industry standards exist yet\u3010149639693312686\u2020L3254-L3260\u3011."
+  },
+  {
+    "number": 112,
+    "question": "What is one of the questions about LLM judges being explored by researchers?",
+    "options": [
+      "How well does an LLM judge\u2019s grading reflect human preference",
+      "How many GPUs",
+      "Which dataset",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Researchers are exploring how well LLM judges\u2019 grading aligns with human preferences for correctness, readability and comprehensiveness\u3010149639693312686\u2020L3284-L3287\u3011."
+  },
+  {
+    "number": 113,
+    "question": "Which research group explores using LLMs such as GPT\u20114 as judges for AI evaluation tasks?",
+    "options": [
+      "lmsys group",
+      "NASA",
+      "Harvard",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book mentions the lmsys group\u2019s research on using LLMs like GPT\u20114, Claude\u00a0V1 and GPT\u20113.5 as judges for tasks in writing, math and world knowledge\u3010149639693312686\u2020L3274-L3279\u3011."
+  },
+  {
+    "number": 114,
+    "question": "What is a challenge with appropriate grade scales in evaluation frameworks?",
+    "options": [
+      "Different frameworks use different scales",
+      "All scales are the same",
+      "Only one scale exists",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book notes that different evaluation frameworks use different grading scales (e.g., 0\u2013100 or binary), creating a challenge in choosing an appropriate scale\u3010149639693312686\u2020L3295-L3298\u3011."
+  },
+  {
+    "number": 115,
+    "question": "Why may evaluation metrics need customization for each use case?",
+    "options": [
+      "Different tasks require different metrics",
+      "There is one universal metric",
+      "None",
+      "It's illegal"
+    ],
+    "correct_answer": "A",
+    "explanation": "Since tasks like casual chat, content summarization and RAG differ, evaluation metrics often need to be tailored to each use case\u3010149639693312686\u2020L3300-L3304\u3011."
+  },
+  {
+    "number": 116,
+    "question": "According to the case study, is LLM\u2011as\u2011a\u2011judge effective?",
+    "options": [
+      "Yes, it agrees with human grading on over\u00a080% of judgments",
+      "No, it is ineffective",
+      "It is not studied",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The study found that using LLMs as judges aligns with human grading in over 80% of cases, indicating that LLM judges can be effective\u3010149639693312686\u2020L3313-L3318\u3011."
+  },
+  {
+    "number": 117,
+    "question": "What tasks were used in research comparing LLM judges?",
+    "options": [
+      "Writing, math and world knowledge tasks",
+      "Only translation",
+      "Only code",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The research paper examined tasks in writing, math and world knowledge to assess the feasibility of LLM judges\u3010149639693312686\u2020L3274-L3279\u3011."
+  },
+  {
+    "number": 118,
+    "question": "What is one measure of reliability for an LLM judge?",
+    "options": [
+      "Alignment with human grades across different metrics",
+      "Cost of GPUs",
+      "Data size",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Reliability can be assessed by measuring how closely an LLM judge\u2019s grading aligns with human judgment across metrics like correctness, readability and comprehensiveness\u3010149639693312686\u2020L3284-L3293\u3011."
+  },
+  {
+    "number": 119,
+    "question": "In offline evaluation, what is necessary to ensure fairness?",
+    "options": [
+      "Double\u2011blind evaluation frameworks",
+      "Single\u2011blind",
+      "None",
+      "Only qualitative feedback"
+    ],
+    "correct_answer": "A",
+    "explanation": "The bespoke model example used a double\u2011blind evaluation framework to avoid bias and ensure fairness in comparing outputs\u3010149639693312686\u2020L1648-L1656\u3011."
+  },
+  {
+    "number": 120,
+    "question": "What is one way to manage evaluation cost while achieving scale?",
+    "options": [
+      "Using LLMs as judges to automate evaluation",
+      "Hiring more humans",
+      "Doing no evaluation",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The case study suggests that LLMs can serve as judges, automating evaluation and reducing reliance on costly human grading\u3010149639693312686\u2020L3313-L3318\u3011."
+  },
+  {
+    "number": 121,
+    "question": "How many total parameters does DBRX have?",
+    "options": [
+      "132\u00a0billion",
+      "36\u00a0billion",
+      "100\u00a0billion",
+      "2\u00a0billion"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX has 132\u00a0billion total parameters in its mixture\u2011of\u2011experts architecture\u3010149639693312686\u2020L248-L254\u3011."
+  },
+  {
+    "number": 122,
+    "question": "How many parameters are active on any input in DBRX?",
+    "options": [
+      "36\u00a0billion",
+      "32\u00a0billion",
+      "16\u00a0billion",
+      "64\u00a0billion"
+    ],
+    "correct_answer": "A",
+    "explanation": "Only 36\u00a0billion parameters are active on any input in DBRX\u2019s fine\u2011grained mixture\u2011of\u2011experts model\u3010149639693312686\u2020L248-L254\u3011."
+  },
+  {
+    "number": 123,
+    "question": "What is the number of experts and how many are chosen per input in DBRX\u2019s mixture\u2011of\u2011experts architecture?",
+    "options": [
+      "16\u00a0experts choose\u00a04",
+      "8\u00a0experts choose\u00a02",
+      "16\u00a0choose\u00a08",
+      "32\u00a0choose\u00a04"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX uses 16 experts and selects 4 for each input, providing a larger number of smaller experts compared to other MoE models\u3010149639693312686\u2020L254-L258\u3011."
+  },
+  {
+    "number": 124,
+    "question": "Compared to Mixtral and Grok\u20111, how does DBRX differ in MoE design?",
+    "options": [
+      "DBRX uses a larger number of smaller experts",
+      "It uses convolution",
+      "It uses no mixture\u2011of\u2011experts",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book notes that DBRX\u2019s fine\u2011grained MoE uses more, smaller experts than Mixtral and Grok\u20111\u3010149639693312686\u2020L254-L258\u3011."
+  },
+  {
+    "number": 125,
+    "question": "What benefit comes from DBRX\u2019s fine\u2011grained MoE architecture?",
+    "options": [
+      "65\u00d7 more possible combinations of experts leading to improved model quality",
+      "Fewer combinations",
+      "None",
+      "Slower performance"
+    ],
+    "correct_answer": "A",
+    "explanation": "Having 16 experts and selecting 4 yields 65\u00d7 more possible combinations of experts, which improves model quality\u3010149639693312686\u2020L256-L259\u3011."
+  },
+  {
+    "number": 126,
+    "question": "Which positional encoding does DBRX use?",
+    "options": [
+      "Rotary position encoding (RoPE)",
+      "Absolute",
+      "Relative",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX uses rotary position encodings (RoPE) for positional information\u3010149639693312686\u2020L260-L261\u3011."
+  },
+  {
+    "number": 127,
+    "question": "Which activation function variant is used in DBRX?",
+    "options": [
+      "Gated linear units (GLU)",
+      "ReLU",
+      "Sigmoid",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The architecture employs gated linear units (GLU)\u3010149639693312686\u2020L260-L261\u3011."
+  },
+  {
+    "number": 128,
+    "question": "Which attention mechanism variant is used in DBRX?",
+    "options": [
+      "Grouped query attention (GQA)",
+      "Multi\u2011head",
+      "Self\u2011attention",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX uses grouped query attention (GQA)\u3010149639693312686\u2020L260-L261\u3011."
+  },
+  {
+    "number": 129,
+    "question": "Which tokenizer does DBRX use?",
+    "options": [
+      "GPT\u20114 tokenizer",
+      "Word2vec",
+      "BERT",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX uses the GPT\u20114 tokenizer as provided in the tiktoken repository\u3010149639693312686\u2020L261-L263\u3011."
+  },
+  {
+    "number": 130,
+    "question": "What was the context length for DBRX pretraining?",
+    "options": [
+      "32k\u00a0tokens",
+      "8k\u00a0tokens",
+      "1k\u00a0tokens",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX was pretrained with a maximum context length of 32k\u00a0tokens\u3010149639693312686\u2020L268-L270\u3011."
+  },
+  {
+    "number": 131,
+    "question": "How many tokens were used for DBRX pretraining?",
+    "options": [
+      "12\u00a0trillion",
+      "1\u00a0trillion",
+      "100\u00a0billion",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The model was pretrained on 12\u00a0trillion tokens of text and code\u3010149639693312686\u2020L252-L254\u3011."
+  },
+  {
+    "number": 132,
+    "question": "The dataset used for DBRX pretraining is how much better token\u2011for\u2011token than the data used for MPT?",
+    "options": [
+      "At least\u00a02\u00d7 better",
+      "10\u00d7 worse",
+      "1\u00d7",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The data used for DBRX pretraining is estimated to be at least twice as good token\u2011for\u2011token as the data used for the MPT family of models\u3010149639693312686\u2020L269-L272\u3011."
+  },
+  {
+    "number": 133,
+    "question": "Which Databricks tools were used to prepare the new dataset for DBRX?",
+    "options": [
+      "Apache\u00a0Spark, Databricks notebooks, Unity\u00a0Catalog and MLflow",
+      "Only pandas",
+      "Only Excel",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The dataset was developed using Apache\u00a0Spark, Databricks notebooks, Unity\u00a0Catalog and MLflow\u3010149639693312686\u2020L272-L276\u3011."
+  },
+  {
+    "number": 134,
+    "question": "What learning technique was used during DBRX pretraining?",
+    "options": [
+      "Curriculum learning",
+      "Reinforcement learning",
+      "None",
+      "Data augmentation"
+    ],
+    "correct_answer": "A",
+    "explanation": "The team used curriculum learning, changing the data mix during training to improve model quality\u3010149639693312686\u2020L276-L278\u3011."
+  },
+  {
+    "number": 135,
+    "question": "On composite benchmarks, how does DBRX\u00a0Instruct score compared to Mixtral\u00a0Instruct on the Hugging\u00a0Face Open LLM leaderboard?",
+    "options": [
+      "74.5% vs 72.7%",
+      "60% vs 70%",
+      "80% vs 70%",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The table shows DBRX\u00a0Instruct scoring 74.5% compared to 72.7% for Mixtral\u00a0Instruct on the Hugging\u00a0Face Open LLM Leaderboard\u3010149639693312686\u2020L295-L298\u3011."
+  },
+  {
+    "number": 136,
+    "question": "On the Databricks Gauntlet, what are the scores for DBRX\u00a0Instruct and Mixtral\u00a0Instruct?",
+    "options": [
+      "66.8% vs 60.7%",
+      "50% vs 40%",
+      "70% vs 65%",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX\u00a0Instruct scores 66.8% while Mixtral\u00a0Instruct scores 60.7% on the Databricks Model\u00a0Gauntlet\u3010149639693312686\u2020L294-L299\u3011."
+  },
+  {
+    "number": 137,
+    "question": "Which benchmark measures programming ability where DBRX scores 70.1%?",
+    "options": [
+      "HumanEval",
+      "MMLU",
+      "GSM8K",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The HumanEval benchmark measures programming ability, and DBRX\u00a0Instruct scores 70.1%\u3010149639693312686\u2020L299-L310\u3011."
+  },
+  {
+    "number": 138,
+    "question": "Which benchmark measures mathematics where DBRX scores 66.9%?",
+    "options": [
+      "GSM8K",
+      "MMLU",
+      "WinoGrande",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "On the GSM8K (CoT) benchmark, DBRX\u00a0Instruct scores 66.9%\u3010149639693312686\u2020L374-L381\u3011."
+  },
+  {
+    "number": 139,
+    "question": "Which open model had 2.4\u00d7 as many parameters but DBRX still outperformed it?",
+    "options": [
+      "Grok\u20111",
+      "Mixtral",
+      "Llama2",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book notes that DBRX\u00a0Instruct outperforms Grok\u20111, which has 2.4\u00d7 as many parameters\u3010149639693312686\u2020L306-L309\u3011."
+  },
+  {
+    "number": 140,
+    "question": "DBRX surpasses CodeLLaMA\u201170B\u00a0Instruct on HumanEval by how much?",
+    "options": [
+      "70.1% vs 67.8%",
+      "63.2% vs 70.1%",
+      "72% vs 60%",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX\u00a0Instruct scores 70.1% versus 67.8% for CodeLLaMA\u201170B\u00a0Instruct on HumanEval\u3010149639693312686\u2020L309-L311\u3011."
+  },
+  {
+    "number": 141,
+    "question": "On the MMLU benchmark, how does DBRX\u00a0Instruct score relative to Mixtral\u00a0Instruct?",
+    "options": [
+      "73.7% vs 71.4%",
+      "70% vs 80%",
+      "60% vs 50%",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX\u00a0Instruct scores 73.7% while Mixtral\u00a0Instruct scores 71.4% on the MMLU benchmark\u3010149639693312686\u2020L353-L356\u3011."
+  },
+  {
+    "number": 142,
+    "question": "On the TruthfulQA benchmark, what is the DBRX score relative to Mixtral\u00a0Instruct?",
+    "options": [
+      "66.9% vs 65.0%",
+      "80% vs 90%",
+      "70% vs 60%",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX\u00a0Instruct scores 66.9% on TruthfulQA compared to 65.0% for Mixtral\u00a0Instruct\u3010149639693312686\u2020L360-L363\u3011."
+  },
+  {
+    "number": 143,
+    "question": "On WinoGrande, DBRX\u00a0Instruct scores approximately what?",
+    "options": [
+      "81.8%",
+      "50%",
+      "70%",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The WinoGrande benchmark shows DBRX\u00a0Instruct achieving roughly 81.8%\u3010149639693312686\u2020L367-L369\u3011."
+  },
+  {
+    "number": 144,
+    "question": "On the GSM8k benchmark, which of the following other model scores are provided?",
+    "options": [
+      "Mixtral\u00a0Instruct\u00a061.1%, Grok\u20111\u00a062.9%, Llama\u00a054.1%",
+      "Only Mixtral score",
+      "Only Grok score",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Table\u00a01 lists Mixtral\u00a0Instruct at 61.1%, Grok\u20111 at 62.9% and the best Llama2\u201170B variant at 54.1% for the GSM8k benchmark\u3010149639693312686\u2020L374-L381\u3011."
+  },
+  {
+    "number": 145,
+    "question": "What is the goal of building a bespoke model for AI\u2011generated documentation?",
+    "options": [
+      "Automatically generating descriptions for tables and columns",
+      "Running SQL queries",
+      "Serving chat",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The use case aims to automatically generate documentation by suggesting descriptions for tables and columns\u3010149639693312686\u2020L1523-L1534\u3011."
+  },
+  {
+    "number": 146,
+    "question": "Which evaluation method was used to compare table descriptions generated by two models in the bespoke model example?",
+    "options": [
+      "Double\u2011blind evaluation",
+      "Single\u2011blind",
+      "No evaluation",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "A double\u2011blind evaluation framework was used where evaluators voted on the better sample without knowing which model produced it\u3010149639693312686\u2020L1648-L1656\u3011."
+  },
+  {
+    "number": 147,
+    "question": "How do LoRA and QLoRA differ?",
+    "options": [
+      "QLoRA quantizes the pretrained model weights to 4\u2011bit while LoRA uses 8\u2011bit",
+      "LoRA uses quantization",
+      "QLoRA uses 32\u2011bit",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "QLoRA is a more memory\u2011efficient variant of LoRA that loads the pretrained model as quantized 4\u2011bit weights, whereas standard LoRA stores weights in 8\u2011bit precision\u3010149639693312686\u2020L1876-L1879\u3011."
+  },
+  {
+    "number": 148,
+    "question": "Why is full fine\u2011tuning resource\u2011intensive and time\u2011consuming?",
+    "options": [
+      "It optimizes all layers of the neural network",
+      "It uses precomputed features",
+      "It uses summarization",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Full fine\u2011tuning updates all layers of the neural network, which yields the best results but requires substantial computational resources and time\u3010149639693312686\u2020L1853-L1856\u3011."
+  },
+  {
+    "number": 149,
+    "question": "Which library provides a convenient trainer for supervised fine\u2011tuning with LoRA?",
+    "options": [
+      "HuggingFace TRL library",
+      "Scikit\u2011learn",
+      "Caffe",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The TRL (Transformer Reinforcement Learning) library from HuggingFace offers a convenient trainer for supervised fine\u2011tuning with LoRA\u3010149639693312686\u2020L1888-L1891\u3011."
+  },
+  {
+    "number": 150,
+    "question": "How many GPUs were used in each training phase of the diffusion model?",
+    "options": [
+      "128\u00a0NVIDIA\u00a0A100 GPUs",
+      "64\u00a0GPUs",
+      "16\u00a0GPUs",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Both phases of training ran on a cluster of 128\u00a0NVIDIA\u00a0A100 GPUs\u3010149639693312686\u2020L2793-L2796\u3011."
+  },
+  {
+    "number": 151,
+    "question": "How many iterations were run in the first training phase of the diffusion model?",
+    "options": [
+      "550k",
+      "850k",
+      "100k",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The first training phase ran for 550,000 iterations\u3010149639693312686\u2020L2794-L2796\u3011."
+  },
+  {
+    "number": 152,
+    "question": "How many iterations were run in the second training phase?",
+    "options": [
+      "850k",
+      "550k",
+      "200k",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The second training phase consisted of 850,000 iterations\u3010149639693312686\u2020L2794-L2796\u3011."
+  },
+  {
+    "number": 153,
+    "question": "What cost reduction did the MosaicML diffusion model achieve compared to the original Stable\u00a0Diffusion\u00a02 training?",
+    "options": [
+      "8\u00d7 reduction",
+      "2\u00d7",
+      "10\u00d7",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book notes an 8\u00d7 cost reduction from the original Stable\u00a0Diffusion\u00a02 training thanks to optimizations\u3010149639693312686\u2020L2738-L2741\u3011."
+  },
+  {
+    "number": 154,
+    "question": "In Stable\u00a0Diffusion training, what factor multiplies the current EMA model at each update?",
+    "options": [
+      "0.9999",
+      "0.5",
+      "0.1",
+      "1.0"
+    ],
+    "correct_answer": "A",
+    "explanation": "During EMA updates, the algorithm multiplies the current EMA model by 0.9999\u3010149639693312686\u2020L3063-L3067\u3011."
+  },
+  {
+    "number": 155,
+    "question": "What factor is applied to the new weights in the EMA update?",
+    "options": [
+      "0.0001",
+      "0.1",
+      "1",
+      "0.9"
+    ],
+    "correct_answer": "A",
+    "explanation": "The new weights are weighted by 0.0001 during the EMA update\u3010149639693312686\u2020L3065-L3068\u3011."
+  },
+  {
+    "number": 156,
+    "question": "Why does the training run apply EMA only in the final 50,000 steps?",
+    "options": [
+      "Early iterations contribute minimally after decay",
+      "To increase cost",
+      "Because the model is trained",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Since the early weights decay rapidly (by 0.9999 at each step), only the final 50,000 steps meaningfully contribute to the EMA, so applying EMA only at the end saves time\u3010149639693312686\u2020L3072-L3083\u3011."
+  },
+  {
+    "number": 157,
+    "question": "What percentage of the training period does the EMA apply to in the optimization?",
+    "options": [
+      "About\u00a03.5%",
+      "50%",
+      "10%",
+      "100%"
+    ],
+    "correct_answer": "A",
+    "explanation": "EMA is applied for the final 50,000 steps out of 1.4\u00a0million batches, which is about 3.5% of the training period\u3010149639693312686\u2020L3076-L3079\u3011."
+  },
+  {
+    "number": 158,
+    "question": "How many batches were trained in total before applying EMA?",
+    "options": [
+      "1,400,000",
+      "500,000",
+      "100,000",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The run comprised 1.4\u00a0million batches before the final EMA period\u3010149639693312686\u2020L3076-L3079\u3011."
+  },
+  {
+    "number": 159,
+    "question": "According to Table\u00a01, how many days and cost does training with 128\u00a0A100 GPUs take using the optimized pipeline?",
+    "options": [
+      "6.79\u00a0days and approximately\u00a0$41,710",
+      "12\u00a0days and $38k",
+      "50\u00a0days and $60k",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Table\u00a01 shows that training on 128\u00a0GPUs takes about 6.79\u00a0days and costs roughly $41,710\u3010149639693312686\u2020L3156-L3162\u3011."
+  },
+  {
+    "number": 160,
+    "question": "At 16\u00a0GPUs, what is the approximate cost to train Stable\u00a0Diffusion?",
+    "options": [
+      "$38,630",
+      "$50,000",
+      "$20,000",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The same table lists a cost of roughly $38,630 when training on 16\u00a0GPUs\u3010149639693312686\u2020L3134-L3144\u3011."
+  },
+  {
+    "number": 161,
+    "question": "Which optimization techniques contributed to the 2.71\u00d7 speedup in training?",
+    "options": [
+      "xFormers, precomputed latents, low\u2011precision LayerNorm and GroupNorm, FSDP, scheduled EMA",
+      "Only FSDP",
+      "None",
+      "BERT"
+    ],
+    "correct_answer": "A",
+    "explanation": "The cumulative speedup was achieved through a combination of xFormers, precomputed latents, low\u2011precision LayerNorm and GroupNorm, Fully Sharded Data Parallel (FSDP) and scheduled EMA\u3010149639693312686\u2020L3090-L3096\u3011."
+  },
+  {
+    "number": 162,
+    "question": "Why is the FSDP variant beneficial for scaling?",
+    "options": [
+      "Each GPU only updates a small part of the model, decreasing work per GPU",
+      "It increases memory usage",
+      "It slows training",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "FSDP divides the weight update across GPUs so each device updates only a small part of the model, enabling linear scaling\u3010149639693312686\u2020L3045-L3053\u3011."
+  },
+  {
+    "number": 163,
+    "question": "How does dividing the update step across GPUs help?",
+    "options": [
+      "It achieves linear scaling",
+      "It causes slower scaling",
+      "None",
+      "It decreases accuracy"
+    ],
+    "correct_answer": "A",
+    "explanation": "By splitting the gradient update across GPUs, the amount of work per GPU decreases as more GPUs are added, helping achieve near\u2011linear scaling\u3010149639693312686\u2020L3050-L3053\u3011."
+  },
+  {
+    "number": 164,
+    "question": "How many times more FLOP\u2011efficient is training MoEs compared to dense models for the same final model quality?",
+    "options": [
+      "Approximately 2\u00d7",
+      "5\u00d7",
+      "10\u00d7",
+      "4\u00d7"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book notes that training mixture\u2011of\u2011experts models is about 2\u00d7 more FLOP\u2011efficient than training dense models for equivalent quality\u3010149639693312686\u2020L209-L211\u3011."
+  },
+  {
+    "number": 165,
+    "question": "How much smaller is DBRX compared to Grok\u20111 in terms of total and active parameter counts?",
+    "options": [
+      "About\u00a040% the size",
+      "10% the size",
+      "Same size",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX is approximately 40% of the size of Grok\u20111 in both total and active parameter counts\u3010149639693312686\u2020L205-L207\u3011."
+  },
+  {
+    "number": 166,
+    "question": "When hosted on Mosaic\u00a0AI\u00a0Model\u00a0Serving, DBRX can generate text at up to how many tokens per second per user?",
+    "options": [
+      "150\u00a0tokens/s",
+      "50\u00a0tokens/s",
+      "300\u00a0tokens/s",
+      "500\u00a0tokens/s"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX can generate text at up to 150\u00a0tokens per second per user when hosted on Mosaic\u00a0AI\u00a0Model\u00a0Serving\u3010149639693312686\u2020L207-L209\u3011."
+  },
+  {
+    "number": 167,
+    "question": "Which categories of tasks do composite benchmarks in Table\u00a01 cover?",
+    "options": [
+      "World knowledge, commonsense reasoning, language understanding, reading comprehension, symbolic problem solving and programming",
+      "Only translation",
+      "Only summarization",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The composite benchmarks cover a range of tasks including world knowledge, commonsense reasoning, language understanding, reading comprehension, symbolic problem solving and programming\u3010149639693312686\u2020L289-L293\u3011."
+  },
+  {
+    "number": 168,
+    "question": "What is the Databricks Model Gauntlet?",
+    "options": [
+      "A suite of over 30 tasks across six categories",
+      "A GPU",
+      "A dataset",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The Databricks Model Gauntlet is a suite of more than 30 tasks spanning six categories used to evaluate models\u3010149639693312686\u2020L289-L293\u3011."
+  },
+  {
+    "number": 169,
+    "question": "What is DBRX\u00a0Instruct particularly strong at?",
+    "options": [
+      "Programming and mathematics",
+      "Translation",
+      "Speech",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX\u00a0Instruct performs especially well on programming and mathematics benchmarks\u3010149639693312686\u2020L299-L305\u3011."
+  },
+  {
+    "number": 170,
+    "question": "Which open models were compared to DBRX\u00a0Instruct for the programming benchmark?",
+    "options": [
+      "Grok\u20111, Mixtral\u00a0Instruct and CodeLLaMA\u201170B",
+      "Llama3",
+      "None",
+      "BERT"
+    ],
+    "correct_answer": "A",
+    "explanation": "DBRX\u00a0Instruct was compared to Grok\u20111, Mixtral\u00a0Instruct and CodeLLaMA\u201170B on HumanEval\u3010149639693312686\u2020L299-L305\u3011."
+  },
+  {
+    "number": 171,
+    "question": "How many parameters are active on any input in DBRX\u2019s mixture\u2011of\u2011experts?",
+    "options": [
+      "36\u00a0billion",
+      "64\u00a0billion",
+      "12\u00a0billion",
+      "132\u00a0billion"
+    ],
+    "correct_answer": "A",
+    "explanation": "Only 36\u00a0billion parameters are active on any input in DBRX\u2019s MoE architecture\u3010149639693312686\u2020L248-L254\u3011."
+  },
+  {
+    "number": 172,
+    "question": "Which components does LoRA fine\u2011tuning add to a model?",
+    "options": [
+      "Two smaller matrices (adapter) to approximate the weight matrix",
+      "New tokens",
+      "New dataset",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "LoRA fine\u2011tuning adds two smaller matrices (the LoRA adapter) that approximate the larger weight matrix\u3010149639693312686\u2020L1870-L1874\u3011."
+  },
+  {
+    "number": 173,
+    "question": "In QLoRA, to what bit level are model weights quantized?",
+    "options": [
+      "4\u2011bit",
+      "8\u2011bit",
+      "16\u2011bit",
+      "32\u2011bit"
+    ],
+    "correct_answer": "A",
+    "explanation": "QLoRA quantizes the pretrained model weights to 4\u2011bit precision\u3010149639693312686\u2020L1876-L1879\u3011."
+  },
+  {
+    "number": 174,
+    "question": "According to the training dataset transformation, the dataset was transformed into which format?",
+    "options": [
+      "Alpaca format",
+      "TFRecord",
+      "JPEG",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The dataset is formatted into the Alpaca format to prepare prompt\u2013response pairs for instruction\u2011following fine\u2011tuning\u3010149639693312686\u2020L1916-L1923\u3011."
+  },
+  {
+    "number": 175,
+    "question": "In the example dataset, which product description fields are included?",
+    "options": [
+      "Product name, category and description text",
+      "Price, brand and weight",
+      "None",
+      "Colour and size"
+    ],
+    "correct_answer": "A",
+    "explanation": "The example dataset includes product name, category and description text fields\u3010149639693312686\u2020L1924-L1941\u3011."
+  },
+  {
+    "number": 176,
+    "question": "According to the Big\u00a0Book, what is LoRA\u2019s advantage over other parameter\u2011efficient fine\u2011tuning methods?",
+    "options": [
+      "It can even outperform full fine\u2011tuning by avoiding catastrophic forgetting",
+      "It always fails",
+      "It is slower",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "LoRA has been shown to outperform full fine\u2011tuning in some cases because it avoids catastrophic forgetting\u3010149639693312686\u2020L1863-L1867\u3011."
+  },
+  {
+    "number": 177,
+    "question": "QLoRA requires combining which two libraries in the HuggingFace ecosystem?",
+    "options": [
+      "bitsandbytes and PEFT",
+      "TensorFlow and Keras",
+      "None",
+      "PyTorch and NumPy"
+    ],
+    "correct_answer": "A",
+    "explanation": "Using QLoRA involves loading quantized weights using bitsandbytes and the PEFT library\u3010149639693312686\u2020L1876-L1888\u3011."
+  },
+  {
+    "number": 178,
+    "question": "The TRL library is used for what?",
+    "options": [
+      "Providing a convenient trainer for supervised fine\u2011tuning with LoRA",
+      "Performing reinforcement learning",
+      "Running evaluation",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The TRL library offers a convenient trainer that simplifies supervised fine\u2011tuning with LoRA\u3010149639693312686\u2020L1888-L1891\u3011."
+  },
+  {
+    "number": 179,
+    "question": "In training stable diffusion, what are Node Doctor and Watchdog used for?",
+    "options": [
+      "Automatically detecting failed nodes and resuming jobs",
+      "Logging",
+      "Data augmentation",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Node\u00a0Doctor and Watchdog automatically detect failed nodes and resume jobs, preventing downtime during large\u2011scale training\u3010149639693312686\u2020L2833-L2840\u3011."
+  },
+  {
+    "number": 180,
+    "question": "In the stable diffusion training example, what is the cost difference between training on 8 GPUs vs 128 GPUs?",
+    "options": [
+      "The cost is roughly similar (around $38k\u2013$42k)",
+      "8 GPUs cost more",
+      "128 GPUs cost half",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Table\u00a01 shows that training on 8 GPUs costs about $38,800 and 128 GPUs costs around $41,710, meaning the costs are of similar magnitude\u3010149639693312686\u2020L3134-L3162\u3011."
+  },
+  {
+    "number": 181,
+    "question": "What is the approximate throughput for U\u2011Net @\u00a0256\u00d7256 images on 128\u00a0GPUs?",
+    "options": [
+      "11,600\u00a0images/second",
+      "4,590",
+      "1,100",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The table lists throughput of about 11,600\u00a0images per second for U\u2011Net at 256\u00d7256 resolution on 128\u00a0GPUs\u3010149639693312686\u2020L3152-L3159\u3011."
+  },
+  {
+    "number": 182,
+    "question": "At a global batch size of\u00a02048, how many days does training on 64\u00a0GPUs take?",
+    "options": [
+      "12.63\u00a0days",
+      "50.29",
+      "25.01",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Training on 64\u00a0GPUs takes around 12.63\u00a0days according to the cost table\u3010149639693312686\u2020L3151-L3156\u3011."
+  },
+  {
+    "number": 183,
+    "question": "According to Table\u00a01, which GPU count yields the lowest approximate cost for training?",
+    "options": [
+      "32\u00a0GPUs (~$38,420)",
+      "8\u00a0GPUs ($38,800)",
+      "64\u00a0GPUs ($38,800)",
+      "16\u00a0GPUs ($38,630)"
+    ],
+    "correct_answer": "A",
+    "explanation": "The lowest approximate cost in Table\u00a01 is $38,420 when using 32\u00a0GPUs\u3010149639693312686\u2020L3145-L3150\u3011."
+  },
+  {
+    "number": 184,
+    "question": "Which training technique ensures linear scaling by dividing gradient updates across GPUs?",
+    "options": [
+      "FSDP variant (Fully\u00a0Sharded\u00a0Data\u00a0Parallel)",
+      "Data parallel",
+      "Pipeline parallel",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The FSDP variant divides the gradient update step across GPUs, enabling linear scaling\u3010149639693312686\u2020L3045-L3053\u3011."
+  },
+  {
+    "number": 185,
+    "question": "The Node\u00a0Doctor and Watchdog features help avoid what?",
+    "options": [
+      "Expensive downtime and the need for constant human babysitting",
+      "Increased performance",
+      "Data leakage",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "These features prevent expensive downtime and remove the need for constant human babysitting during training\u3010149639693312686\u2020L2833-L2840\u3011."
+  },
+  {
+    "number": 186,
+    "question": "Which novel features were added to Composer to achieve near\u2011perfect strong scaling?",
+    "options": [
+      "Low\u2011precision GroupNorm, low\u2011precision LayerNorm and Fully\u00a0Sharded\u00a0Data\u00a0Parallel",
+      "Only one feature",
+      "None",
+      "BatchNorm"
+    ],
+    "correct_answer": "A",
+    "explanation": "Composer added low\u2011precision GroupNorm, low\u2011precision LayerNorm and Fully\u00a0Sharded\u00a0Data\u00a0Parallel to maximize throughput at scale\u3010149639693312686\u2020L2847-L2850\u3011."
+  },
+  {
+    "number": 187,
+    "question": "The scheduled EMA technique starts EMA at what iteration?",
+    "options": [
+      "Around 800k of the final phase",
+      "0",
+      "100k",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The EMA starts near the end of training, around iteration\u00a0800k of the final phase\u3010149639693312686\u2020L2852-L2855\u3011."
+  },
+  {
+    "number": 188,
+    "question": "In the scheduled EMA approach, after how many iterations would the early weights contribute less than\u00a01% to the final model?",
+    "options": [
+      "After 50,000 steps",
+      "After 1\u00a0million steps",
+      "After 10 steps",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "After 50,000 steps, weights from earlier iterations decay so that their aggregate contribution is less than 1%\u3010149639693312686\u2020L3078-L3083\u3011."
+  },
+  {
+    "number": 189,
+    "question": "Which tasks were part of the Databricks Model\u00a0Gauntlet used to evaluate DBRX\u00a0Instruct?",
+    "options": [
+      "World knowledge, commonsense reasoning, language understanding, reading comprehension, symbolic problem solving and programming",
+      "Only translation",
+      "Only summarization",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The Gauntlet covers a diverse set of tasks including world knowledge, commonsense reasoning, language understanding, reading comprehension, symbolic problem solving and programming\u3010149639693312686\u2020L289-L293\u3011."
+  },
+  {
+    "number": 190,
+    "question": "Why do organizations focus on internal applications of generative AI before scaling out?",
+    "options": [
+      "Because a limited scope provides better information access and human oversight to check results",
+      "Because of marketing",
+      "Because there is no interest",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "The book notes that many organizations focus on internal applications where a limited scope allows for better information access and human oversight\u3010149639693312686\u2020L927-L938\u3011."
+  },
+  {
+    "number": 191,
+    "question": "According to the Big\u00a0Book, what tasks might generative AI reduce the time for?",
+    "options": [
+      "Background research, data analysis and document writing",
+      "Only playing games",
+      "Only sending emails",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Generative AI could significantly reduce the time needed for background research, data analysis and document writing\u3010149639693312686\u2020L920-L924\u3011."
+  },
+  {
+    "number": 192,
+    "question": "The LLM evaluation section mentions Replit\u2019s code generation LLM as an example of what?",
+    "options": [
+      "Domain\u2011specific evaluation",
+      "Pretraining",
+      "Fine\u2011tuning",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Replit\u2019s code generation LLM is cited as an example where domain\u2011specific benchmarks are necessary because generic benchmarks do not capture specialized capabilities\u3010149639693312686\u2020L3226-L3233\u3011."
+  },
+  {
+    "number": 193,
+    "question": "What is one of the open questions about using LLM judges?",
+    "options": [
+      "How much grading examples increase reliability",
+      "Whether LLM judges are more efficient",
+      "None",
+      "How many GPUs"
+    ],
+    "correct_answer": "A",
+    "explanation": "Researchers are exploring how providing a few grading examples affects the reliability and reusability of LLM judges\u3010149639693312686\u2020L3290-L3293\u3011."
+  },
+  {
+    "number": 194,
+    "question": "In the retrieval augmented generation section, what is recommended before uploading your mission\u2011critical data?",
+    "options": [
+      "Consolidate and cleanse data and start with nonsensitive information",
+      "Immediately upload all data",
+      "Use only audio data",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "RAG guidance suggests first consolidating and cleansing data and starting with nonsensitive information before considering mission\u2011critical data\u3010149639693312686\u2020L1088-L1105\u3011."
+  },
+  {
+    "number": 195,
+    "question": "According to the introduction, what is the role of data lakehouses in GenAI?",
+    "options": [
+      "They are central to harnessing the full potential of GenAI by serving as advanced data architectures",
+      "They are outdated",
+      "They host websites",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Data lakehouses are described as the modern data stack, central to harnessing the full potential of GenAI\u3010149639693312686\u2020L94-L100\u3011."
+  },
+  {
+    "number": 196,
+    "question": "Why do businesses need rich tools to understand data and model outputs according to the Big Book?",
+    "options": [
+      "To achieve production\u2011quality GenAI applications",
+      "Because it is optional",
+      "Because of marketing",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Rich tools for understanding data quality and model outputs are essential for businesses to achieve production\u2011quality GenAI applications\u3010149639693312686\u2020L109-L117\u3011."
+  },
+  {
+    "number": 197,
+    "question": "In fine\u2011tuning, why is it important to have a platform like Unity\u00a0Catalog?",
+    "options": [
+      "For governance and lineage to track who is accessing data and models",
+      "To store images",
+      "To host websites",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Unity\u00a0Catalog provides governance and lineage, allowing organizations to track where data and models come from and who is accessing them\u3010149639693312686\u2020L1486-L1492\u3011."
+  },
+  {
+    "number": 198,
+    "question": "In the pretraining section, why might organizations avoid third\u2011party biases by training their own models?",
+    "options": [
+      "They can ensure their models do not inherit biases or limitations from third\u2011party pretrained models",
+      "Because third parties are always safe",
+      "Because there is no open source",
+      "None"
+    ],
+    "correct_answer": "A",
+    "explanation": "Pretraining from scratch allows organizations to avoid third\u2011party biases and limitations, ensuring the foundational knowledge reflects their values and data\u3010149639693312686\u2020L2651-L2653\u3011."
+  }
+]
